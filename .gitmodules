@@ -1,0 +1,15 @@
+[submodule "externals/here-olp-sdk"]
+	path = externals/here-olp-sdk
+	url = https://github.com/heremaps/here-data-sdk-cpp.git
+[submodule "externals/googletest"]
+	path = externals/googletest
+	url = https://github.com/google/googletest.git
+[submodule "externals/curlpp"]
+	path = externals/curlpp
+	url = https://github.com/Leon0402/curlpp.git
+[submodule "externals/rapidjson"]
+	path = externals/rapidjson
+	url = https://github.com/Tencent/rapidjson.git
+[submodule "externals/smasher"]
+	path = externals/smasher
+	url = https://github.com/aappleby/smhasher.git

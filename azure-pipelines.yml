@@ -1,0 +1,58 @@
+trigger:
+  branches:
+    include:
+      - '*'
+  paths:
+    include:
+      - '*'
+
+jobs:
+# - job: 'Windows_build'
+#   pool:
+#     vmImage: 'windows-latest'
+#   steps:
+#   - task: Cache@2
+#     inputs:
+#       key: 'vcpkg_archive | "$(Agent.OS)"'
+#       path: C:/Users/VssAdministrator/AppData/Local/vcpkg/archives/
+#     displayName: Cache vcpkg archives
+
+#   - bash: vcpkg install boost:x64-windows
+#     displayName: Install boost for Windows
+
+#   - bash: vcpkg install protobuf:x64-windows
+#     displayName: Install protobuf for Windows
+
+#   - checkout: self
+#     submodules: true
+
+#   - bash: ./build.sh -DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -G "Visual Studio 16 2019" -DOLP_SDK_ENABLE_TESTING=OFF .
+#     displayName: 'Build sources'
+
+- job: 'Ubuntu_build'
+  pool:
+    vmImage: 'ubuntu-20.04'
+    # name: DigitalRegister
+    # demands:
+    #   - agent.name -equals $(AGENT_NAME)
+
+  steps:
+  - bash: |
+          sudo apt-get update -y
+          sudo apt-get install -y cmake
+          sudo apt-get install libgmock-dev libgtest-dev
+          sudo apt-get install -y rapidjson-dev
+          sudo apt-get install libcurl4-openssl-dev protobuf-compiler libprotobuf-dev libboost-all-dev -y --no-install-recommends --fix-missing
+    displayName: 'Install dependencies protobuf, curl'
+
+  - checkout: self
+    submodules: true
+
+  - bash: ./build.sh -DCMAKE_BUILD_TYPE=Debug
+    displayName: 'build sources'
+
+  - bash:  ./build/map-service/tests/GoogleTestRunner
+    displayName: 'run tests'
+
+
+

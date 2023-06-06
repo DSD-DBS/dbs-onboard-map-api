@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package org.db.schema.f.map.landmarks;
+
+message Line3d {
+    repeated Point3d points = 1;
+}
+
+message PolyLine3d {
+    repeated Line3d lines = 1;
+}
+
+message Polygon3d {
+    repeated Point3d points = 1;
+}
+
+message Point3d {
+    double latitude = 1;
+    double longitude = 2;
+    double meter_from_wgs84_ellipsoid = 3;
+}

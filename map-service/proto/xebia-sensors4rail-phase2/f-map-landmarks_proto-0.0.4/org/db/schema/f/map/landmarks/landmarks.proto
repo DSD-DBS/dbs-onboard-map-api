@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package org.db.schema.f.map.landmarks;
+
+import "org/db/schema/f/map/landmarks/geometry.proto";
+import "org/db/schema/f/map/landmarks/common.proto";
+
+message LandmarkLayerTile {
+    repeated Landmark landmarks = 1;
+    // Intersections
+    repeated TiledReference landmarks_refs = 2;
+}
+
+message SurfaceWithHeight
+{
+    Polygon3d surface = 1;
+    uint64 height_cm = 2;
+}
+
+enum LandmarkType
+{
+    Unknown = 0;
+    CatenaryPole = 2;
+    Platform = 3;
+    Wall = 4;
+    SignPole = 5;
+    SignalPole = 6;
+    BufferStop = 7;
+    Billboard = 8;
+    BridgePillar = 9;
+    Building = 10;
+    CameraPole = 11;
+    Container = 12;
+    CoveredPlatform = 13;
+    FuseBox = 14;
+    LightPole = 15;
+    OtherPole = 16;
+    Shelter = 17;
+    TrashCan = 18;
+    TunnelWall = 19;
+    BarrierBar = 20;
+    BarrierBody = 21;
+}
+
+message Landmark {
+    string id = 1;
+    LandmarkType type = 2;
+    oneof geometry {
+        Line3d line3d = 3;
+        Polygon3d polygon3d = 4;
+        SurfaceWithHeight surface_with_height = 5;
+    }
+}

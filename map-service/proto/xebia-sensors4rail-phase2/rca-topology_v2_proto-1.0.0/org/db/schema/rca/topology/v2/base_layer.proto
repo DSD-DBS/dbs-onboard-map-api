@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package org.db.schema.rca.topology.v2;
+
+// MainProtobufMessage is a placeholder, this value must match the package/messagename in the mainMessage tag of the layer-manifest-plugin in the schema_ds module.
+message BaseLayerTile {
+    repeated TrackNode track_nodes = 1;
+    repeated TrackEdge track_edges = 2;
+    repeated TiledReference track_edge_refs = 3;
+}
+
+message TrackEdge {
+    string track_edge_id = 1;
+    TiledReference start_node_ref = 2;
+    TiledReference end_node_ref = 3;
+    uint64 track_edge_length_cm = 4;
+}
+
+message TiledReference {
+    string id = 1;
+    uint64 tile_id = 2;
+}
+
+message TrackNode {
+    string track_node_id = 1;
+    TrackNodeType track_node_type = 2;
+}
+
+enum TrackNodeType {
+    TRACK_NODE_TYPE_UNKNOWN = 0;
+    TRACK_NODE_TYPE_POINT = 1;
+    TRACK_NODE_TYPE_SYSTEM_BORDER = 2;
+    TRACK_NODE_TYPE_BUFFER_STOP = 3;
+}

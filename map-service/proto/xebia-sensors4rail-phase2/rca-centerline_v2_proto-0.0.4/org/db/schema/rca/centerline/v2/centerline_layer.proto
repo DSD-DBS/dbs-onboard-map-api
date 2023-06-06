@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package org.db.schema.rca.centerline.v2;
+
+// MainProtobufMessage is a placeholder, this value must match the package/messagename in the mainMessage tag of the layer-manifest-plugin in the schema_ds module.
+message CenterlineLayerTile {
+    repeated TrackEdge trackEdges = 1;
+}
+
+message TrackEdge {
+    string track_edge_id = 1;
+    repeated PropertyPoint propertyPoints = 2;
+}
+
+message PropertyPoint {
+    double offset = 1; // meters
+    double latitude = 2; // WGS84
+    double longitude = 3; // WGS84
+    double altitude = 4; // meters
+}

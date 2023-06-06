@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package org.db.schema.risk.assessment.zones;
+
+import "org/db/schema/risk/assessment/zones/geometry.proto";
+import "org/db/schema/risk/assessment/zones/common.proto";
+
+message RiskAssessmentZonesTile {
+    repeated Zone zones = 1;
+
+    // Intersections
+    repeated TiledReference zones_refs = 2;
+}
+
+enum ZoneType
+{
+    Unknown = 0;
+    RiskZone = 1;
+    SafeZone = 2;
+    LevelCrossingZone = 3;
+}
+
+message Zone {
+    string id = 1;
+    ZoneType type = 2;
+    Polygon3d geometry = 3;
+}

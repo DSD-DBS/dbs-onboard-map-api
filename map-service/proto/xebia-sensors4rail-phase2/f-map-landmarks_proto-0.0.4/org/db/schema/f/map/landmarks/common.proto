@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package org.db.schema.f.map.landmarks;
+
+message TiledReference {
+    string id = 1;
+    uint64 tile_id = 2;
+}

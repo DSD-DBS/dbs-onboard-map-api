@@ -1,0 +1,160 @@
+#include <map-service/download/LayerClient.h>
+#include <map-service/download/ClientSettings.h>
+
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
+
+namespace
+{
+using namespace map_service::download;
+
+std::string GetCurrentDir( )
+{
+    std::vector< char > buf( 500 );
+    return getcwd( &buf[ 0 ], buf.size( ) );
+}
+
+ClientSettings TestClientSettings( )
+{
+    return GetDBClientForCISettings( );
+    // return GetDBClientSettings( );
+}
+
+LayerClient CreateClient(
+    const std::string& layer_name = "rca-topology-geometry",
+    Version catalog_version = 3,
+    const ClientSettings& settings = TestClientSettings( ) )
+{
+    const auto catalog_name = "sensors4rail2";
+
+    return LayerClient( catalog_name, layer_name, catalog_version, settings );
+}
+
+
+} // unnamed namespace
+
+TEST( LayerClient, DISABLED_HostDoesNotExist )
+{
+    // Arrange
+    auto settings = TestClientSettings( );
+    settings.host_ = "does.not.exist.digitalregister.az4db-iat.comp.db.de";
+
+    const auto client = CreateClient( "no-layer", 3, settings );
+
+    // Act
+    auto response = client.GetMetadata( );
+
+    // Assert
+    const auto& error = response.error_;
+    ASSERT_EQ( error.error_code_, ErrorCode::CurlError );
+    ASSERT_NE( error.curl_code_, CURLE_OK );
+}
+
+
+TEST( LayerClient, DISABLED_GetMetadata )
+{
+    // Arrange
+    const auto client = CreateClient( );
+    // Act
+    auto response = client.GetMetadata( );
+
+    // Assert
+    const auto& error = response.error_;
+    ASSERT_EQ( error.error_code_, ErrorCode::Success );
+    ASSERT_EQ( error.curl_code_, CURLE_OK );
+
+    const auto& content = response.content_;
+    ASSERT_EQ( content.catalogId_, "sensors4rail2" );
+    ASSERT_EQ( content.layerId_, "rca-topology-geometry" );
+    ASSERT_FALSE( content.zoom_levels_.empty( ) );
+    ASSERT_EQ( content.zoom_levels_.front( ), 12 );
+    ASSERT_EQ( content.schema_name_, "RcaTopologyGeometryGeoJSON" );
+    // ASSERT_EQ( response.content_.partitioning_; HereTiling
+    ASSERT_EQ( content.content_type_, "application/vnd.geo+json" );
+    ASSERT_EQ( content.content_encoding_, "none" );
+    // ASSERT_EQ( response.content_.modificationDate
+    ASSERT_NE( content.description_, "" );
+}
+
+TEST( LayerClient, GetPartitionMetadata )
+{
+    // Arrange
+    const auto client = CreateClient( );
+
+    // Act
+    auto response = client.GetPartitionMetadata( "23607215" );
+
+    // Assert
+    const auto& error = response.error_;
+    ASSERT_EQ( error.error_code_, ErrorCode::Success );
+    ASSERT_EQ( error.curl_code_, CURLE_OK );
+
+    const auto& content = response.content_;
+
+    ASSERT_EQ( content.catalog_id_, "sensors4rail2" );
+    ASSERT_GT( content.catalog_version_, 0 );
+    ASSERT_EQ( content.id_, "23607215" );
+    ASSERT_GT( content.data_size_, 0 );
+    ASSERT_NE( content.check_sum_, 0 );
+    ASSERT_GT( content.modification_date_, 1648824006 );
+    ASSERT_NE( content.data_handle_, "" );
+}
+
+TEST( LayerClient, WriteData )
+{
+    // Arrange
+    const auto client = CreateClient( );
+    const auto response_meta = client.GetPartitionMetadata( "23607215" );
+
+    std::stringstream ss;
+
+    // Act
+    const auto error = client.WriteData( response_meta.content_.data_handle_, ss );
+
+    // Assert
+    ASSERT_EQ( error.error_code_, ErrorCode::Success );
+    ASSERT_EQ( error.curl_code_, CURLE_OK );
+    ASSERT_FALSE( ss.str( ).empty( ) );
+}
+
+TEST( LayerClient, GetDifference )
+{
+    // Arrange
+    const auto client = CreateClient( );
+    // Act
+
+    const auto response = client.GetDifference( 1 );
+
+    // Assert
+    const auto& content = response.content_;
+    ASSERT_FALSE( content.empty( ) );
+}
+
+TEST( LayerClient, GetAllPartitionsMetadata )
+{
+    // Arrange
+    const auto client = CreateClient( );
+    // Act
+
+    const auto response = client.GetAllPartitionsMetadata( );
+
+    // Assert
+    const auto& content = response.content_;
+    ASSERT_FALSE( content.empty( ) );
+}
+
+TEST( LayerClient, CatalogVeresion )
+{
+    // Arrange
+    const auto catalog_version = 3;
+    const auto client = CreateClient( "rca-topology-geometry", catalog_version );
+
+    // Act
+    const auto response = client.GetPartitionMetadata( "23607215" );
+
+    // Assert
+    ASSERT_EQ(response.error_.error_code_, ErrorCode::Success );
+    const auto& content = response.content_;
+    ASSERT_GT( content.catalog_version_, 0 );
+    ASSERT_LE( content.catalog_version_, catalog_version );
+}

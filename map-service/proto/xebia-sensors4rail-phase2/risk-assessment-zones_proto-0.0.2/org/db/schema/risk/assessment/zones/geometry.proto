@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package org.db.schema.risk.assessment.zones;
+
+message Polygon3d {
+    repeated Point3d points = 1;
+}
+
+message Point3d {
+    double latitude = 1;
+    double longitude = 2;
+    double meter_from_wgs84_ellipsoid = 3;
+}
