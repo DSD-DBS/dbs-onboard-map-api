@@ -9,16 +9,10 @@ In addition to its onboard-centric design, it provides the capacity to update ma
 * Over-the-Air Incremental Updates: One of the distinguishing features of Map-Service is its ability to perform Over-the-Air (OTA) incremental updates. This means that it can fetch and integrate just the changed parts of the map from the cloud, bypassing the need to download the entire map again. Map is hosted in DB intranet and users need to have access to DB intranet to update the map.
 
 ## Licenses
-This project is compliant with the `REUSE Specification Version 3.0`__.
-
-__ https://git.fsfe.org/reuse/docs/src/commit/d173a27231a36e1a2a3af07421f5e557ae0fec46/spec.md
-
-Copyright DB Netz AG, licensed under Apache 2.0 (see full text in
-`<LICENSES/Apache-2.0.txt>`__)
+Copyright DB Netz AG, licensed under Apache 2.0 (see full text in <a href="https://github.com/DSD-DBS/Map-Serv/blob/main/LICENSES/Apache-2.0.txt" target="_blank"> Apache 2.0</a>)
 
 Dot-files are licensed under CC0-1.0 (see full text in
-`<LICENSES/CC0-1.0.txt>`__)
-
+ <a href="https://github.com/DSD-DBS/Map-Serv/blob/main/LICENSES/CC0-1.0.txt" target="_blank">CC0-1.0</a>)
 
 ## Build
 
