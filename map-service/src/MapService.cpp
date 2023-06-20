@@ -9,6 +9,8 @@ MapService::MapService( const MapServiceConfig& config )
 {
 }
 
+foo()
+
 MapService::~MapService( )
 {
 }
