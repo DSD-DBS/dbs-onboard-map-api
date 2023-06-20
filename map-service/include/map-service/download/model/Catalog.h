@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: Copyright DB Netz AG
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #pragma once
 #include <map-service/CommonTypes.h>
 #include <vector>
