@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: Copyright DB Netz AG
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #include <map-service/MapService.h>
 #include "MapServiceImpl.h"
 
@@ -8,8 +13,6 @@ MapService::MapService( const MapServiceConfig& config )
 : impl_( std::make_shared< MapServiceImpl >( config ) )
 {
 }
-
-foo()
 
 MapService::~MapService( )
 {
