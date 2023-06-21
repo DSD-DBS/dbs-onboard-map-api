@@ -24,7 +24,7 @@ jobs:
         cd ${{github.workspace}}
         pwd
         git submodule init
-        git submodule update
+        git submodule update --recursive
 
     - name: LS
       run: |
