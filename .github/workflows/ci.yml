@@ -28,8 +28,8 @@ jobs:
         sudo apt-get install libcurl4-openssl-dev protobuf-compiler libprotobuf-dev libboost-all-dev -y --no-install-recommends --fix-missing
 
     - name: Build Map-Service sources
-      run: bash ./build.sh -DCMAKE_BUILD_TYPE=Debug
+      run: bash ${{github.workspace}}/build.sh -DCMAKE_BUILD_TYPE=Debug
 
     - name: Run Test
       # working_directory: ${{github.workspace}}/build
-      run: ./build/map-service/tests/GoogleTestRunner
+      run: ${{github.workspace}}/build/map-service/tests/GoogleTestRunner
