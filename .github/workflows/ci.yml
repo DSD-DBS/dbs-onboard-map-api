@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Map-Service code including submodules recursively
-      uses: actions/checkout@v2
+      uses: actions/checkout@v1
       with:
         submodules: recursive
     - name: Checkout Submodule manually (Ref)
