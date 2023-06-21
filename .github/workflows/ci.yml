@@ -15,9 +15,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout Map-Service code including submodules recursively
+      uses: actions/checkout@v2
       with:
-        submodules: true
+        submodules: recursive
 
     - name: Install dependencies
       run: |
