@@ -82,7 +82,7 @@ ENDIF()
 set(MAP_SERVICE_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake/map-service")
 install(FILES "${PROJECT_SOURCE_DIR}/map-service/cmake/configs/map-serviceConfig.cmake" DESTINATION ${MAP_SERVICE_INSTALL_CMAKEDIR})
 install(
-    DIRECTORY "${PROJECT_SOURCE_DIR}/map-service/include/" 
+    DIRECTORY "${PROJECT_SOURCE_DIR}/map-service/include/"
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     FILES_MATCHING
     PATTERN "*.h"

@@ -1,3 +1,8 @@
+<!--
+ ~ SPDX-FileCopyrightText: Copyright DB Netz AG
+ ~ SPDX-License-Identifier: CC0-1.0
+ -->
+
 # Map-Service
 Map-Service is a robust C++ API engineered to enable seamless interaction with onboard digital map. It provides a framework for accessing map data stored directly on the device, bypassing the need for constant internet connectivity. With its onboard-centric design, it ensures efficient and reliable map data handling even in the most internet-limited environments.
 

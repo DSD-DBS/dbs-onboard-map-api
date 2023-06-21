@@ -1,4 +1,7 @@
 #!/bin/sh
+# SPDX-FileCopyrightText: Copyright DB Netz AG
+# SPDX-License-Identifier: CC0-1.0
+
 BUILD_DIR=`pwd`/build
 # INSTALL_DIR=`pwd`/install
 
