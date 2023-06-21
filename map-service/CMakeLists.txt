@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright DB Netz AG
+# SPDX-License-Identifier: CC0-1.0
+
 set(MAP_SERVICE_BOOST_VERSION 1.65.0)
 find_package(Boost ${MAP_SERVICE_BOOST_VERSION} REQUIRED)
 

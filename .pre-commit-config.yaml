@@ -75,7 +75,7 @@ repos:
     hooks:
       - id: insert-license
         name: Insert license headers (shell-style comments)
-        files: '(?:^|/)(?:.*\.(?:py|sh|toml|ya?ml)|\.((?:git|helm|docker)ignore))$'
+        files: '(?:^|/)(?:.*\.(?:py|sh|toml|ya?ml|cmake)|\.((?:git|helm|docker)ignore)|CMakeLists.txt)$'
         # exclude: '(?:^|/)\..+|^docs/Makefile$'
         args:
           - --detect-license-in-X-top-lines=15
