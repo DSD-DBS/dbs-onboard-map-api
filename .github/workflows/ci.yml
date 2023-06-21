@@ -21,8 +21,11 @@ jobs:
         submodules: recursive
     - name: Checkout Submodule manually (Ref)
       run: |
+        cd ${{github.workspace}}
+        pwd
         git submodule init
         git submodule update
+
     - name: LS
       run: |
         ls -la ${{github.workspace}}
