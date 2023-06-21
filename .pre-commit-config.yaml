@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright DB Netz AG and the capellambse contributors
+# SPDX-FileCopyrightText: Copyright DB Netz AG
 # SPDX-License-Identifier: CC0-1.0
 
 default_install_hook_types: [commit-msg, pre-commit]
@@ -75,8 +75,8 @@ repos:
     hooks:
       - id: insert-license
         name: Insert license headers (shell-style comments)
-        files: '(?:^|/)(?:.*\.(?:py|sh|toml|ya?ml)|Dockerfile|Makefile)$'
-        exclude: '(?:^|/)\..+|^docs/Makefile$'
+        files: '(?:^|/)(?:.*\.(?:py|sh|toml|ya?ml)|\.((?:git|helm|docker)ignore))$'
+        # exclude: '(?:^|/)\..+|^docs/Makefile$'
         args:
           - --detect-license-in-X-top-lines=15
           - --license-filepath
