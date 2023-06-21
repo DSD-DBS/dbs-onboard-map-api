@@ -18,7 +18,7 @@ jobs:
     - name: Checkout Map-Service code including submodules recursively
       uses: actions/checkout@v1
       with:
-        submodules: recursive
+        submodules: true
     - name: Checkout Submodule manually (Ref)
       run: |
         cd ${{github.workspace}}
