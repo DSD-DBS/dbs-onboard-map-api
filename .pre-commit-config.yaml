@@ -95,7 +95,7 @@ repos:
           - "<!--| ~| -->"
       - id: insert-license
         name: Insert license headers (C-style comments)
-        files: '\.(?:cpp|h)$'
+        files: '\.(?:cpp|h|proto)$'
         exclude: '(?:^|/)\..+'
         args:
           - --detect-license-in-X-top-lines=15
