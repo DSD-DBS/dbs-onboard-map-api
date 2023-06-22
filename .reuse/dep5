@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+# Upstream-Name: Map-Service
+# Upstream-Contact: vladimir.bezkorovainy@gmail.com
+# Source: INSERT PROJECT URL
+
+Files: map-service/hdmap/*
+Copyright: DB Netz AG
+License: CC-BY-SA-3.0-DE
