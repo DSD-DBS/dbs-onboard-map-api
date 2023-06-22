@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright DB Netz AG
+# SPDX-License-Identifier: CC0-1.0
+
 set(MAP_SERVICE_BOOST_VERSION 1.65.0)
 find_package(Boost ${MAP_SERVICE_BOOST_VERSION} REQUIRED)
 
@@ -51,7 +54,7 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
     olp-cpp-sdk-core
-    curlpp::curlpp
+    curlpp
     ${PROTOBUF_LIBRARIES}
     ${PROTO_SCHEMA_LIBS}
 )
@@ -82,7 +85,7 @@ ENDIF()
 set(MAP_SERVICE_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake/map-service")
 install(FILES "${PROJECT_SOURCE_DIR}/map-service/cmake/configs/map-serviceConfig.cmake" DESTINATION ${MAP_SERVICE_INSTALL_CMAKEDIR})
 install(
-    DIRECTORY "${PROJECT_SOURCE_DIR}/map-service/include/" 
+    DIRECTORY "${PROJECT_SOURCE_DIR}/map-service/include/"
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     FILES_MATCHING
     PATTERN "*.h"

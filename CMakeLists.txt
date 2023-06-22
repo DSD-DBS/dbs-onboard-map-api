@@ -1,4 +1,7 @@
 
+# SPDX-FileCopyrightText: Copyright DB Netz AG
+# SPDX-License-Identifier: CC0-1.0
+
 cmake_minimum_required(VERSION 3.16)
 
 # Build targets

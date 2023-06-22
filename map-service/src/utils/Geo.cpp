@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: Copyright DB Netz AG
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #include "Geo.h"
 
 #include <olp/core/geo/coordinates/GeoCoordinates.h>

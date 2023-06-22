@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright DB Netz AG
+# SPDX-License-Identifier: CC0-1.0
+
 # Select HERE OLP .proto files.
 # Skip Google .proto files.
 file(GLOB_RECURSE PROTOBUF_FILELIST RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "*.proto")

@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: Copyright DB Netz AG
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #pragma once
 #include <map-service/model/TrackNode.h>
 #include <map-service/model/TrackEdge.h>
