@@ -22,16 +22,10 @@ T DeserialiseObject( const rapidjson::Value& doc );
 template < class T >
 download::Response< T > GetObjectFromUri( const utils::HttpClient& http_client, const std::string& url )
 {
-    using namespace download;
-
     rapidjson::Document doc;
+    http_client.GetUri( url, doc );
 
-    Response< T > response = { http_client.GetUri( url, doc ) };
-    if ( response.error_.error_code_ == ErrorCode::Success )
-    {
-        response.content_ = DeserialiseObject< T >( doc );
-    }
-    return response;
+    return download::Response< T > { DeserialiseObject< T >( doc ) };
 }
 
 

@@ -10,11 +10,7 @@ namespace map_service
 
 MapServiceConfig GetDefaultConfig( )
 {
-    MapServiceConfig result;
-    result.zoom_level_ = 12;
-    result.http_client_settings_ = download::GetDBClientSettings( );
-
-    return result;
+    return MapServiceConfig( );
 }
 
 } // namespace map_service

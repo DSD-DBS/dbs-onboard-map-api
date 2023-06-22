@@ -29,9 +29,10 @@ LayerClient::GetPartitionMetadata( const PartitionId& id ) const
     return impl_->GetPartitionMetadata( id );
 }
 
-Error LayerClient::WriteData( const DataHandle& data_handle, std::ostream& out ) const
+void
+LayerClient::WriteData( const DataHandle& data_handle, std::ostream& out ) const
 {
-    return impl_->WriteData( data_handle, out );
+    impl_->WriteData( data_handle, out );
 }
 
 PartitionListResponse

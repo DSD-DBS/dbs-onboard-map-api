@@ -25,8 +25,6 @@ namespace
 {
 namespace fs = std::filesystem;
 using Partition = map_service::download::model::Partition;
-using Error = map_service::download::Error;
-using ErrorCode = map_service::download::ErrorCode;
 using LayerClient = map_service::download::LayerClient;
 using MapFileSystem = map_service::utils::MapFileSystem;
 
@@ -54,7 +52,8 @@ bool IsPartitionExist( const fs::path& dir, const Partition& metadata )
     return result;
 }
 
-Error DownloadPartition( const LayerClient& client, const fs::path& dst_dir, const Partition& metadata )
+void
+DownloadPartition( const LayerClient& client, const fs::path& dst_dir, const Partition& metadata )
 {
     fs::path partition_path = dst_dir / metadata.id_;
 
@@ -66,24 +65,18 @@ Error DownloadPartition( const LayerClient& client, const fs::path& dst_dir, con
     std::ofstream tile_stream( partition_path );
     if ( !tile_stream.is_open( ) )
     {
-        // TODO: populate error
+        // TODO: exception ?
         std::cerr << "cannot open: " << partition_path << std::endl;
     }
-    // TODO: check data size and checksum
-    const auto err = client.WriteData( metadata.data_handle_, tile_stream );
+
+    client.WriteData( metadata.data_handle_, tile_stream );
     tile_stream.close( );
 
     if ( !IsPartitionExist( dst_dir, metadata ) )
     {
         std::cerr << "Downloaded partition has incorrect hash or data size" << std::endl;
+        // TODO: exception ?
     }
-
-    if ( err.error_code_ != ErrorCode::Success )
-    {
-        std::cerr << "cannot download partition: " << metadata.id_ << ", " << metadata.data_handle_ << ", error: " << err.error_code_ << std::endl;
-    }
-
-    return err;
 }
 
 bool less( const Partition& left, const Partition& right )
@@ -126,54 +119,40 @@ void MapUpdater::CleanLocalCache( ) const
     std::filesystem::remove( catalog_path );
 }
 
-std::vector< MapUpdater::Error >
-MapUpdater::UpdateMap( const Version& to_version ) const
+void MapUpdater::UpdateLocalMap( const Version& to_version ) const
 {
     download::CatalogClient catalog_client( config_->catalog_, config_->http_client_settings_ );
 
     const auto response = catalog_client.GetMetadata( to_version );
-    if ( response.error_.error_code_ != ErrorCode::Success )
-    {
-        return { response.error_ };
-    }
 
     const auto& layer_list = response.content_.layers_;
     for ( const auto& layer : layer_list )
     {
-        const auto errors = UpdateLayer( layer, to_version );
-        if ( !errors.empty( ) )
-        {
-            return errors;
-        }
+        UpdateLayer( layer, to_version );
     }
 
     const auto old_target = map_fs_->GetCatalogVersionPath( GetLocalMapVersion( ) );
     const auto target = map_fs_->GetCatalogVersionPath( to_version );
     const auto link = map_fs_->GetCurrentMapPath( );
 
-    // std::filesystem::remove_all( link );
     std::filesystem::remove( link );
-    std::filesystem::create_symlink( target, link );
+
+    const auto target_relative_path = std::filesystem::relative( target, link.parent_path( ) );
+    std::filesystem::create_symlink( target_relative_path, link );
 
     if ( old_target != target )
     {
         std::filesystem::remove_all( old_target );
         std::filesystem::remove( old_target );
     }
-
-    return { };
 }
 
-std::vector< Error >
-MapUpdater::UpdateLayer( const std::string& layer_name, const Version& to_version ) const
+void MapUpdater::UpdateLayer( const std::string& layer_name, const Version& to_version ) const
 {
     using namespace map_service::download;
     using namespace utils;
 
-    std::vector< Error > errors;
-
     const auto from_version = GetLocalMapVersion( );
-
     const auto src_path = map_fs_->GetPartitionFolderPath( from_version, layer_name );
     const auto dst_path = map_fs_->GetPartitionFolderPath( to_version, layer_name );
 
@@ -182,12 +161,6 @@ MapUpdater::UpdateLayer( const std::string& layer_name, const Version& to_versio
     LayerClient client( config_->catalog_, layer_name, to_version, config_->http_client_settings_ );
 
     const auto response = fs::exists( src_path ) && from_version < to_version ? client.GetDifference( from_version ) : client.GetAllPartitionsMetadata( );
-
-    if ( response.error_.error_code_ != ErrorCode::Success )
-    {
-        errors.emplace_back( response.error_ );
-        return errors;
-    }
     for ( const auto& partition_meta : response.content_ )
     {
         if ( IsPartitionExist( dst_path, partition_meta ) )
@@ -195,21 +168,10 @@ MapUpdater::UpdateLayer( const std::string& layer_name, const Version& to_versio
             std::cout << " exists at dst: " << dst_path << "/" << partition_meta.id_ << std::endl;
             continue;
         }
-
-        const auto error = DownloadPartition( client, dst_path, partition_meta );
-        if ( error.error_code_ != ErrorCode::Success )
-        {
-            errors.emplace_back( error );
-            continue;
-        }
+        DownloadPartition( client, dst_path, partition_meta );
     }
 
     const auto all_partitions_response = client.GetAllPartitionsMetadata( );
-    if ( all_partitions_response.error_.error_code_ != ErrorCode::Success )
-    {
-        errors.emplace_back( all_partitions_response.error_ );
-        return errors;
-    }
 
     PartitionListResponse::Content old_tiles;
     boost::range::set_difference( all_partitions_response.content_, response.content_, std::back_inserter( old_tiles ), less );
@@ -228,14 +190,8 @@ MapUpdater::UpdateLayer( const std::string& layer_name, const Version& to_versio
         }
         else
         {
-            const auto error = DownloadPartition( client, src_path, partition_meta );
-            if ( error.error_code_ != ErrorCode::Success )
-            {
-                errors.emplace_back( error );
-            }
+            DownloadPartition( client, src_path, partition_meta );
         }
     }
-
-    return errors;
 }
 } // namespace map_service

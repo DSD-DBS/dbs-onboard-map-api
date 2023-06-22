@@ -5,7 +5,7 @@
 
 #pragma once
 #include <map-service/model/ConsolidatedLayers.h>
-#include <map-service/download/Response.h>
+#include <map-service/MapService.h>
 
 namespace map_service
 {
@@ -29,8 +29,6 @@ class MapUpdater;
 class MapServiceImpl
 {
 public:
-    using Error = map_service::download::Error;
-
     MapServiceImpl( const MapServiceConfig& config );
     virtual ~MapServiceImpl( );
 
@@ -46,7 +44,8 @@ public:
     virtual std::vector< model::Zone::Ptr > GetZones( const std::vector< PartitionId >& tile_ids ) const;
 
     void CleanLocalCache( ) const;
-    std::vector< Error > UpdateMap( const Version& version ) const;
+    void UpdateLocalMap( const Version& version ) const;
+    std::vector< MapService::Error > UpdateMap( const Version& version ) const noexcept;
 
 private:
     std::shared_ptr< MapServiceConfig > config_;

@@ -21,15 +21,13 @@ namespace utils
 class HttpClient
 {
 public:
-    using Error = download::Error;
-    using ErrorCode = download::ErrorCode;
     using ClientSettings = download::ClientSettings;
 
     HttpClient( const ClientSettings& settings );
     ~HttpClient( );
 
-    Error GetUri( const std::string& url, std::ostream& out ) const;
-    Error GetUri( const std::string& url, rapidjson::Document& out ) const;
+    void GetUri( const std::string& url, std::ostream& out ) const;
+    void GetUri( const std::string& url, rapidjson::Document& out ) const;
 
 private:
     std::shared_ptr< ClientSettings > client_settings_;

@@ -2,7 +2,6 @@
  * SPDX-FileCopyrightText: Copyright DB Netz AG
  * SPDX-License-Identifier: Apache-2.0
  */
-
 #pragma once
 #include <map-service/CommonTypes.h>
 #include <map-service/download/ClientSettings.h>
@@ -14,11 +13,10 @@ struct MapServiceConfig
     std::string map_local_path_;
 
     // Technically, map layers could have differet zoom level.
-    // better to read zoom laevel from OLP layer metadata.
-    std::uint32_t zoom_level_ = 14;
+    // better to read zoom laevel from map layer metadata.
+    std::uint32_t zoom_level_ = 12;
 
     // DB catalog + layers
-    // std::string catalog_ = "sensors4rail2";
     std::string catalog_ = "validate.s4r2.oss.4";
     std::string layer_rca_topoloy_ = "rca-topology";
     std::string layer_centerline_ = "rca-centerline";

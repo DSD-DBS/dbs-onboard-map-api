@@ -25,7 +25,7 @@ public:
 
     LayerResponse GetMetadata( ) const;
     PartitionResponse GetPartitionMetadata( const PartitionId& id ) const;
-    Error WriteData( const DataHandle& data_handle, std::ostream& out ) const;
+    void WriteData( const DataHandle& data_handle, std::ostream& out ) const;
     PartitionListResponse GetDifference( const map_service::Version& from_version ) const;
     PartitionListResponse GetAllPartitionsMetadata( ) const;
 

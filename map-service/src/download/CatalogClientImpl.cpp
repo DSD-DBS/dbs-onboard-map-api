@@ -65,9 +65,8 @@ Version
 CatalogClientImpl::GetLatestVersion( ) const
 {
     const auto url = boost::format( "https://%1%/catalogs/%2%" ) % settings_->host_ % catalog_name_;
-    const auto response = GetObjectFromUri< model::Catalog >( *http_client_, url.str( ) );
+    return GetObjectFromUri< model::Catalog >( *http_client_, url.str( ) ).content_.latest_version_;
 
-    return response.error_.error_code_ == ErrorCode::Success ? response.content_.latest_version_ : 0;
 }
 } // namespace download
 } // namespace map_service
