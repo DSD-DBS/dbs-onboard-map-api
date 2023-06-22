@@ -54,7 +54,7 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
     olp-cpp-sdk-core
-    curlpp::curlpp
+    curlpp
     ${PROTOBUF_LIBRARIES}
     ${PROTO_SCHEMA_LIBS}
 )
