@@ -25,11 +25,14 @@ Dot-files are licensed under CC0-1.0 (see full text in
 * A modern C++ compiler (C++17 or later is recommended).
 * CMake (3.16 or later).
 * Google Protobuf
-* Google Test & Mock
 * Boost 1.65.0 or higher
-* Libcurl
 * OpenSSL
+
+### Dependencies
+* Google Test & Mock
+* Libcurl
 * RapidJSON
+* SMHasher
 
 ### Linux dependencies
 To install the dependencies on Linux, run the following command:
