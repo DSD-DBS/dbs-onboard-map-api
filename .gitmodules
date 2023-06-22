@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright DB Netz AG
+# SPDX-License-Identifier: CC0-1.0
+
 [submodule "externals/here-olp-sdk"]
 	path = externals/here-olp-sdk
 	url = https://github.com/heremaps/here-data-sdk-cpp.git
