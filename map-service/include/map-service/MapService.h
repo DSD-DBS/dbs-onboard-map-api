@@ -10,8 +10,31 @@
 namespace map_service
 {
 class MapServiceConfig;
-
 class MapServiceImpl;
+
+namespace download
+{
+
+// TODO: This errors needs to be removed.
+// Map-Service project uses exceptions everywhere, not error codes.
+// Error code are kept for backward compatibiliy with Rail Horizon.
+enum ErrorCode
+{
+    Unknown = 0,
+    Success,
+    CurlError, // Check CURLCode for more details
+    HttpError, // Check HttpCode for more details
+};
+
+struct Error
+{
+    ErrorCode error_code_ = ErrorCode::Success;
+    std::string msg_;
+    CURLcode curl_code_ = CURLE_OK;
+    long http_code_ = 200;
+};
+} // namespace download
+
 /**
  * @brief Service for providing map data. It supports Request / Response pattern.
  * Map data is served in WSG84 coordinaes and could be requested by varoius geo areas:
@@ -24,7 +47,6 @@ public:
 
     MapService( const MapServiceConfig& config );
     ~MapService( );
-
 
     /**
      * @brief Returns current local map version
@@ -100,9 +122,16 @@ public:
      * @brief Incrementaly update current local map to the specified version
      *
      * @param version to which map will be updated
+     */
+    void UpdateLocalMap( const Version& version ) const;
+
+    /**
+     * @brief Incrementaly update current local map to the specified version
+     *
+     * @param version to which map will be updated
      * @return std::vector< Error >  List of errors: tile not downloaded, layer metadata is not retreived and etc.
      */
-    std::vector< Error > UpdateMap( const Version& version ) const;
+    std::vector< Error > UpdateMap( const Version& version ) const noexcept;
 
 private:
     std::shared_ptr< MapServiceImpl > impl_;

@@ -1,4 +1,3 @@
-
 /*
  * SPDX-FileCopyrightText: Copyright DB Netz AG
  * SPDX-License-Identifier: Apache-2.0
@@ -14,11 +13,13 @@
 #include <map-service/utils/MapFileSystem.h>
 #include <map-service/MapServiceConfig.h>
 #include <map-service/download/CatalogClient.h>
-
+#include <map-service/download/HttpRuntimeError.h>
 
 #include <utils/Geo.h>
 #include <utils/ProtobufCleaner.h>
 
+#include <curlpp/Exception.hpp>
+#include <iostream>
 
 namespace map_service
 {
@@ -97,15 +98,44 @@ MapServiceImpl::GetZones( const std::vector< PartitionId >& tile_ids ) const
 
 void MapServiceImpl::CleanLocalCache( ) const
 {
-    if ( map_updater_ )
-    {
-        map_updater_->CleanLocalCache( );
-    }
+    map_updater_->CleanLocalCache( );
 }
 
-std::vector< MapServiceImpl::Error >
-MapServiceImpl::UpdateMap( const Version& to_version ) const
+void MapServiceImpl::UpdateLocalMap( const Version& to_version ) const
 {
-    return map_updater_ ? map_updater_->UpdateMap( to_version ) : std::vector< Error >( );
+    map_updater_->UpdateLocalMap( to_version );
+}
+
+std::vector< MapService::Error >
+MapServiceImpl::UpdateMap( const Version& to_version ) const noexcept
+{
+    using namespace download;
+
+    try
+    {
+        map_updater_->UpdateLocalMap( to_version );
+        return { };
+    }
+    catch ( const curlpp::LibcurlRuntimeError& e )
+    {
+        std::cerr << e.what( ) << ", CURL Code: " << e.whatCode( ) << std::endl;
+        return { { ErrorCode::CurlError, e.what( ), e.whatCode( ), 200 } };
+    }
+    catch ( const download::HttpRuntimeError& e )
+    {
+        std::cerr << e.what( ) << ", HTTP Status Code: " << e.WhatCode( ) << std::endl;
+        return { { ErrorCode::HttpError, e.what( ), CURLE_OK, e.WhatCode( ) } };
+    }
+    catch ( const std::exception& e )
+    {
+        std::cerr << e.what( ) << std::endl;
+        return { { ErrorCode::Unknown, e.what( ) } };
+    }
+    catch ( ... )
+    {
+        const auto msg = "Http client unknown exception";
+        std::cerr << msg << std::endl;
+        return { { ErrorCode::Unknown, msg } };
+    }
 }
 } // namespace map_service

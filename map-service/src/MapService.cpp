@@ -57,12 +57,20 @@ std::vector< model::Zone::Ptr > MapService::GetZones( const std::vector< Partiti
     return impl_->GetZones( tile_ids );
 }
 
-void MapService::CleanLocalCache( ) const
+void
+MapService::CleanLocalCache( ) const
 {
     return impl_->CleanLocalCache( );
 }
 
-std::vector< MapService::Error > MapService::UpdateMap( const Version& version ) const
+void
+MapService::UpdateLocalMap( const Version& version ) const
+{
+    return impl_->UpdateLocalMap( version );
+}
+
+std::vector< MapService::Error >
+MapService::UpdateMap( const Version& version ) const noexcept
 {
     return impl_->UpdateMap( version );
 }

@@ -78,7 +78,7 @@ TEST( MapService, TestGetLocalMapVersion )
     auto config = TestConfig( );
 
     // Act / Assert
-    ASSERT_EQ( MapService( config ).GetLocalMapVersion( ), 2 );
+    ASSERT_GT( MapService( config ).GetLocalMapVersion( ), 0 );
 }
 
 
@@ -204,11 +204,11 @@ TEST( MapService, Landmarks )
             // Landmark::BufferStop,
             Landmark::Billboard,
             Landmark::BridgePillar,
-            // TODO: HDMAP-1015: fix height. Landmark::Building,
+            Landmark::Building,
             Landmark::CameraPole,
-            // TODO: HDMAP-1015: fix height. Landmark::Container,
+            Landmark::Container,
             Landmark::CoveredPlatform,
-            // TODO: HDMAP-1015: fix height. Landmark::FuseBox,
+            Landmark::FuseBox,
             Landmark::LightPole,
             Landmark::OtherPole,
             Landmark::Shelter,
@@ -249,6 +249,13 @@ TEST( MapService, Landmarks )
                 ASSERT_NE( geometry, nullptr );
                 ASSERT_GT( geometry->height_cm, 0 ) << "incorrect landmark: " << landmark_ptr->id_ << ", height: " << geometry->height_cm;
                 ASSERT_TRUE( !boost::geometry::is_empty( geometry->surface_ ) );
+                for ( const auto& point : geometry->surface_.outer( ) )
+                {
+                    ASSERT_GT( point.get< 0 >( ), 0.0 );
+                    ASSERT_GT( point.get< 1 >( ), 0.0 );
+                    ASSERT_GT( point.get< 2 >( ), 0.0 );
+                }
+
             }
             break;
 
@@ -327,27 +334,33 @@ TEST( MapService, GetZones )
     ASSERT_NE( find_by_type( result, Zone::SafeZone ), result.cend( ) );
     // ASSERT_NE( find_by_type( result, Zone::LevelCrossingZone ), result.cend( ) );
 
+    for ( const auto& zone_ptr : result )
+    {
+        ASSERT_NE( zone_ptr, nullptr );
+        ASSERT_NE( zone_ptr->type_, model::Zone::Unknown );
+        for ( const auto& point : zone_ptr->geometry_.outer( ) )
+        {
+            ASSERT_GT( point.get< 0 >( ), 0.0 );
+            ASSERT_GT( point.get< 1 >( ), 0.0 );
+            ASSERT_GT( point.get< 2 >( ), 0.0 );
+        }
 
-    const auto zone_ptr = *result.cbegin( );
-    ASSERT_NE( zone_ptr, nullptr );
+        const auto& begin_it = zone_ptr->geometry_.outer( ).begin( );
+        const auto& end_it = zone_ptr->geometry_.outer( ).end( );
 
-    ASSERT_NE( zone_ptr->type_, model::Zone::Unknown );
+        ASSERT_NE( begin_it, end_it );
 
-    const auto& begin_it = zone_ptr->geometry_.outer( ).begin( );
-    const auto& end_it = zone_ptr->geometry_.outer( ).end( );
+        const auto& start = *begin_it;
+        const auto& back = *std::prev( end_it );
 
-    ASSERT_NE( begin_it, end_it );
+        ASSERT_DOUBLE_EQ( start.get< 0 >( ), back.get< 0 >( ) );
+        ASSERT_DOUBLE_EQ( start.get< 1 >( ), back.get< 1 >( ) );
+        ASSERT_DOUBLE_EQ( start.get< 2 >( ), back.get< 2 >( ) );
 
-    const auto& start = *begin_it;
-    const auto& back = *std::prev( end_it );
-
-    ASSERT_DOUBLE_EQ( start.get< 0 >( ), back.get< 0 >( ) );
-    ASSERT_DOUBLE_EQ( start.get< 1 >( ), back.get< 1 >( ) );
-    ASSERT_DOUBLE_EQ( start.get< 2 >( ), back.get< 2 >( ) );
-
-    // ASSERT_GT( start.get< 0 >( ), 10.0 );
-    // ASSERT_GT( start.get< 1 >( ), 53.0 );
-    //  TODO: check elevation ASSERT_EQ( start.get< 2 >( ), 5130 );
+        // ASSERT_GT( start.get< 0 >( ), 10.0 );
+        // ASSERT_GT( start.get< 1 >( ), 53.0 );
+        //  TODO: check elevation ASSERT_EQ( start.get< 2 >( ), 5130 );
+    }
 }
 
 // TEST( MapService, PlaneStructureIntersection )

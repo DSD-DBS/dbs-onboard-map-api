@@ -5,10 +5,12 @@
 
 #include <utils/HttpClient.h>
 #include <map-service/download/ClientSettings.h>
+#include <map-service/download/HttpRuntimeError.h>
 
 #include <curlpp/cURLpp.hpp>
 #include <curlpp/Easy.hpp>
 #include <curlpp/Options.hpp>
+#include <curlpp/Infos.hpp>
 
 #include <sstream>
 
@@ -43,8 +45,7 @@ HttpClient::~HttpClient( )
 {
 }
 
-download::Error
-HttpClient::GetUri( const std::string& url, std::ostream& out ) const
+void HttpClient::GetUri( const std::string& url, std::ostream& out ) const
 {
     // if ( client_settings_->verbose_ )
     {
@@ -55,58 +56,36 @@ HttpClient::GetUri( const std::string& url, std::ostream& out ) const
     using namespace curlpp;
     using namespace curlpp::options;
 
-    try
-    {
-        Cleanup cleaner;
-        Easy request;
 
-        auto* fn = new WriteFunction( std::bind( &WriteToStream, std::ref( out ), _1, _2, _3 ) );
-        request.setOpt( fn );
-        request.setOpt( new Url( url ) );
-        request.setOpt( new Verbose( client_settings_->verbose_ ) );
-        request.setOpt( new HttpHeader( client_settings_->http_headers_ ) );
+    Cleanup cleaner;
+    Easy request;
 
-        // TODO: CA check to be fixed properly. Just for testing purposes.
-        request.setOpt( SslVerifyPeer( false ) );
-        request.setOpt( SslVerifyHost( false ) );
+    auto* fn = new WriteFunction( std::bind( &WriteToStream, std::ref( out ), _1, _2, _3 ) );
+    request.setOpt( fn );
+    request.setOpt( new Url( url ) );
+    request.setOpt( new Verbose( client_settings_->verbose_ ) );
+    request.setOpt( new HttpHeader( client_settings_->http_headers_ ) );
 
-        request.perform( );
-        return Error( );
-    }
-    catch ( const LibcurlRuntimeError& e )
-    {
-        // TODO: curl thorws RuntimeError when incorrect host is specified
-        // or when 404 is returned.
-        // CURL code is not provided in this case.
-        // Handle RuntimeError separatly.
-        std::cerr << e.what( ) << std::endl;
+    // TODO: CA check to be fixed properly. Just for testing purposes.
+    request.setOpt( SslVerifyPeer( false ) );
+    request.setOpt( SslVerifyHost( false ) );
 
-        return { ErrorCode::CurlError, e.whatCode( ), url, e.what( ) };
-    }
-    catch( const std::exception& e)
+    request.perform( );
+
+    const auto http_code = curlpp::infos::ResponseCode::get( request );
+    if ( http_code < 200 || http_code >= 300 )
     {
-        std::cerr << e.what( ) << std::endl;
-        throw;
-    }
-    catch(...)
-    {
-        std::cerr << "Http client unknown exception" << std::endl;
-        throw;
+        // curlpp does no throw an exception when HTTP code is not OK.
+        std::cerr << "HTTP error code: " << http_code << std::endl;
+        throw download::HttpRuntimeError( "Http error", http_code );
     }
 }
 
-download::Error
-HttpClient::GetUri( const std::string& url, rapidjson::Document& out ) const
+void HttpClient::GetUri( const std::string& url, rapidjson::Document& out ) const
 {
     std::stringstream ss;
-
-    const auto error = GetUri( url, ss );
-    if ( error.error_code_ == ErrorCode::Success )
-    {
-
-        out.Parse( ss.str( ).c_str( ) );
-    }
-    return error;
+    GetUri( url, ss );
+    out.Parse( ss.str( ).c_str( ) );
 }
 
 } // namespace utils
