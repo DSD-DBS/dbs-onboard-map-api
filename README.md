@@ -18,7 +18,7 @@ This project is compliant with the `REUSE Specification Version 3.0`__.
 
 Copyright DB Netz AG, licensed under Apache 2.0 (see full text in <a href="https://github.com/DSD-DBS/dbs-onboard-map-api/blob/main/LICENSES/Apache-2.0.txt" target="_blank"> Apache 2.0</a>)
 
-Dot-files, cmake and yaml failse are licensed under CC0-1.0 (see full text in
+Dot-files, cmake and yaml filse are licensed under CC0-1.0 (see full text in
  <a href="https://github.com/DSD-DBS/dbs-onboard-map-api/blob/main/LICENSES/CC0-1.0.txt" target="_blank">CC0-1.0</a>)
 
  Map files are licensed under CC-BY-SA-3.0-DE license (see full text in  <a href="https://github.com/DSD-DBS/dbs-onboard-map-api/blob/main/LICENSES/CC-BY-SA-3.0-DE.txt" target="_blank">CC-BY-SA-3.0-DE</a>)
