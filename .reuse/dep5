@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-# Upstream-Name: Map-Service
-# Upstream-Contact: vladimir.bezkorovainy@gmail.com
-# Source: INSERT PROJECT URL
+Upstream-Name: dbs-onboard-map-api
+Upstream-Contact: vladimir.bezkorovainy@gmail.com
+Source: https://github.com/DSD-DBS/dbs-onboard-map-api
 
 Files: map-service/hdmap/*
 Copyright: DB Netz AG
