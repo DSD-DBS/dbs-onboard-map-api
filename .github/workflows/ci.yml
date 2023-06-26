@@ -41,9 +41,9 @@ jobs:
     - name: Generate Test Coverage
       run: |
         cd ./build/map-service/tests
-        gcovr -r . --xml-pretty -o coverage.xml
+        gcovr -r .. --xml-pretty -o ${{github.workspace}}/build/map-service/tests/coverage.xml
 
-        # gcovr -r . --html --html-details -o ${{github.workspace}}/build/map-service/tests/coverage.html
+# gcovr -r . --html --html-details -o ${{github.workspace}}/build/map-service/tests/coverage.html
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
