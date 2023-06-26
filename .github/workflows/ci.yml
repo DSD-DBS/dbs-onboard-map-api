@@ -46,4 +46,9 @@ jobs:
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
-        file: ./build/map-service/tests/coverage.xml
+        file: ./build/map-service/test/coverage.html
+
+    - name: Upload coverage to Codecov2
+      uses: codecov/codecov-action@v1
+      with:
+        file: ./build/map-service/coverage.html
