@@ -9,6 +9,13 @@ project(map-service VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-Wno-deprecated-declarations")
+
+# if(CMAKE_COMPILER_IS_GNUCXX)
+    set(${CMAKE_CXX_FLAGS} CMAKE_CXX_FLAGS "-g -O0 -Wall -fprofile-arcs -ftest-coverage")
+    set(${CMAKE_C_FLAGS} CMAKE_C_FLAGS "-g -O0 -Wall -W -fprofile-arcs -ftest-coverage")
+    set(${CMAKE_EXE_LINKER_FLAGS} CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage")
+# endif()
+
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(RAPIDJSON_HAS_CXX11_RANGE_FOR ON)
 
