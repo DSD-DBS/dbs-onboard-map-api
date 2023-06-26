@@ -15,7 +15,7 @@ class HttpClient;
 
 namespace download
 {
-class ClientSettings;
+struct ClientSettings;
 
 class LayerClientImpl
 {

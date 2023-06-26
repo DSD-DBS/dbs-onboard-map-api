@@ -9,7 +9,7 @@
 
 namespace map_service
 {
-class MapServiceConfig;
+struct MapServiceConfig;
 class MapServiceImpl;
 
 namespace download

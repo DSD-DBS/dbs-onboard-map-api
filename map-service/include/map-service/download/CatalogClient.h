@@ -13,7 +13,7 @@ namespace map_service
 namespace download
 {
 class CatalogClientImpl;
-class ClientSettings;
+struct ClientSettings;
 
 class CatalogClient
 {

@@ -13,7 +13,7 @@ namespace map_service
 {
 namespace download
 {
-class ClientSettings;
+struct ClientSettings;
 } // namespace download
 
 namespace utils
