@@ -34,9 +34,11 @@ jobs:
 
     - name: Run Test
       # working_directory: ${{github.workspace}}/build
-      run: ./build/map-service/tests/GoogleTestRunner
+      run: |
+        ./build/map-service/tests/GoogleTestRunner
+        ls -ls ./build/map-service/tests/
 
     - name: Generate Test Coverage
       run: |
-        cd ./build
+        cd ./build/map-service/tests
         gcovr -r .. --html --html-details -o coverage.html
