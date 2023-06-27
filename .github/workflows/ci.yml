@@ -44,10 +44,11 @@ jobs:
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
+        token: ${{ secrets.CODECOV_TOKEN }}
         file: ${{github.workspace}}/build/coverage/coverage.html
 
-    - name: Upload coverage to GitHub
-      uses: actions/upload-artifact@v2
-      with:
-        name: coverage
-        path: ${{github.workspace}}/build/coverage/*
+    # - name: Upload coverage to GitHub
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: coverage
+    #     path: ${{github.workspace}}/build/coverage/*
