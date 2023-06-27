@@ -44,10 +44,10 @@ jobs:
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
-        file: ${{github.workspace}}/build/coverage/coverage.xml
+        file: ${{github.workspace}}/build/coverage/coverage.html
 
     - name: Upload coverage to GitHub
       uses: actions/upload-artifact@v2
       with:
         name: coverage
-        path: ${{github.workspace}}/build/coverage/coverage.xml
+        path: ${{github.workspace}}/build/coverage/*
