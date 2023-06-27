@@ -18,13 +18,13 @@ class MapFileSystem;
 
 namespace decoder
 {
-
-template < class T >
-class BaseDecoder;
-
+template < class T > class BaseDecoder;
 } // namespace decoder
 
+namespace download
+{
 class MapUpdater;
+} // namespace download
 
 class MapServiceImpl
 {
@@ -53,6 +53,6 @@ private:
     std::shared_ptr< decoder::BaseDecoder< std::vector< model::Landmark::Ptr > > > landmarks_decoder_;
     std::shared_ptr< decoder::BaseDecoder< std::vector< model::Zone::Ptr > > > zones_decoder_;
     std::shared_ptr< utils::MapFileSystem > map_fs_;
-    std::shared_ptr< MapUpdater > map_updater_;
+    std::shared_ptr< download::MapUpdater > map_updater_;
 };
 } // namespace map_service

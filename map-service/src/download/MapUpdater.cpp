@@ -21,6 +21,8 @@
 
 namespace map_service
 {
+namespace download
+{
 namespace
 {
 namespace fs = std::filesystem;
@@ -194,4 +196,5 @@ void MapUpdater::UpdateLayer( const std::string& layer_name, const Version& to_v
         }
     }
 }
+} // namespace download
 } // namespace map_service
