@@ -42,6 +42,9 @@ add_library(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/../externals/smasher/src/MurmurHash3.cpp)
 add_library(map-service::map-service ALIAS map-service)
 
+target_compile_options(${PROJECT_NAME} PUBLIC -O0 -g --coverage)
+target_link_options(${PROJECT_NAME} PUBLIC --coverage)
+
 file(GLOB PROTO_SCHEMA_BINARY_DIRS "${CMAKE_CURRENT_BINARY_DIR}/proto/*/*")
 target_include_directories(${PROJECT_NAME}
     PUBLIC
