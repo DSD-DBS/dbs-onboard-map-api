@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: Copyright DB Netz AG
 # SPDX-License-Identifier: CC0-1.0
 
-name: Map-Service CI
+name: dbs-onboard-map-api CI
 
 on:
   push:
@@ -33,25 +33,21 @@ jobs:
       run: ./build.sh -DCMAKE_BUILD_TYPE=Debug
 
     - name: Run Test
-      # working_directory: ${{github.workspace}}/build
       run: |
-        ./build/map-service/tests/GoogleTestRunner
-        ls -ls ./build/map-service/tests/
+        ${{github.workspace}}/build/map-service/tests/GoogleTestRunner
+
 
     - name: Generate Test Coverage
       run: |
-        cd ./build/map-service/tests
-        gcovr -r .. --xml-pretty -o ${{github.workspace}}/build/map-service/tests/coverage.xml
-
-# gcovr -r . --html --html-details -o ${{github.workspace}}/build/map-service/tests/coverage.html
+        ${{github.workspace}}/scripts/code_coverage.sh
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
-        file: ${{github.workspace}}/build/map-service/tests/coverage.xml
+        file: ${{github.workspace}}/build/coverage/coverage.xml
 
     - name: Upload coverage to GitHub
       uses: actions/upload-artifact@v2
       with:
         name: coverage
-        path: ${{github.workspace}}/build/map-service/tests/coverage.xml
+        path: ${{github.workspace}}/build/coverage/coverage.xml
