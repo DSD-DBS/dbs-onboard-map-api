@@ -5,6 +5,7 @@
 
 #include <map-service/download/LayerClient.h>
 #include <map-service/download/CatalogClient.h>
+#include <map-service/download/HttpRuntimeError.h>
 #include <map-service/MapServiceConfig.h>
 
 #include <gtest/gtest.h>
@@ -42,6 +43,26 @@ TEST( LayerClient, DISABLED_HostDoesNotExist )
 
     // Act / Assert
     EXPECT_THROW( { client.GetMetadata( ); }, curlpp::LibcurlRuntimeError );
+}
+
+TEST( LayerClient, DISABLED_LayerDoesNotExist )
+{
+    // Arrange
+    auto cfg = GetTestConfig( );
+    LayerClient client( cfg.catalog_, "does-not-exists", 1, cfg.http_client_settings_ );
+
+    // Act / Assert
+    EXPECT_THROW( { client.GetMetadata( ); }, download::HttpRuntimeError );
+}
+
+TEST( LayerClient, DISABLED_CatalogDoesNotExist )
+{
+    // Arrange
+    auto cfg = GetTestConfig( );
+    LayerClient client( "does-not-exists", "rca-topology", 1, cfg.http_client_settings_ );
+
+    // Act / Assert
+    EXPECT_THROW( { client.GetMetadata( ); }, download::HttpRuntimeError );
 }
 
 

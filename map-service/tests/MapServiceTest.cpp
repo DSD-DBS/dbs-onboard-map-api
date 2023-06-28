@@ -81,6 +81,36 @@ TEST( MapService, TestGetLocalMapVersion )
     ASSERT_GT( MapService( config ).GetLocalMapVersion( ), 0 );
 }
 
+TEST( MapService, GetLayersForCorridor )
+{
+    // Arrange
+    MapService service( TestConfig( ) );
+
+    const auto corridor = {
+        GeoCoordinates( 10.179573845621904, 53.488253952049654 ),
+        GeoCoordinates( 10.19068437119388, 53.4868942981563 ),
+        GeoCoordinates( 10.202898069517687, 53.488347719677144 ),
+        GeoCoordinates( 10.210541480726777, 53.49205137515467 ),
+    };
+    // Act
+    const auto result = service.GetLayersForCorridor( corridor, 10 );
+
+    // Asserts
+    ASSERT_NE( result, nullptr );
+    ASSERT_NE( result->topology_, nullptr );
+    ASSERT_NE( result->topology_->edges_.size( ), 0 );
+    ASSERT_NE( result->topology_->nodes_.size( ), 0 );
+
+
+    ASSERT_NE( result->landmarks_.size( ), 0 );
+    ASSERT_NE( result->landmarks_.front( ), nullptr );
+
+    ASSERT_NE( result->zones_.size( ), 0 );
+    ASSERT_NE( result->zones_.front( ), nullptr );
+
+    EXPECT_THAT( result->partition_ids_, ::testing::UnorderedElementsAreArray< std::string >( { "23608592", "23608581" } ) );
+}
+
 
 TEST( MapService, GetLayersForRectangle )
 {
@@ -255,7 +285,6 @@ TEST( MapService, Landmarks )
                     ASSERT_GT( point.get< 1 >( ), 0.0 );
                     ASSERT_GT( point.get< 2 >( ), 0.0 );
                 }
-
             }
             break;
 

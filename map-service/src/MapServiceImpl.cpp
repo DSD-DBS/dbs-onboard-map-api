@@ -113,7 +113,7 @@ MapServiceImpl::UpdateMap( const Version& to_version ) const noexcept
 
     try
     {
-        map_updater_->UpdateLocalMap( to_version );
+        UpdateLocalMap( to_version );
         return { };
     }
     catch ( const curlpp::LibcurlRuntimeError& e )

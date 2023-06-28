@@ -4,8 +4,10 @@
  */
 
 #include <map-service/download/CatalogClient.h>
+#include <map-service/download/HttpRuntimeError.h>
 #include <map-service/MapServiceConfig.h>
 
+#include <curlpp/Exception.hpp>
 #include <gtest/gtest.h>
 
 #include <unordered_set>
@@ -24,6 +26,27 @@ MapServiceConfig GetTestConfig( )
 }
 
 } // unnamed namespace
+
+TEST( CatalogClientTest, DISABLED_HostDoesNotExist )
+{
+    // Arrange
+    auto cfg = GetTestConfig( );
+    cfg.http_client_settings_.host_ = "does.not.exist.digitalregister.az4db-iat.comp.db.de";
+    CatalogClient client( cfg.catalog_, cfg.http_client_settings_ );
+
+    // Act / Assert
+    EXPECT_THROW( { client.GetLatestVersion( ); }, curlpp::LibcurlRuntimeError );
+}
+
+TEST( CatalogClientTest, DISABLED_CatalogDoesNotExist )
+{
+    // Arrange
+    auto cfg = GetTestConfig( );
+    CatalogClient client( "does-not-exists", cfg.http_client_settings_ );
+
+    // Act / Assert
+    EXPECT_THROW( { client.GetLatestVersion( ); }, download::HttpRuntimeError );
+}
 
 TEST( CatalogClientTest, DISABLED_GetLatestVersion )
 {
