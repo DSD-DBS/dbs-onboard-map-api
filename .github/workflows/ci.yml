@@ -41,11 +41,12 @@ jobs:
       run: |
         ${{github.workspace}}/scripts/code_coverage.sh
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        file: ${{github.workspace}}/build/coverage/coverage.html
+    # TODO: integrate with Codecov. DBS CODECOV_TOKEN is needed
+    # - name: Upload coverage to Codecov
+    #   uses: codecov/codecov-action@v1
+    #   with:
+    #     token: ${{ secrets.CODECOV_TOKEN }}
+    #     file: ${{github.workspace}}/build/coverage/coverage.html
 
     - name: Upload coverage to GitHub as artifact
       uses: actions/upload-artifact@v2
