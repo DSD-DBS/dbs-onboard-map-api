@@ -8,9 +8,12 @@
 #include <map-service/utils/MapFileSystem.h>
 #include <map-service/download/LayerClient.h>
 #include <map-service/download/CatalogClient.h>
+#include <map-service/download/HttpRuntimeError.h>
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include <curlpp/Exception.hpp>
+
 #include <filesystem>
 
 namespace
@@ -60,14 +63,62 @@ void CheckLayer( const MapServiceConfig& cfg, const std::string& layer_name, con
 
 } // unnamed namespace
 
-TEST_F( MapUpdateTest, DISABLED_CleanLocalCache )
+TEST( MapUpdateTest, DISABLED_HostDoesNotExist )
+{
+    // Arrange
+    auto cfg = GetTestConfig( );
+    cfg.http_client_settings_.host_ = "does.not.exist.digitalregister.az4db-iat.comp.db.de";
+
+    // Act / Assert
+    EXPECT_THROW( { MapService( cfg ).UpdateLocalMap( 10 ); }, curlpp::LibcurlRuntimeError );
+}
+
+TEST( MapUpdateTest, DISABLED_CatalogDoesNotExist )
+{
+    // Arrange
+    auto cfg = GetTestConfig( );
+    cfg.catalog_ = "does-not-exists";
+
+    // Act / Assert
+    EXPECT_THROW( { MapService( cfg ).UpdateLocalMap( 10 ); }, download::HttpRuntimeError );
+}
+
+TEST( MapUpdateTest, DISABLED_HostDoesNotExistNoThrow )
+{
+    // Arrange
+    auto cfg = GetTestConfig( );
+    cfg.http_client_settings_.host_ = "does.not.exist.digitalregister.az4db-iat.comp.db.de";
+
+    // Act
+    const auto errors = MapService( cfg ).UpdateMap( 10 );
+
+    // Assert
+    ASSERT_EQ( errors.size( ), 1 );
+    ASSERT_EQ( errors[ 0 ].error_code_, ErrorCode::CurlError );
+}
+
+TEST( MapUpdateTest, DISABLED_CatalogDoesNotExistNoThrow )
+{
+    // Arrange
+    auto cfg = GetTestConfig( );
+    cfg.catalog_ = "does-not-exists";
+
+    // Act
+    const auto errors = MapService( cfg ).UpdateMap( 10 );
+
+    // Assert
+    ASSERT_EQ( errors.size( ), 1 );
+    ASSERT_EQ( errors[ 0 ].error_code_, ErrorCode::HttpError );
+}
+
+TEST( MapUpdateTest, DISABLED_CleanLocalCache )
 {
     // Arrange
     const auto cfg = GetTestConfig( );
     MapService service( cfg );
     CatalogClient catalog_client( cfg.catalog_, cfg.http_client_settings_ );
 
-    service.UpdateMap( catalog_client.GetLatestVersion( ) );
+    service.UpdateLocalMap( catalog_client.GetLatestVersion( ) );
 
     utils::MapFileSystem map_fs( cfg.map_local_path_, cfg.catalog_ );
     ASSERT_FALSE( fs::is_empty( map_fs.GetCatalogPath( ) ) );
@@ -79,7 +130,7 @@ TEST_F( MapUpdateTest, DISABLED_CleanLocalCache )
     ASSERT_TRUE( fs::exists( cfg.map_local_path_ ) );
 }
 
-TEST_F( MapUpdateTest, DISABLED_UpdateMapFromScratch )
+TEST( MapUpdateTest, DISABLED_UpdateMapFromScratch )
 {
     // Arrange
     const auto cfg = GetTestConfig( );
@@ -96,9 +147,7 @@ TEST_F( MapUpdateTest, DISABLED_UpdateMapFromScratch )
     };
 
     // Act
-    const auto result = service.UpdateMap( version );
-
-    ASSERT_TRUE( result.empty( ) );
+    service.UpdateLocalMap( version );
 
     // Asserts
     const auto catalog_path = map_fs.GetCatalogPath( );
@@ -116,7 +165,7 @@ TEST_F( MapUpdateTest, DISABLED_UpdateMapFromScratch )
     }
 }
 
-TEST_F( MapUpdateTest, DISABLED_UpdateMapIncrementally )
+TEST( MapUpdateTest, DISABLED_UpdateMapIncrementally )
 {
     // Arrange
     const auto cfg = GetTestConfig( );
@@ -133,11 +182,11 @@ TEST_F( MapUpdateTest, DISABLED_UpdateMapIncrementally )
         cfg.layer_landmarks_,
         cfg.layer_zones_,
     };
-    ASSERT_TRUE( service.UpdateMap( version_from ).empty( ) );
+    service.UpdateLocalMap( version_from );
     ASSERT_TRUE( fs::exists( map_fs.GetCatalogVersionPath( version_from ) ) );
 
     // Act
-    ASSERT_TRUE( service.UpdateMap( version_to ).empty( ) );
+    service.UpdateLocalMap( version_to );
 
     // Asserts
     const auto catalog_path = map_fs.GetCatalogPath( );
