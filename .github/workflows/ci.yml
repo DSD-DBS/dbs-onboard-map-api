@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: Copyright DB Netz AG
 # SPDX-License-Identifier: CC0-1.0
 
-name: Map-Service CI
+name: dbs-onboard-map-api CI
 
 on:
   push:
@@ -24,6 +24,7 @@ jobs:
       run: |
         sudo apt-get update -y
         sudo apt-get install -y cmake
+        sudo apt-get install gcovr -y
         sudo apt-get install libgmock-dev libgtest-dev
         sudo apt-get install -y rapidjson-dev
         sudo apt-get install libcurl4-openssl-dev protobuf-compiler libprotobuf-dev libboost-all-dev -y --no-install-recommends --fix-missing
@@ -32,5 +33,23 @@ jobs:
       run: ./build.sh -DCMAKE_BUILD_TYPE=Debug
 
     - name: Run Test
-      # working_directory: ${{github.workspace}}/build
-      run: ./build/map-service/tests/GoogleTestRunner
+      run: |
+        ${{github.workspace}}/build/map-service/tests/GoogleTestRunner
+
+
+    - name: Generate Test Coverage
+      run: |
+        ${{github.workspace}}/scripts/code_coverage.sh
+
+    # TODO: integrate with Codecov. DBS CODECOV_TOKEN is needed
+    # - name: Upload coverage to Codecov
+    #   uses: codecov/codecov-action@v1
+    #   with:
+    #     token: ${{ secrets.CODECOV_TOKEN }}
+    #     file: ${{github.workspace}}/build/coverage/coverage.html
+
+    - name: Upload coverage to GitHub as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage
+        path: ${{github.workspace}}/build/coverage/*

@@ -84,7 +84,7 @@ LayerClientImpl::LayerClientImpl( std::string catalog_name, std::string layer_na
   layer_name_( layer_name ),
   catalog_version_( catalog_version ),
   settings_( std::make_shared< ClientSettings >( settings ) ),
-  http_client_( std::make_shared< utils::HttpClient >( settings ) )
+  http_client_( std::make_shared< download::HttpClient >( settings ) )
 {
 }
 

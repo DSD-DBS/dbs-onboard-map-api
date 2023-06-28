@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <utils/HttpClient.h>
+#include <download/HttpClient.h>
 #include <map-service/download/ClientSettings.h>
 #include <map-service/download/HttpRuntimeError.h>
 
@@ -16,7 +16,7 @@
 
 namespace map_service
 {
-namespace utils
+namespace download
 {
 
 using namespace curlpp;
@@ -88,5 +88,5 @@ void HttpClient::GetUri( const std::string& url, rapidjson::Document& out ) cons
     out.Parse( ss.str( ).c_str( ) );
 }
 
-} // namespace utils
+} // namespace download
 } // namespace map_service

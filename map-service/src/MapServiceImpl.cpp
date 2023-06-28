@@ -4,7 +4,7 @@
  */
 
 #include <MapServiceImpl.h>
-#include <MapUpdater.h>
+#include <download/MapUpdater.h>
 
 #include <decoder/RcaTopologyDecoder.h>
 #include <decoder/ZoneDecoder.h>
@@ -31,7 +31,7 @@ MapServiceImpl::MapServiceImpl( const MapServiceConfig& config )
   landmarks_decoder_( std::make_shared< LandmarksDecoder >( *config_ ) ),
   zones_decoder_( std::make_shared< ZoneDecoder >( *config_ ) ),
   map_fs_( std::make_shared< utils::MapFileSystem >( config_->map_local_path_, config_->catalog_ ) ),
-  map_updater_( std::make_shared< MapUpdater >( config_, map_fs_ ) )
+  map_updater_( std::make_shared< download::MapUpdater >( config_, map_fs_ ) )
 {
     static auto protobuf_cleaner = utils::ProtobufCleaner( );
 }

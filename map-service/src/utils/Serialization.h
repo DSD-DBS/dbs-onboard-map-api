@@ -5,7 +5,7 @@
 
 #pragma once
 #include <map-service/download/Types.h>
-#include <utils/HttpClient.h>
+#include <download/HttpClient.h>
 
 #include <rapidjson/document.h>
 
@@ -20,7 +20,7 @@ template < class T >
 T DeserialiseObject( const rapidjson::Value& doc );
 
 template < class T >
-download::Response< T > GetObjectFromUri( const utils::HttpClient& http_client, const std::string& url )
+download::Response< T > GetObjectFromUri( const download::HttpClient& http_client, const std::string& url )
 {
     rapidjson::Document doc;
     http_client.GetUri( url, doc );

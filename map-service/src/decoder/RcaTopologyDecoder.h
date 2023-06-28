@@ -11,7 +11,7 @@
 namespace map_service
 {
 
-class MapServiceConfig;
+struct MapServiceConfig;
 
 namespace decoder
 {

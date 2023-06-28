@@ -8,14 +8,10 @@
 
 namespace map_service
 {
-namespace utils
-{
-class HttpClient;
-} // namespace utils
-
 namespace download
 {
-class ClientSettings;
+struct ClientSettings;
+class HttpClient;
 
 class LayerClientImpl
 {
@@ -34,7 +30,7 @@ private:
     std::string layer_name_;
     Version catalog_version_;
     std::shared_ptr< ClientSettings > settings_;
-    std::shared_ptr< utils::HttpClient > http_client_;
+    std::shared_ptr< download::HttpClient > http_client_;
 };
 
 } // namespace download

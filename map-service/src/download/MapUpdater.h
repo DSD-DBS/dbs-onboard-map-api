@@ -16,6 +16,8 @@ namespace utils
 class MapFileSystem;
 } // namespace utils
 
+namespace download
+{
 class MapUpdater
 {
 public:
@@ -34,4 +36,5 @@ private:
     std::shared_ptr< MapServiceConfig > config_;
     std::shared_ptr< utils::MapFileSystem > map_fs_;
 };
+} // namespace download
 } // namespace map_service
