@@ -14,15 +14,10 @@ namespace map_service
 namespace download
 {
 struct ClientSettings;
-} // namespace download
 
-namespace utils
-{
 class HttpClient
 {
 public:
-    using ClientSettings = download::ClientSettings;
-
     HttpClient( const ClientSettings& settings );
     ~HttpClient( );
 
@@ -32,5 +27,5 @@ public:
 private:
     std::shared_ptr< ClientSettings > client_settings_;
 };
-} // namespace utils
+} // namespace download
 } // namespace map_service

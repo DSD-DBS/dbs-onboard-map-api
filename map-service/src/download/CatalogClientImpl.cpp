@@ -48,7 +48,7 @@ using namespace utils::serialization;
 CatalogClientImpl::CatalogClientImpl( const std::string& catalog_name, const ClientSettings& settings )
 : catalog_name_( catalog_name ),
   settings_( std::make_shared< ClientSettings >( settings ) ),
-  http_client_( std::make_shared< utils::HttpClient >( settings ) )
+  http_client_( std::make_shared< download::HttpClient >( settings ) )
 {
 }
 
