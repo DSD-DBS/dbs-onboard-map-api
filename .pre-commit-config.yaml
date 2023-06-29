@@ -70,6 +70,14 @@ repos:
   #       additional_dependencies:
   #         - pylint==2.16.2
   #       args: [-rn, -sn, -dfixme, -dduplicate-code]
+  - repo: local
+    hooks:
+    - id: clang-format
+      name: clang-format
+      entry: clang-format -i
+      language: system
+      types: [c++, c]
+
   - repo: https://github.com/Lucas-C/pre-commit-hooks
     rev: v1.4.2
     hooks:

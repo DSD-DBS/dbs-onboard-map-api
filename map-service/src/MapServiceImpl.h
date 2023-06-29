@@ -18,7 +18,8 @@ class MapFileSystem;
 
 namespace decoder
 {
-template < class T > class BaseDecoder;
+template < class T >
+class BaseDecoder;
 } // namespace decoder
 
 namespace download

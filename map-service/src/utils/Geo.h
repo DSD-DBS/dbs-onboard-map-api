@@ -18,7 +18,7 @@ namespace geo
 
 using Intersections = std::unordered_map< PartitionId, std::unordered_set< Id > >;
 
-template< class TRef >
+template < class TRef >
 void AddRef( const TRef& ref, Intersections& out )
 {
     auto inserted = out.emplace( std::to_string( ref.tile_id( ) ), std::unordered_set< Id >( ) );

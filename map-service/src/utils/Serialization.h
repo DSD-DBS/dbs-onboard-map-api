@@ -25,7 +25,7 @@ download::Response< T > GetObjectFromUri( const download::HttpClient& http_clien
     rapidjson::Document doc;
     http_client.GetUri( url, doc );
 
-    return download::Response< T > { DeserialiseObject< T >( doc ) };
+    return download::Response< T >{ DeserialiseObject< T >( doc ) };
 }
 
 
