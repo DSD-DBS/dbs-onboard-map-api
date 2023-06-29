@@ -42,7 +42,7 @@ jobs:
         ${{github.workspace}}/scripts/code_coverage.sh
 
     - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v3
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: ${{github.workspace}}/build/coverage/coverage.html
