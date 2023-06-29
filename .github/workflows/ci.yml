@@ -43,9 +43,14 @@ jobs:
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        file: ${{github.workspace}}/build/coverage/coverage.html
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+    # - name: Upload coverage reports to Codecov
+    #   uses: codecov/codecov-action@v3
+    #   with:
+    #     token: ${{ secrets.CODECOV_TOKEN }}
+    #     file: ${{github.workspace}}/build/coverage/coverage.html
 
     # - name: Upload coverage to GitHub as artifact
     #   uses: actions/upload-artifact@v2
