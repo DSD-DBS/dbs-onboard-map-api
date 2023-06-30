@@ -15,125 +15,152 @@ class MapServiceImpl;
 namespace download
 {
 
-// TODO: This errors needs to be removed.
-// Map-Service project uses exceptions everywhere, not error codes.
-// Error code are kept for backward compatibiliy with Rail Horizon.
+/**
+ * @enum ErrorCode
+ * @brief Enum representing various error codes returned by the MapService::UpdateMap method.
+ * This error mechanism is used for backward compatibility with the Rail Horizon project,
+ * although MapService is moving towards using exceptions rather than error codes.
+ */
 enum ErrorCode
 {
-    Unknown = 0,
-    Success,
-    CurlError, // Check CURLCode for more details
-    HttpError, // Check HttpCode for more details
+    Unknown = 0, /**< Unspecified error */
+    Success, /**< No error occurred */
+    CurlError, /**< An error occurred within the CURL library. Check curl_code_ field for more details */
+    HttpError, /**< An HTTP error occurred. Check http_code_ field for more details */
 };
 
+/**
+ * @struct Error
+ * @brief Struct representing an error that occurred during a MapService::UpdateMap operation.
+ *
+ * It encapsulates information about the type of error, as well as additional details
+ * provided by the CURL library and HTTP response.
+ */
 struct Error
 {
-    ErrorCode error_code_ = ErrorCode::Success;
-    std::string msg_;
-    CURLcode curl_code_ = CURLE_OK;
-    long http_code_ = 200;
+    ErrorCode error_code_ = ErrorCode::Success; /**< The general category of error that occurred */
+    std::string msg_; /**< A human-readable error message */
+    CURLcode curl_code_ = CURLE_OK; /**< CURL error code providing additional information about CURL errors */
+    long http_code_ = 200; /**< HTTP response code providing additional information about HTTP errors */
 };
+
 } // namespace download
 
 /**
- * @brief Service for providing map data. It supports Request / Response pattern.
- * Map data is served in WSG84 coordinaes and could be requested by varoius geo areas:
- * geo circle, geo rectangle, corridor or by tile ids.
+ * @class MapService
+ * @brief This class serves as the main interface for accessing and updating onboard map data.
+ *
+ * It provides functionality to retrieve map data in WSG84 coordinates, which can be requested by various geographical areas:
+ * geo rectangle, corridor or by tile IDs. It also offers Over The Air (OTA) update functionality for map data.
  */
 class MapService
 {
 public:
+    /**
+     * @brief Alias for the map service download error type.
+     */
     using Error = map_service::download::Error;
 
+    /**
+     * @brief Constructs a MapService object with a given configuration.
+     *
+     * @param config MapServiceConfig object with settings for the MapService.
+     */
     MapService( const MapServiceConfig& config );
+
+    /**
+     * @brief Destructor for the MapService class.
+     */
     ~MapService( );
 
     /**
-     * @brief Returns current local map version
+     * @brief Returns the current version of the locally stored map data.
      *
-     * @return Local map version
+     * @return Version object representing the local map version.
      */
     Version GetLocalMapVersion( ) const;
 
     /**
-     * @brief Returns current map version at cloud
+     * @brief Returns the latest version of the cloud-stored map data.
      *
-     * @return Cloud map version
+     * @return Version object representing the cloud map version.
      */
     Version GetCloudMapVersion( ) const;
 
     /**
-     * @brief Get the consolidated layers data for specified rectangle.
+     * @brief Fetches consolidated layer data for a specified geographical rectangle.
      *
-     * @param rectange
-     * @return model::ConsolidatedLayers::Ptr
+     * @param rectangle Geographical rectangle for which to return map data.
+     * @return A shared pointer to a ConsolidatedLayers object containing the requested map data.
      */
-    model::ConsolidatedLayers::Ptr GetLayersForRectangle( const GeoRectangle& rectange ) const;
+    model::ConsolidatedLayers::Ptr GetLayersForRectangle( const GeoRectangle& rectangle ) const;
 
     /**
-     * @brief  Get the consolidated layers data for specified list of partitions.
+     * @brief Fetches consolidated layer data for a specified list of tile partitions.
      *
-     * @param tile_ids in HERE OLP format.
-     * @return model::ConsolidatedLayers::Ptr
+     * @param tile_ids A list of PartitionId's for which to return map data.
+     * @return A shared pointer to a ConsolidatedLayers object containing the requested map data.
      */
     model::ConsolidatedLayers::Ptr GetLayersForTiles( const std::vector< PartitionId >& tile_ids ) const;
 
     /**
-     * @brief  Get the consolidated layers data for specified corridor.
+     * @brief Fetches consolidated layer data for a specified corridor.
      *
-     * @param polyline center line of corridor
-     * @param corridor_width_in_meters
-     * @return model::ConsolidatedLayers::Ptr
+     * @param polyline Centerline of the corridor for which to return map data.
+     * @param corridor_width_in_meters Width of the corridor in meters.
+     * @return A shared pointer to a ConsolidatedLayers object containing the requested map data.
      */
     model::ConsolidatedLayers::Ptr GetLayersForCorridor( const std::vector< GeoCoordinates >& polyline, double corridor_width_in_meters ) const;
 
-    // Low level API for requesting map data per layer for given partition set.
     /**
-     * @brief Get the topology in RCA format. Track object is enreached by geometry.
+     * @brief Fetches the RCA topology data for a specified list of tile partitions.
      *
-     * @param tile_ids list of tile IDs for which retrun map data.
-     * @return Collection of TrackEdge and Nodes ptrs
+     * @param tile_ids A list of PartitionId's for which to return map data.
+     * @return A shared pointer to an RcaTopology object containing the requested map data.
      */
     model::RcaTopology::Ptr GetRcaTopology( const std::vector< PartitionId >& tile_ids ) const;
 
     /**
-     * @brief Get the Landmarks layer data: poles, walls, platforms and etc.
+     * @brief Fetches landmark data for a specified list of tile partitions.
      *
-     * @@param tile_ids list of tile IDs for which retrun map data.
-     * @return collection of landmarks
+     * @param tile_ids A list of PartitionId's for which to return map data.
+     * @return A vector of shared pointers to Landmark objects containing the requested map data.
      */
     std::vector< model::Landmark::Ptr > GetLandmarks( const std::vector< PartitionId >& tile_ids ) const;
 
     /**
-     * @brief Get the Zones layer data
+     * @brief Fetches zone data for a specified list of tile partitions.
      *
-     * @param tile_ids list of tile IDs for which retrun map data.
-     * @return collection of zones
+     * @param tile_ids A list of PartitionId's for which to return map data.
+     * @return A vector of shared pointers to Zone objects containing the requested map data.
      */
     std::vector< model::Zone::Ptr > GetZones( const std::vector< PartitionId >& tile_ids ) const;
 
     /**
-     * @brief Delete all locally stored map data.
+     * @brief Deletes all locally stored map data.
      *
      */
     void CleanLocalCache( ) const;
 
     /**
-     * @brief Incrementaly update current local map to the specified version
+     * @brief Updates the local map data to a specified version.
      *
-     * @param version to which map will be updated
+     * @param version Version object to which the map data will be updated.
      */
     void UpdateLocalMap( const Version& version ) const;
 
     /**
-     * @brief Incrementaly update current local map to the specified version
+     * @brief Attempts to update the local map data to a specified version, providing error information.
      *
-     * @param version to which map will be updated
-     * @return std::vector< Error >  List of errors: tile not downloaded, layer metadata is not retreived and etc.
+     * @param version Version object to which the map data will be updated.
+     * @return std::vector< Error > List of errors occurred during the update process.
      */
     std::vector< Error > UpdateMap( const Version& version ) const noexcept;
 
 private:
+    /**
+     * @brief Pointer to the private implementation of the MapService class.
+     */
     std::shared_ptr< MapServiceImpl > impl_;
 };
 } // namespace map_service
