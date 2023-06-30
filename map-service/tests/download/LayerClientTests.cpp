@@ -107,7 +107,7 @@ TEST( LayerClient, DISABLED_GetPartitionMetadata )
     ASSERT_NE( response.data_handle_, "" );
 }
 
-TEST( LayerClient, DISABLED_WriteData )
+TEST( LayerClient, DISABLED_GetDataHandle )
 {
     // Arrange
     const auto cfg = GetTestConfig( );
@@ -118,7 +118,7 @@ TEST( LayerClient, DISABLED_WriteData )
     std::stringstream ss;
 
     // Act
-    client.WriteData( response_meta.data_handle_, ss );
+    client.GetDataHandle( response_meta.data_handle_, ss );
 
     // Assert
     ASSERT_FALSE( ss.str( ).empty( ) );
