@@ -30,9 +30,9 @@ LayerClient::GetPartitionMetadata( const PartitionId& id ) const
 }
 
 void
-LayerClient::WriteData( const DataHandle& data_handle, std::ostream& out ) const
+LayerClient::GetDataHandle( const DataHandle& data_handle, std::ostream& out ) const
 {
-    impl_->WriteData( data_handle, out );
+    impl_->GetDataHandle( data_handle, out );
 }
 
 std::vector< model::Partition >

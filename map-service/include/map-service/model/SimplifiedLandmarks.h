@@ -13,6 +13,14 @@ namespace model
 {
 namespace simplified
 {
+
+/**
+ * @enum ObjectType
+ * @brief Enumeration defining types of objects in the railway system.
+ *
+ * This enumeration defines the types of objects that can exist in a railway system environment. These types include
+ * various elements of infrastructure and equipment that may be encountered along a railway track.
+ */
 enum ObjectType
 {
     Unknown = 0,
@@ -56,35 +64,136 @@ enum ObjectType
     VendingMachineObject,
 };
 
+/**
+ * @struct Lines
+ * @brief Data structure representing line geometry for a specific type of object.
+ *
+ * This template structure defines a Lines object which represents the line geometry of a specific
+ * object type in the railway system. Each Lines object is defined by its unique identifier (ID),
+ * the parent object's ID, and a set of 3D polylines.
+ */
 template < ObjectType T >
 struct Lines
 {
+    /**
+     * @typedef Ptr
+     * @brief Defines a shared pointer to a constant Lines object.
+     */
     using Ptr = std::shared_ptr< const Lines >;
+
+    /**
+     * @typedef MutablePtr
+     * @brief Defines a shared pointer to a mutable Lines object.
+     */
     using MutablePtr = std::shared_ptr< Lines >;
 
+    /**
+     * @brief The ID of the Lines object.
+     *
+     * This is the unique identifier of the Lines object.
+     */
     Id id_;
+
+    /**
+     * @brief The ID of the parent object.
+     *
+     * This is the unique identifier of the parent object that the Lines object is associated with.
+     */
     Id parent_id_;
+
+    /**
+     * @brief The 3D polylines of the Lines object.
+     *
+     * This defines the spatial geometry of the Lines object in a 3D coordinate system.
+     */
     std::vector< Polyline3d > lines_;
 };
 
+/**
+ * @struct Polygons
+ * @brief Data structure representing polygon geometry for a specific type of object.
+ *
+ * This structure defines a Polygons object which represents the polygon geometry of a specific
+ * object type. Each Polygons object is defined by its unique identifier (ID), the parent object's ID,
+ * and a collection of 3D polygons.
+ */
 struct Polygons
 {
+    /**
+     * @typedef Ptr
+     * @brief Defines a shared pointer to a constant Polygons object.
+     */
     using Ptr = std::shared_ptr< const Polygons >;
+
+    /**
+     * @typedef MutablePtr
+     * @brief Defines a shared pointer to a mutable Polygons object.
+     */
     using MutablePtr = std::shared_ptr< Polygons >;
 
+    /**
+     * @brief The ID of the Polygons object.
+     *
+     * This is the unique identifier of the Polygons object.
+     */
     Id id_;
+
+    /**
+     * @brief The ID of the parent object.
+     *
+     * This is the unique identifier of the parent object that the Polygons object is associated with.
+     */
     Id parent_id_;
+
+    /**
+     * @brief The collection of 3D polygons of the Polygons object.
+     *
+     * This defines the spatial geometry of the Polygons object in a 3D coordinate system.
+     */
     std::vector< Polygon3d > polygons_;
 };
 
+/**
+ * @struct SinglePolygon
+ * @brief Data structure representing a single polygon geometry for a specific type of object.
+ *
+ * This structure defines a SinglePolygon object which represents a single polygon geometry of a specific
+ * object type. Each SinglePolygon object is defined by its unique identifier (ID), the parent object's ID,
+ * and a single 3D polygon.
+ */
 struct SinglePolygon
 {
+    /**
+     * @typedef Ptr
+     * @brief Defines a shared pointer to a constant SinglePolygon object.
+     */
     using Ptr = std::shared_ptr< const SinglePolygon >;
+
+    /**
+     * @typedef MutablePtr
+     * @brief Defines a shared pointer to a mutable SinglePolygon object.
+     */
     using MutablePtr = std::shared_ptr< SinglePolygon >;
 
+    /**
+     * @brief The ID of the SinglePolygon object.
+     *
+     * This is the unique identifier of the SinglePolygon object.
+     */
     Id id_;
+
+    /**
+     * @brief The ID of the parent object.
+     *
+     * This is the unique identifier of the parent object that the SinglePolygon object is associated with.
+     */
     Id parent_id_;
 
+    /**
+     * @brief The 3D polygon of the SinglePolygon object.
+     *
+     * This defines the spatial geometry of the SinglePolygon object in a 3D coordinate system.
+     */
     Polygon3d polygon_;
 };
 

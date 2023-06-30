@@ -71,7 +71,7 @@ DownloadPartition( const LayerClient& client, const fs::path& dst_dir, const Par
         std::cerr << "cannot open: " << partition_path << std::endl;
     }
 
-    client.WriteData( metadata.data_handle_, tile_stream );
+    client.GetDataHandle( metadata.data_handle_, tile_stream );
     tile_stream.close( );
 
     if ( !IsPartitionExist( dst_dir, metadata ) )

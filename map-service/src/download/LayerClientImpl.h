@@ -22,7 +22,7 @@ public:
 
     model::Layer GetMetadata( ) const;
     model::Partition GetPartitionMetadata( const PartitionId& id ) const;
-    void WriteData( const DataHandle& data_handle, std::ostream& out ) const;
+    void GetDataHandle( const DataHandle& data_handle, std::ostream& out ) const;
     std::vector< model::Partition > GetDifference( const Version& from_version ) const;
     std::vector< model::Partition > GetAllPartitionsMetadata( ) const;
 

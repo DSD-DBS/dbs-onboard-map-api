@@ -109,7 +109,7 @@ LayerClientImpl::GetPartitionMetadata( const PartitionId& id ) const
     return DeserialisePartition( doc );
 }
 
-void LayerClientImpl::WriteData( const DataHandle& data_handle, std::ostream& out ) const
+void LayerClientImpl::GetDataHandle( const DataHandle& data_handle, std::ostream& out ) const
 {
     const auto url = boost::format( "https://%1%/blob/catalogs/%2%/layers/%3%/data/%4%?catalogVersion=%5%" ) % settings_->host_ % catalog_name_ % layer_name_ % data_handle % catalog_version_;
     http_client_->GetUri( url.str( ), out );
