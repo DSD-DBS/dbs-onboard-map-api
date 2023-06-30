@@ -4,10 +4,10 @@
  */
 
 #pragma once
-#include <map-service/download/Types.h>
+#include <map-service/download/model/Layer.h>
+#include <map-service/download/model/Partition.h>
 
 #include <memory>
-#include <future>
 
 namespace map_service
 {
@@ -23,11 +23,11 @@ public:
     LayerClient( const std::string& catalog_name, const std::string& layer_name,
         Version catalog_version, const ClientSettings& settings );
 
-    LayerResponse GetMetadata( ) const;
-    PartitionResponse GetPartitionMetadata( const PartitionId& id ) const;
+    model::Layer GetMetadata( ) const;
+    model::Partition GetPartitionMetadata( const PartitionId& id ) const;
     void WriteData( const DataHandle& data_handle, std::ostream& out ) const;
-    PartitionListResponse GetDifference( const Version& from_version ) const;
-    PartitionListResponse GetAllPartitionsMetadata( ) const;
+    std::vector< model::Partition > GetDifference( const Version& from_version ) const;
+    std::vector< model::Partition > GetAllPartitionsMetadata( ) const;
 
 private:
     std::shared_ptr< LayerClientImpl > impl_;

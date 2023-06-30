@@ -4,9 +4,7 @@
  */
 
 #pragma once
-#include <map-service/download/Response.h>
 #include <rapidjson/document.h>
-
 #include <memory>
 
 namespace map_service

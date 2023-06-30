@@ -17,13 +17,13 @@ LayerClient::LayerClient( const std::string& catalog_name, const std::string& la
 {
 }
 
-LayerResponse
+model::Layer
 LayerClient::GetMetadata( ) const
 {
     return impl_->GetMetadata( );
 }
 
-PartitionResponse
+model::Partition
 LayerClient::GetPartitionMetadata( const PartitionId& id ) const
 {
     return impl_->GetPartitionMetadata( id );
@@ -35,13 +35,13 @@ LayerClient::WriteData( const DataHandle& data_handle, std::ostream& out ) const
     impl_->WriteData( data_handle, out );
 }
 
-PartitionListResponse
+std::vector< model::Partition >
 LayerClient::GetDifference( const map_service::Version& from_version ) const
 {
     return impl_->GetDifference( from_version );
 }
 
-PartitionListResponse
+std::vector< model::Partition >
 LayerClient::GetAllPartitionsMetadata( ) const
 {
     return impl_->GetAllPartitionsMetadata( );

@@ -5,7 +5,6 @@
 
 #pragma once
 #include <map-service/CommonTypes.h>
-#include <map-service/download/Response.h>
 
 namespace map_service
 {

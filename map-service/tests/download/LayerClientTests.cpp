@@ -76,17 +76,16 @@ TEST( LayerClient, DISABLED_GetMetadata )
     auto response = client.GetMetadata( );
 
     // Assert
-    const auto& content = response.content_;
-    ASSERT_EQ( content.catalogId_, cfg.catalog_ );
-    ASSERT_EQ( content.layerId_, "rca-topology" );
-    ASSERT_FALSE( content.zoom_levels_.empty( ) );
-    ASSERT_EQ( content.zoom_levels_.front( ), 12 );
-    ASSERT_EQ( content.schema_name_, "org.db.schema.rca.topology.v2.BaseLayerTile" );
+    ASSERT_EQ( response.catalogId_, cfg.catalog_ );
+    ASSERT_EQ( response.layerId_, "rca-topology" );
+    ASSERT_FALSE( response.zoom_levels_.empty( ) );
+    ASSERT_EQ( response.zoom_levels_.front( ), 12 );
+    ASSERT_EQ( response.schema_name_, "org.db.schema.rca.topology.v2.BaseLayerTile" );
     // ASSERT_EQ( response.content_.partitioning_; HereTiling
-    ASSERT_EQ( content.content_type_, "application/x-protobuf" );
-    ASSERT_EQ( content.content_encoding_, "none" );
+    ASSERT_EQ( response.content_type_, "application/x-protobuf" );
+    ASSERT_EQ( response.content_encoding_, "none" );
     // ASSERT_EQ( response.content_.modificationDate
-    ASSERT_NE( content.description_, "" );
+    ASSERT_NE( response.description_, "" );
 }
 
 TEST( LayerClient, DISABLED_GetPartitionMetadata )
@@ -99,16 +98,13 @@ TEST( LayerClient, DISABLED_GetPartitionMetadata )
     auto response = client.GetPartitionMetadata( "23608580" );
 
     // Assert
-
-    const auto& content = response.content_;
-
-    ASSERT_EQ( content.catalog_id_, cfg.catalog_ );
-    ASSERT_GT( content.catalog_version_, 0 );
-    ASSERT_EQ( content.id_, "23608580" );
-    ASSERT_GT( content.data_size_, 0 );
-    ASSERT_NE( content.check_sum_, 0 );
-    ASSERT_GT( content.modification_date_, 1648824006 );
-    ASSERT_NE( content.data_handle_, "" );
+    ASSERT_EQ( response.catalog_id_, cfg.catalog_ );
+    ASSERT_GT( response.catalog_version_, 0 );
+    ASSERT_EQ( response.id_, "23608580" );
+    ASSERT_GT( response.data_size_, 0 );
+    ASSERT_NE( response.check_sum_, 0 );
+    ASSERT_GT( response.modification_date_, 1648824006 );
+    ASSERT_NE( response.data_handle_, "" );
 }
 
 TEST( LayerClient, DISABLED_WriteData )
@@ -122,7 +118,7 @@ TEST( LayerClient, DISABLED_WriteData )
     std::stringstream ss;
 
     // Act
-    client.WriteData( response_meta.content_.data_handle_, ss );
+    client.WriteData( response_meta.data_handle_, ss );
 
     // Assert
     ASSERT_FALSE( ss.str( ).empty( ) );
@@ -139,8 +135,7 @@ TEST( LayerClient, DISABLED_GetDifference )
     const auto response = client.GetDifference( 1 );
 
     // Assert
-    const auto& content = response.content_;
-    ASSERT_FALSE( content.empty( ) );
+    ASSERT_FALSE( response.empty( ) );
 }
 
 TEST( LayerClient, DISABLED_GetAllPartitionsMetadata )
@@ -153,8 +148,7 @@ TEST( LayerClient, DISABLED_GetAllPartitionsMetadata )
     const auto response = client.GetAllPartitionsMetadata( );
 
     // Assert
-    const auto& content = response.content_;
-    ASSERT_FALSE( content.empty( ) );
+    ASSERT_FALSE( response.empty( ) );
 }
 
 TEST( LayerClient, DISABLED_CatalogVeresion )
@@ -168,7 +162,6 @@ TEST( LayerClient, DISABLED_CatalogVeresion )
     const auto response = client.GetPartitionMetadata( "23608580" );
 
     // Assert
-    const auto& content = response.content_;
-    ASSERT_GT( content.catalog_version_, 0 );
-    ASSERT_LE( content.catalog_version_, catalog_version );
+    ASSERT_GT( response.catalog_version_, 0 );
+    ASSERT_LE( response.catalog_version_, catalog_version );
 }

@@ -16,13 +16,13 @@ CatalogClient::CatalogClient( const std::string& catalog_name, const ClientSetti
 {
 }
 
-CatalogResponse
+model::Catalog
 CatalogClient::GetMetadata( Version version ) const
 {
     return impl_->GetMetadata( version );
 }
 
-Version
+map_service::Version
 CatalogClient::GetLatestVersion( ) const
 {
     return impl_->GetLatestVersion( );

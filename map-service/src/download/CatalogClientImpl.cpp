@@ -4,9 +4,8 @@
  */
 
 #include <download/CatalogClientImpl.h>
+#include <download/HttpClient.h>
 #include <map-service/download/ClientSettings.h>
-
-#include <utils/Serialization.h>
 
 #include <boost/format.hpp>
 
@@ -20,8 +19,9 @@ namespace serialization
 {
 using namespace map_service::download::model;
 
-template <>
-Catalog DeserialiseObject< Catalog >( const rapidjson::Value& doc )
+
+Catalog
+DeserialiseCatalog( const rapidjson::Value& doc )
 {
     Catalog result;
 
@@ -54,18 +54,26 @@ CatalogClientImpl::CatalogClientImpl( const std::string& catalog_name, const Cli
 
 CatalogClientImpl::~CatalogClientImpl( ) = default;
 
-CatalogResponse
+model::Catalog
 CatalogClientImpl::GetMetadata( Version version ) const
 {
     const auto url = boost::format( "https://%1%/catalogs/%2%?catalogVersion=%3%" ) % settings_->host_ % catalog_name_ % version;
-    return GetObjectFromUri< model::Catalog >( *http_client_, url.str( ) );
+
+    rapidjson::Document doc;
+    http_client_->GetUri( url.str( ), doc );
+
+    return DeserialiseCatalog( doc );
 }
 
-Version
+map_service::Version
 CatalogClientImpl::GetLatestVersion( ) const
 {
     const auto url = boost::format( "https://%1%/catalogs/%2%" ) % settings_->host_ % catalog_name_;
-    return GetObjectFromUri< model::Catalog >( *http_client_, url.str( ) ).content_.latest_version_;
+
+    rapidjson::Document doc;
+    http_client_->GetUri( url.str( ), doc );
+
+    return DeserialiseCatalog( doc ).latest_version_;
 
 }
 } // namespace download

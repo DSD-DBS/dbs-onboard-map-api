@@ -4,9 +4,8 @@
  */
 
 #include <download/LayerClientImpl.h>
+#include <download/HttpClient.h>
 #include <map-service/download/ClientSettings.h>
-
-#include <utils/Serialization.h>
 
 #include <boost/format.hpp>
 
@@ -18,8 +17,8 @@ namespace serialization
 {
 using namespace map_service::download::model;
 
-template <>
-Partition DeserialiseObject< Partition >( const rapidjson::Value& doc )
+
+Partition DeserialisePartition( const rapidjson::Value& doc )
 {
     Partition result;
     result.catalog_id_ = doc[ "catalogId" ].GetString( );
@@ -41,20 +40,20 @@ Partition DeserialiseObject< Partition >( const rapidjson::Value& doc )
     return result;
 }
 
-template <>
-std::vector< Partition > DeserialiseObject< std::vector< Partition > >( const rapidjson::Value& doc )
+
+std::vector< Partition >
+DeserialisePartitionsList( const rapidjson::Value& doc )
 {
     std::vector< Partition > result;
 
     for ( const auto& metadata : doc[ "blobs" ].GetArray( ) )
     {
-        result.emplace_back( DeserialiseObject< Partition >( metadata ) );
+        result.emplace_back( DeserialisePartition( metadata ) );
     }
     return result;
 }
 
-template <>
-Layer DeserialiseObject< Layer >( const rapidjson::Value& doc )
+Layer DeserialiseLayer( const rapidjson::Value& doc )
 {
     Layer result;
     result.catalogId_ = doc[ "catalogId" ].GetString( );
@@ -88,39 +87,54 @@ LayerClientImpl::LayerClientImpl( std::string catalog_name, std::string layer_na
 {
 }
 
-LayerResponse
+model::Layer
 LayerClientImpl::GetMetadata( ) const
 {
     const auto url = boost::format( "https://%1%/catalogs/%2%/layers/%3%?catalogVersion=%4%" ) % settings_->host_ % catalog_name_ % layer_name_ % catalog_version_;
-    return GetObjectFromUri< model::Layer >( *http_client_, url.str( ) );
+
+    rapidjson::Document doc;
+    http_client_->GetUri( url.str( ), doc );
+
+    return DeserialiseLayer( doc );
 }
 
-PartitionResponse
+model::Partition
 LayerClientImpl::GetPartitionMetadata( const PartitionId& id ) const
 {
     const auto url = boost::format( "https://%1%/catalogs/%2%/layers/%3%/blobs/%4%?catalogVersion=%5%" ) % settings_->host_ % catalog_name_ % layer_name_ % id % catalog_version_;
-    return GetObjectFromUri< model::Partition >( *http_client_, url.str( ) );
+
+    rapidjson::Document doc;
+    http_client_->GetUri( url.str( ), doc );
+
+    return DeserialisePartition( doc );
 }
 
-void
-LayerClientImpl::WriteData( const DataHandle& data_handle, std::ostream& out ) const
+void LayerClientImpl::WriteData( const DataHandle& data_handle, std::ostream& out ) const
 {
     const auto url = boost::format( "https://%1%/blob/catalogs/%2%/layers/%3%/data/%4%?catalogVersion=%5%" ) % settings_->host_ % catalog_name_ % layer_name_ % data_handle % catalog_version_;
     http_client_->GetUri( url.str( ), out );
 }
 
-PartitionListResponse
+std::vector< model::Partition >
 LayerClientImpl::GetDifference( const map_service::Version& from_versoin ) const
 {
     const auto url = boost::format( "https://%1%/catalogs/%2%/layers/%3%/changes?fromCatalogVersion=%4%&toCatalogVersion=%5%" ) % settings_->host_ % catalog_name_ % layer_name_ % from_versoin % catalog_version_;
-    return GetObjectFromUri< std::vector< model::Partition > >( *http_client_, url.str( ) );
+
+    rapidjson::Document doc;
+    http_client_->GetUri( url.str( ), doc );
+
+    return DeserialisePartitionsList( doc );
 }
 
-PartitionListResponse
+std::vector< model::Partition >
 LayerClientImpl::GetAllPartitionsMetadata( ) const
 {
     const auto url = boost::format( "https://%1%/catalogs/%2%/layers/%3%/blobs?catalogVersion=%4%" ) % settings_->host_ % catalog_name_ % layer_name_ % catalog_version_;
-    return GetObjectFromUri< std::vector< model::Partition > >( *http_client_, url.str( ) );
+
+    rapidjson::Document doc;
+    http_client_->GetUri( url.str( ), doc );
+
+    return DeserialisePartitionsList( doc );
 }
 
 } // namespace download
