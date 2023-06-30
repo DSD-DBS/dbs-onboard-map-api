@@ -43,7 +43,6 @@ struct Error
     CURLcode curl_code_ = CURLE_OK; /**< CURL error code providing additional information about CURL errors */
     long http_code_ = 200; /**< HTTP response code providing additional information about HTTP errors */
 };
-
 } // namespace download
 
 /**
