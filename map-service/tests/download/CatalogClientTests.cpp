@@ -69,20 +69,14 @@ TEST( CatalogClientTest, DISABLED_GetMetadata )
     auto response = client.GetMetadata( catalog_version );
 
     // Assert
-    // const auto& error = response.error_;
-    // ASSERT_EQ( error.error_code_, ErrorCode::Success );
-    // ASSERT_EQ( error.curl_code_, CURLE_OK );
-
-    const auto& content = response.content_;
-
-    ASSERT_EQ( content.id_, cfg.catalog_ );
+    ASSERT_EQ( response.id_, cfg.catalog_ );
     // TODO: Currently, catalog.version_ always contains latest_version_
     // Catalog.version_ should be the version form request.
-    ASSERT_GT( content.version_, 0 );
-    ASSERT_GT( content.latest_version_, 0 );
-    ASSERT_GT( content.modification_date_, 0 );
-    ASSERT_FALSE( content.description_.empty( ) );
-    ASSERT_FALSE( content.layers_.empty( ) );
+    ASSERT_GT( response.version_, 0 );
+    ASSERT_GT( response.latest_version_, 0 );
+    ASSERT_GT( response.modification_date_, 0 );
+    ASSERT_FALSE( response.description_.empty( ) );
+    ASSERT_FALSE( response.layers_.empty( ) );
 
     std::unordered_set< std::string > layers = {
         "rca-topology",
@@ -94,6 +88,6 @@ TEST( CatalogClientTest, DISABLED_GetMetadata )
 
     for ( const auto& layer : layers )
     {
-        ASSERT_NE( std::find( content.layers_.cbegin( ), content.layers_.cend( ), layer ), content.layers_.cend( ) );
+        ASSERT_NE( std::find( response.layers_.cbegin( ), response.layers_.cend( ), layer ), response.layers_.cend( ) );
     }
 }

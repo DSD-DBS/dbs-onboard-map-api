@@ -4,8 +4,7 @@
  */
 
 #pragma once
-#include <map-service/download/Types.h>
-
+#include <map-service/download/model/Catalog.h>
 #include <memory>
 
 namespace map_service
@@ -20,8 +19,8 @@ class CatalogClient
 public:
     CatalogClient( const std::string& catalog_name, const ClientSettings& settings );
 
-    CatalogResponse GetMetadata( map_service::Version version ) const;
-    Version GetLatestVersion( ) const;
+    model::Catalog GetMetadata( map_service::Version version ) const;
+    map_service::Version GetLatestVersion( ) const;
 
 private:
     std::shared_ptr< CatalogClientImpl > impl_;

@@ -5,7 +5,7 @@
 
 #pragma once
 #include <map-service/model/ConsolidatedLayers.h>
-#include <map-service/download/Response.h>
+#include <curlpp/cURLpp.hpp>
 
 namespace map_service
 {

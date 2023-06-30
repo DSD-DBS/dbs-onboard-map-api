@@ -127,7 +127,7 @@ void MapUpdater::UpdateLocalMap( const Version& to_version ) const
 
     const auto response = catalog_client.GetMetadata( to_version );
 
-    const auto& layer_list = response.content_.layers_;
+    const auto& layer_list = response.layers_;
     for ( const auto& layer : layer_list )
     {
         UpdateLayer( layer, to_version );
@@ -163,7 +163,7 @@ void MapUpdater::UpdateLayer( const std::string& layer_name, const Version& to_v
     LayerClient client( config_->catalog_, layer_name, to_version, config_->http_client_settings_ );
 
     const auto response = fs::exists( src_path ) && from_version < to_version ? client.GetDifference( from_version ) : client.GetAllPartitionsMetadata( );
-    for ( const auto& partition_meta : response.content_ )
+    for ( const auto& partition_meta : response )
     {
         if ( IsPartitionExist( dst_path, partition_meta ) )
         {
@@ -175,8 +175,8 @@ void MapUpdater::UpdateLayer( const std::string& layer_name, const Version& to_v
 
     const auto all_partitions_response = client.GetAllPartitionsMetadata( );
 
-    PartitionListResponse::Content old_tiles;
-    boost::range::set_difference( all_partitions_response.content_, response.content_, std::back_inserter( old_tiles ), less );
+    std::vector< model::Partition > old_tiles;
+    boost::range::set_difference( all_partitions_response, response, std::back_inserter( old_tiles ), less );
 
     for ( const auto& partition_meta : old_tiles )
     {

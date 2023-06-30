@@ -53,7 +53,7 @@ void CheckLayer( const MapServiceConfig& cfg, const std::string& layer_name, con
     utils::MapFileSystem map_fs( cfg.map_local_path_, cfg.catalog_ );
 
     const auto response = client.GetAllPartitionsMetadata( );
-    for ( const auto& meta : response.content_ )
+    for ( const auto& meta : response )
     {
         ASSERT_TRUE( fs::exists( map_fs.GetCurrentMapPartitionPath( layer_name, meta.id_ ) ) );
         ASSERT_TRUE( fs::exists( map_fs.GetPartitionPath( version, layer_name, meta.id_ ) ) );
