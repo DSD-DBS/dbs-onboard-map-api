@@ -111,6 +111,35 @@ TEST( MapService, GetLayersForCorridor )
     EXPECT_THAT( result->partition_ids_, ::testing::UnorderedElementsAreArray< std::string >( { "23608592", "23608581" } ) );
 }
 
+TEST( MapService, GetLayersForTiles )
+{
+    // Arrange
+    MapService service( TestConfig( ) );
+
+    std::vector< PartitionId > tile_ids =
+    {
+        "23608592",
+        "23608581",
+        "23608583", // does not exists
+    };
+
+    // Act
+    const auto result = service.GetLayersForTiles( tile_ids );
+
+    // Asserts
+    ASSERT_NE( result, nullptr );
+    ASSERT_NE( result->topology_, nullptr );
+    ASSERT_NE( result->topology_->edges_.size( ), 0 );
+    ASSERT_NE( result->topology_->nodes_.size( ), 0 );
+
+
+    ASSERT_NE( result->landmarks_.size( ), 0 );
+    ASSERT_NE( result->landmarks_.front( ), nullptr );
+
+    ASSERT_NE( result->zones_.size( ), 0 );
+    ASSERT_NE( result->zones_.front( ), nullptr );
+}
+
 
 TEST( MapService, GetLayersForRectangle )
 {
