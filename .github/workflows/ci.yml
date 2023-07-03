@@ -59,9 +59,9 @@ jobs:
         path: ${{github.workspace}}/build/coverage/*
 
     - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'
       uses: JamesIves/github-pages-deploy-action@4.1.5
       with:
-        # branch: gh-pages
-        # branch: main
         folder: build/docs/html
         branch: gh-pages
+
