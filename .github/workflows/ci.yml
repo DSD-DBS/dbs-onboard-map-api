@@ -11,6 +11,9 @@ on:
     branches:
       - '**'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,9 +27,10 @@ jobs:
       run: |
         sudo apt-get update -y
         sudo apt-get install -y cmake
-        sudo apt-get install gcovr -y
+        sudo apt-get install -y gcovr
         sudo apt-get install libgmock-dev libgtest-dev
         sudo apt-get install -y rapidjson-dev
+        sudo apt-get install -y doxygen
         sudo apt-get install libcurl4-openssl-dev protobuf-compiler libprotobuf-dev libboost-all-dev -y --no-install-recommends --fix-missing
 
     - name: Build Map-Service sources
@@ -53,3 +57,11 @@ jobs:
       with:
         name: coverage
         path: ${{github.workspace}}/build/coverage/*
+
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      uses: JamesIves/github-pages-deploy-action@4.1.5
+      with:
+        folder: build/docs/html
+        branch: gh-pages
+
