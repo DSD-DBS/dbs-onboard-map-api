@@ -34,3 +34,4 @@ IF( NOT ${YOCTO_BUILD})
 ENDIF()
 
 add_subdirectory(map-service)
+add_subdirectory(docs)
