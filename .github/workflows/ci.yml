@@ -59,7 +59,7 @@ jobs:
         path: ${{github.workspace}}/build/coverage/*
 
     - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@4
+      uses: JamesIves/github-pages-deploy-action@4.1.5
       with:
         # branch: gh-pages
         # branch: main
