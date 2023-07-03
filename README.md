@@ -16,7 +16,7 @@ In addition to its onboard-centric design, it provides the capacity to update ma
 ## Licenses
 This project is compliant with the <a href="https://git.fsfe.org/reuse/docs/src/commit/d173a27231a36e1a2a3af07421f5e557ae0fec46/spec.md" target="_blank">REUSE Specification Version 3.0</a>.
 
-Copyright DB Netz AG, licensed under Apache 2.0 (see full text in <a href="https://github.com/DSD-DBS/dbs-onboard-map-api/blob/main/LICENSES/Apache-2.0.txt" target="_blank"> Apache 2.0</a>)
+Copyright DB Netz AG, licensed under Apache 2.0 (see full text in <a href="https://github.com/DSD-DBS/dbs-onboard-map-api/blob/main/LICENSE" target="_blank"> Apache 2.0</a>)
 
 Dot-files, cmake and yaml filse are licensed under CC0-1.0 (see full text in
  <a href="https://github.com/DSD-DBS/dbs-onboard-map-api/blob/main/LICENSES/CC0-1.0.txt" target="_blank">CC0-1.0</a>)
