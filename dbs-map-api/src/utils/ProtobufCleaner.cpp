@@ -6,7 +6,7 @@
 #include "ProtobufCleaner.h"
 #include "org/db/schema/rca/topology/v2/base_layer.pb.h"
 
-namespace map_service
+namespace dbs_map
 {
 namespace utils
 {
@@ -21,4 +21,4 @@ ProtobufCleaner::~ProtobufCleaner( )
 }
 
 } // namespace utils
-} // namespace map_service
+} // namespace dbs_map

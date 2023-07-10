@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 
-namespace map_service
+namespace dbs_map
 {
 namespace download
 {
@@ -97,4 +97,4 @@ struct Layer
 
 } // namespace model
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map

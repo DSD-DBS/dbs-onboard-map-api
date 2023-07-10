@@ -15,7 +15,7 @@
 #include <memory>
 #include <vector>
 
-namespace map_service
+namespace dbs_map
 {
 
 /**
@@ -98,4 +98,4 @@ using GeoRectangle = boost::geometry::model::box< GeoCoordinates >;
  */
 using GeoRectangle3d = boost::geometry::model::box< GeoCoordinates3d >;
 
-} // namespace map_service
+} // namespace dbs_map

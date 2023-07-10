@@ -9,7 +9,7 @@
 #include <unordered_set>
 
 
-namespace map_service
+namespace dbs_map
 {
 namespace utils
 {
@@ -102,4 +102,4 @@ const auto get_polygon_3d = []( const auto& src )
 
 } // namespace geo
 } // namespace utils
-} // namespace map_service
+} // namespace dbs_map

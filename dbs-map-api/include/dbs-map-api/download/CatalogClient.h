@@ -7,7 +7,7 @@
 #include <dbs-map-api/download/model/Catalog.h>
 #include <memory>
 
-namespace map_service
+namespace dbs_map
 {
 namespace download
 {
@@ -40,7 +40,7 @@ public:
      * @param[in] version The version of the catalog for which metadata is needed.
      * @return The Catalog object that contains the requested metadata.
      */
-    model::Catalog GetMetadata( map_service::Version version ) const;
+    model::Catalog GetMetadata( Version version ) const;
 
     /**
      * @brief Retrieves the latest version of the catalog.
@@ -49,7 +49,7 @@ public:
      *
      * @return The most recent version of the catalog.
      */
-    map_service::Version GetLatestVersion( ) const;
+    Version GetLatestVersion( ) const;
 
 private:
     /**
@@ -62,4 +62,4 @@ private:
 };
 
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map

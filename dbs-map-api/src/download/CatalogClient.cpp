@@ -6,7 +6,7 @@
 #include <dbs-map-api/download/CatalogClient.h>
 #include <download/CatalogClientImpl.h>
 
-namespace map_service
+namespace dbs_map
 {
 namespace download
 {
@@ -22,10 +22,10 @@ CatalogClient::GetMetadata( Version version ) const
     return impl_->GetMetadata( version );
 }
 
-map_service::Version
+Version
 CatalogClient::GetLatestVersion( ) const
 {
     return impl_->GetLatestVersion( );
 }
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map

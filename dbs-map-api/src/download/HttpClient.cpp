@@ -14,7 +14,7 @@
 
 #include <sstream>
 
-namespace map_service
+namespace dbs_map
 {
 namespace download
 {
@@ -89,4 +89,4 @@ void HttpClient::GetUri( const std::string& url, rapidjson::Document& out ) cons
 }
 
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map

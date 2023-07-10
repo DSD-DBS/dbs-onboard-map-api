@@ -17,8 +17,8 @@
 
 namespace
 {
-using namespace map_service;
-using namespace map_service::model;
+using namespace dbs_map;
+using namespace dbs_map::model;
 
 MapServiceConfig TestConfig( )
 {
@@ -376,7 +376,7 @@ TEST( MapService, Landmarks )
 TEST( MapService, GetZones )
 {
     // Arrange
-    using namespace map_service;
+    using namespace dbs_map;
     using namespace model;
 
     MapService service( TestConfig( ) );

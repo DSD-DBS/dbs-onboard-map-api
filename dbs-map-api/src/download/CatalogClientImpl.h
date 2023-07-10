@@ -6,7 +6,7 @@
 #pragma once
 #include <dbs-map-api/download/model/Catalog.h>
 
-namespace map_service
+namespace dbs_map
 {
 namespace download
 {
@@ -28,4 +28,4 @@ private:
     std::shared_ptr< download::HttpClient > http_client_;
 };
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map

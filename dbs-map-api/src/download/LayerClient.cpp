@@ -6,7 +6,7 @@
 #include <dbs-map-api/download/LayerClient.h>
 #include <download/LayerClientImpl.h>
 
-namespace map_service
+namespace dbs_map
 {
 namespace download
 {
@@ -36,7 +36,7 @@ LayerClient::GetDataHandle( const DataHandle& data_handle, std::ostream& out ) c
 }
 
 std::vector< model::Partition >
-LayerClient::GetDifference( const map_service::Version& from_version ) const
+LayerClient::GetDifference( const Version& from_version ) const
 {
     return impl_->GetDifference( from_version );
 }
@@ -47,4 +47,4 @@ LayerClient::GetAllPartitionsMetadata( ) const
     return impl_->GetAllPartitionsMetadata( );
 }
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map

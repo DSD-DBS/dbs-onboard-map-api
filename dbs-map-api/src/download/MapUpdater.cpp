@@ -19,16 +19,16 @@
 #include <iostream>
 #include <fstream>
 
-namespace map_service
+namespace dbs_map
 {
 namespace download
 {
 namespace
 {
 namespace fs = std::filesystem;
-using Partition = map_service::download::model::Partition;
-using LayerClient = map_service::download::LayerClient;
-using MapFileSystem = map_service::utils::MapFileSystem;
+using Partition = model::Partition;
+using LayerClient = download::LayerClient;
+using MapFileSystem = utils::MapFileSystem;
 
 bool IsPartitionExist( const fs::path& dir, const Partition& metadata )
 {
@@ -151,7 +151,7 @@ void MapUpdater::UpdateLocalMap( const Version& to_version ) const
 
 void MapUpdater::UpdateLayer( const std::string& layer_name, const Version& to_version ) const
 {
-    using namespace map_service::download;
+    using namespace dbs_map::download;
     using namespace utils;
 
     const auto from_version = GetLocalMapVersion( );
@@ -197,4 +197,4 @@ void MapUpdater::UpdateLayer( const std::string& layer_name, const Version& to_v
     }
 }
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map

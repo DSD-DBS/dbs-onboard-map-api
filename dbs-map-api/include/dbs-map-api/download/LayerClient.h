@@ -9,7 +9,7 @@
 
 #include <memory>
 
-namespace map_service
+namespace dbs_map
 {
 namespace download
 {
@@ -95,4 +95,4 @@ private:
 };
 
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map

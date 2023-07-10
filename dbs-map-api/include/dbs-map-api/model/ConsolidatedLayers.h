@@ -8,7 +8,7 @@
 #include <dbs-map-api/model/Landmarks.h>
 #include <dbs-map-api/model/Zone.h>
 
-namespace map_service
+namespace dbs_map
 {
 namespace model
 {
@@ -66,4 +66,4 @@ struct ConsolidatedLayers
 };
 
 } // namespace model
-} // namespace map_service
+} // namespace dbs_map

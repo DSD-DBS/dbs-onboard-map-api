@@ -8,7 +8,7 @@
 #include <dbs-map-api/model/RcaTopology.h>
 #include <memory>
 
-namespace map_service
+namespace dbs_map
 {
 
 struct MapServiceConfig;
@@ -32,4 +32,4 @@ private:
 };
 
 } // namespace decoder
-} // namespace map_service
+} // namespace dbs_map

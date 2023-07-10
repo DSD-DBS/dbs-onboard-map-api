@@ -11,7 +11,7 @@
 // #include "org/db/schema/f/map/landmarks/geometry.pb.h"
 #include "org/db/schema/risk/assessment/zones/zones.pb.h"
 
-namespace map_service
+namespace dbs_map
 {
 namespace decoder
 {
@@ -88,4 +88,4 @@ ZoneDecoder::ConstructLayer( const std::vector< PartitionId >& tile_ids ) const
     return result;
 }
 } // namespace decoder
-} // namespace map_service
+} // namespace dbs_map

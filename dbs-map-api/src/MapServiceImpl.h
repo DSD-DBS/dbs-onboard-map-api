@@ -7,7 +7,7 @@
 #include <dbs-map-api/model/ConsolidatedLayers.h>
 #include <dbs-map-api/MapService.h>
 
-namespace map_service
+namespace dbs_map
 {
 struct MapServiceConfig;
 
@@ -56,4 +56,4 @@ private:
     std::shared_ptr< utils::MapFileSystem > map_fs_;
     std::shared_ptr< download::MapUpdater > map_updater_;
 };
-} // namespace map_service
+} // namespace dbs_map

@@ -6,7 +6,7 @@
 #pragma once
 #include <dbs-map-api/CommonTypes.h>
 
-namespace map_service
+namespace dbs_map
 {
 namespace decoder
 {
@@ -20,4 +20,4 @@ public:
 };
 
 } // namespace decoder
-} // namespace map_service
+} // namespace dbs_map

@@ -7,7 +7,7 @@
 #include <dbs-map-api/CommonTypes.h>
 #include <variant>
 
-namespace map_service
+namespace dbs_map
 {
 namespace model
 {
@@ -598,4 +598,4 @@ using VendingMachineBody = Body< VendingMachineObject >;
 
 } // namespace simplified
 } // namespace model
-} // namespace map_service
+} // namespace dbs_map

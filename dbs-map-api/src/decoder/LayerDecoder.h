@@ -13,7 +13,7 @@
 #include <fstream>
 #include <iostream>
 
-namespace map_service
+namespace dbs_map
 {
 struct MapServiceConfig;
 
@@ -84,4 +84,4 @@ private:
     const utils::MapFileSystem map_fs;
 };
 } // namespace decoder
-} // namespace map_service
+} // namespace dbs_map

@@ -9,13 +9,13 @@
 
 #include <boost/format.hpp>
 
-namespace map_service
+namespace dbs_map
 {
 namespace utils
 {
 namespace serialization
 {
-using namespace map_service::download::model;
+using namespace dbs_map::download::model;
 
 
 Partition DeserialisePartition( const rapidjson::Value& doc )
@@ -75,7 +75,7 @@ Layer DeserialiseLayer( const rapidjson::Value& doc )
 
 namespace download
 {
-using namespace map_service::utils::serialization;
+using namespace dbs_map::utils::serialization;
 
 LayerClientImpl::LayerClientImpl( std::string catalog_name, std::string layer_name,
     Version catalog_version, const ClientSettings& settings )
@@ -116,7 +116,7 @@ void LayerClientImpl::GetDataHandle( const DataHandle& data_handle, std::ostream
 }
 
 std::vector< model::Partition >
-LayerClientImpl::GetDifference( const map_service::Version& from_versoin ) const
+LayerClientImpl::GetDifference( const Version& from_versoin ) const
 {
     const auto url = boost::format( "https://%1%/catalogs/%2%/layers/%3%/changes?fromCatalogVersion=%4%&toCatalogVersion=%5%" ) % settings_->host_ % catalog_name_ % layer_name_ % from_versoin % catalog_version_;
 
@@ -138,4 +138,4 @@ LayerClientImpl::GetAllPartitionsMetadata( ) const
 }
 
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map

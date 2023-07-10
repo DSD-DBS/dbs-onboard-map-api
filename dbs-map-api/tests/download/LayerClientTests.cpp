@@ -14,8 +14,8 @@
 
 namespace
 {
-using namespace map_service;
-using namespace map_service::download;
+using namespace dbs_map;
+using namespace dbs_map::download;
 
 MapServiceConfig GetTestConfig( )
 {

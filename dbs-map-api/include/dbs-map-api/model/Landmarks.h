@@ -8,7 +8,7 @@
 #include <variant>
 #include "SimplifiedLandmarks.h"
 
-namespace map_service
+namespace dbs_map
 {
 namespace model
 {
@@ -121,4 +121,4 @@ struct Landmark
 };
 
 } // namespace model
-} // namespace map_service
+} // namespace dbs_map

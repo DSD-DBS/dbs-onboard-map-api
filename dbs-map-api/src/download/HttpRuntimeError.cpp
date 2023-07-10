@@ -5,7 +5,7 @@
 
 #include <dbs-map-api/download/HttpRuntimeError.h>
 
-namespace map_service
+namespace dbs_map
 {
 namespace download
 {
@@ -26,4 +26,4 @@ HttpRuntimeError::WhatCode( ) const throw( )
 }
 
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map

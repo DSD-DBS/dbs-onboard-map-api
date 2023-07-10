@@ -5,7 +5,7 @@
 
 #include <dbs-map-api/MapServiceConfig.h>
 
-namespace map_service
+namespace dbs_map
 {
 
 MapServiceConfig GetDefaultConfig( )
@@ -13,4 +13,4 @@ MapServiceConfig GetDefaultConfig( )
     return MapServiceConfig( );
 }
 
-} // namespace map_service
+} // namespace dbs_map

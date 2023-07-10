@@ -21,7 +21,7 @@
 #include <curlpp/Exception.hpp>
 #include <iostream>
 
-namespace map_service
+namespace dbs_map
 {
 using namespace decoder;
 
@@ -138,4 +138,4 @@ MapServiceImpl::UpdateMap( const Version& to_version ) const noexcept
         return { { ErrorCode::Unknown, msg } };
     }
 }
-} // namespace map_service
+} // namespace dbs_map

@@ -12,7 +12,7 @@
 #include "org/db/schema/rca/topology/v2/base_layer.pb.h"
 #include "org/db/schema/rca/centerline/v2/centerline_layer.pb.h"
 
-namespace map_service
+namespace dbs_map
 {
 namespace decoder
 {
@@ -226,4 +226,4 @@ RcaTopologyDecoder::ConstructLayer( const std::vector< PartitionId >& tile_ids )
     } );
 }
 } // namespace decoder
-} // namespace map_service
+} // namespace dbs_map

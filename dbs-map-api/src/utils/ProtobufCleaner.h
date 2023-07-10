@@ -5,7 +5,7 @@
 
 #pragma once
 
-namespace map_service
+namespace dbs_map
 {
 namespace utils
 {
@@ -16,4 +16,4 @@ struct ProtobufCleaner
 };
 
 } // namespace utils
-} // namespace map_service
+} // namespace dbs_map

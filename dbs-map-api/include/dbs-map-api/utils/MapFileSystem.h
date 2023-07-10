@@ -7,7 +7,7 @@
 #include <dbs-map-api/CommonTypes.h>
 #include <filesystem>
 
-namespace map_service
+namespace dbs_map
 {
 namespace utils
 {
@@ -104,4 +104,4 @@ private:
     std::string catalog_name_;
 };
 } // namespace utils
-} // namespace map_service
+} // namespace dbs_map

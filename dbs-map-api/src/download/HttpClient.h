@@ -7,7 +7,7 @@
 #include <rapidjson/document.h>
 #include <memory>
 
-namespace map_service
+namespace dbs_map
 {
 namespace download
 {
@@ -26,4 +26,4 @@ private:
     std::shared_ptr< ClientSettings > client_settings_;
 };
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map

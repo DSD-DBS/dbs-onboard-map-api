@@ -18,9 +18,9 @@
 
 namespace
 {
-using namespace map_service;
-using namespace map_service::model;
-using namespace map_service::download;
+using namespace dbs_map;
+using namespace dbs_map::model;
+using namespace dbs_map::download;
 
 namespace fs = std::filesystem;
 

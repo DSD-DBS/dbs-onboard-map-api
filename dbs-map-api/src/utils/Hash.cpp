@@ -8,7 +8,7 @@
 
 #include <fstream>
 
-namespace map_service
+namespace dbs_map
 {
 namespace utils
 {
@@ -36,4 +36,4 @@ std::int32_t FileHash_Murmur3_x86_32( const std::filesystem::path& path )
 
 } // namespace hash
 } // namespace utils
-} // namespace map_service
+} // namespace dbs_map

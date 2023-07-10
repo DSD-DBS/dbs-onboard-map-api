@@ -7,7 +7,7 @@
 #include <dbs-map-api/model/TrackNode.h>
 #include <dbs-map-api/model/TrackEdge.h>
 
-namespace map_service
+namespace dbs_map
 {
 namespace model
 {
@@ -51,4 +51,4 @@ struct RcaTopology
 };
 
 } // namespace model
-} // namespace map_service
+} // namespace dbs_map

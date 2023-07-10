@@ -7,7 +7,7 @@
 #include <dbs-map-api/CommonTypes.h>
 #include <vector>
 
-namespace map_service
+namespace dbs_map
 {
 namespace download
 {
@@ -35,14 +35,14 @@ struct Catalog
      *
      * This represents the version of the catalog. It is specified by the map service.
      */
-    map_service::Version version_;
+    Version version_;
 
     /**
      * @brief The latest version of the catalog.
      *
      * This represents the latest available version of the catalog. It is specified by the map service.
      */
-    map_service::Version latest_version_;
+    Version latest_version_;
 
     /**
      * @brief The modification date of the catalog.
@@ -69,4 +69,4 @@ struct Catalog
 
 } // namespace model
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map

@@ -7,7 +7,7 @@
 #include <dbs-map-api/CommonTypes.h>
 #include <dbs-map-api/model/TrackNode.h>
 
-namespace map_service
+namespace dbs_map
 {
 namespace model
 {
@@ -65,4 +65,4 @@ struct TrackEdge
 };
 
 } // namespace model
-} // namespace map_service
+} // namespace dbs_map

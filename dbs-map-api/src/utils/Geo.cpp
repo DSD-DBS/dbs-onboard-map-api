@@ -12,7 +12,7 @@
 
 #include <boost/geometry/algorithms/assign.hpp>
 
-namespace map_service
+namespace dbs_map
 {
 namespace utils
 {
@@ -20,14 +20,14 @@ namespace geo
 {
 namespace
 {
-inline olp::geo::GeoCoordinates ToOlp( const map_service::GeoCoordinates& in )
+inline olp::geo::GeoCoordinates ToOlp( const GeoCoordinates& in )
 {
     return olp::geo::GeoCoordinates::FromDegrees(
         in.get< 1 >( ),
         in.get< 0 >( ) );
 }
 
-inline olp::geo::GeoRectangle ToOlp( const map_service::GeoRectangle& in )
+inline olp::geo::GeoRectangle ToOlp( const GeoRectangle& in )
 {
     return olp::geo::GeoRectangle(
         ToOlp( in.min_corner( ) ),
@@ -70,4 +70,4 @@ ToTileIds( const GeoRectangle& box, std::uint32_t zoom_level )
 
 } // namespace geo
 } // namespace utils
-} // namespace map_service
+} // namespace dbs_map

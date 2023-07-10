@@ -5,7 +5,7 @@
 
 #include <dbs-map-api/download/ClientSettings.h>
 
-namespace map_service
+namespace dbs_map
 {
 namespace download
 {
@@ -25,4 +25,4 @@ ClientSettings GetDBClientForCISettings( )
 }
 
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map

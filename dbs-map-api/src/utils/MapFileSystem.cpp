@@ -5,7 +5,7 @@
 
 #include <dbs-map-api/utils/MapFileSystem.h>
 
-namespace map_service
+namespace dbs_map
 {
 namespace utils
 {
@@ -84,4 +84,4 @@ MapFileSystem::GetCurrentMapVersion( ) const
 }
 
 } // namespace utils
-} // namespace map_service
+} // namespace dbs_map

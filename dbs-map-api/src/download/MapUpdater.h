@@ -6,7 +6,7 @@
 #pragma once
 #include <dbs-map-api/CommonTypes.h>
 
-namespace map_service
+namespace dbs_map
 {
 struct MapServiceConfig;
 
@@ -36,4 +36,4 @@ private:
     std::shared_ptr< utils::MapFileSystem > map_fs_;
 };
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map

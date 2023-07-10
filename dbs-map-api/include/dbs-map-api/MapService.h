@@ -7,7 +7,7 @@
 #include <dbs-map-api/model/ConsolidatedLayers.h>
 #include <curlpp/cURLpp.hpp>
 
-namespace map_service
+namespace dbs_map
 {
 struct MapServiceConfig;
 class MapServiceImpl;
@@ -58,7 +58,7 @@ public:
     /**
      * @brief Alias for the map service download error type.
      */
-    using Error = map_service::download::Error;
+    using Error = dbs_map::download::Error;
 
     /**
      * @brief Constructs a MapService object with a given configuration.
@@ -162,4 +162,4 @@ private:
      */
     std::shared_ptr< MapServiceImpl > impl_;
 };
-} // namespace map_service
+} // namespace dbs_map

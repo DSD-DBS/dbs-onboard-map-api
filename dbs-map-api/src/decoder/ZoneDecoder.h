@@ -8,7 +8,7 @@
 #include <dbs-map-api/model/Zone.h>
 #include <vector>
 
-namespace map_service
+namespace dbs_map
 {
 struct MapServiceConfig;
 
@@ -30,4 +30,4 @@ private:
 };
 
 } // namespace decoder
-} // namespace map_service
+} // namespace dbs_map

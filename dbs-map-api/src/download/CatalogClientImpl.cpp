@@ -10,14 +10,14 @@
 #include <boost/format.hpp>
 
 
-namespace map_service
+namespace dbs_map
 {
 
 namespace utils
 {
 namespace serialization
 {
-using namespace map_service::download::model;
+using namespace dbs_map::download::model;
 
 
 Catalog
@@ -65,7 +65,7 @@ CatalogClientImpl::GetMetadata( Version version ) const
     return DeserialiseCatalog( doc );
 }
 
-map_service::Version
+Version
 CatalogClientImpl::GetLatestVersion( ) const
 {
     const auto url = boost::format( "https://%1%/catalogs/%2%" ) % settings_->host_ % catalog_name_;
@@ -77,4 +77,4 @@ CatalogClientImpl::GetLatestVersion( ) const
 
 }
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map

@@ -70,7 +70,7 @@ Run build script from the root folder.
 Request certain area
 
 ```cpp
-using namespace map_service;
+using namespace dbs_map;
 
 MapService service( GetDefaultConfig( ) );
 
@@ -84,7 +84,7 @@ const auto result = service.GetLayersForRectangle( box );
 Trigger incremental map update. It will update onboard map from current version to versoin 7
 
 ```cpp
-using namespace map_service;
+using namespace dbs_map;
 
 MapService service( GetDefaultConfig( ) );
 service.UpdateMap( 7 );

@@ -6,7 +6,7 @@
 #include "LayerDecoder.h"
 #include <dbs-map-api/MapServiceConfig.h>
 
-namespace map_service
+namespace dbs_map
 {
 namespace decoder
 {
@@ -19,4 +19,4 @@ LayerDecoder::LayerDecoder( const MapServiceConfig& config,
 }
 
 } // namespace decoder
-} // namespace map_service
+} // namespace dbs_map

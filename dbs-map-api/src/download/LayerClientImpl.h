@@ -7,7 +7,7 @@
 #include <dbs-map-api/download/model/Layer.h>
 #include <dbs-map-api/download/model/Partition.h>
 
-namespace map_service
+namespace dbs_map
 {
 namespace download
 {
@@ -35,4 +35,4 @@ private:
 };
 
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map

@@ -6,7 +6,7 @@
 #include <dbs-map-api/CommonTypes.h>
 #include <dbs-map-api/download/ClientSettings.h>
 
-namespace map_service
+namespace dbs_map
 {
 /**
  * @struct MapServiceConfig
@@ -85,4 +85,4 @@ struct MapServiceConfig
 MapServiceConfig GetDefaultConfig( );
 
 
-} // namespace map_service
+} // namespace dbs_map

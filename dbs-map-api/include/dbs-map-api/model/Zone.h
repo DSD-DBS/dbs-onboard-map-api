@@ -6,7 +6,7 @@
 #pragma once
 #include <dbs-map-api/CommonTypes.h>
 
-namespace map_service
+namespace dbs_map
 {
 namespace model
 {
@@ -70,4 +70,4 @@ public:
 };
 
 } // namespace model
-} // namespace map_service
+} // namespace dbs_map

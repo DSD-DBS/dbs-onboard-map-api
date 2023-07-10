@@ -12,7 +12,7 @@
 #include "org/db/schema/f/map/landmarks/geometry.pb.h"
 #include "org/db/schema/f/map/landmarks/landmarks.pb.h"
 
-namespace map_service
+namespace dbs_map
 {
 
 namespace decoder
@@ -222,4 +222,4 @@ LandmarksDecoder::ConstructLayer( const std::vector< PartitionId >& tile_ids ) c
     return result;
 }
 } // namespace decoder
-} // namespace map_service
+} // namespace dbs_map

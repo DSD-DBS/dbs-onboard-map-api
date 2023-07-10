@@ -6,7 +6,7 @@
 #include <dbs-map-api/MapService.h>
 #include "MapServiceImpl.h"
 
-namespace map_service
+namespace dbs_map
 {
 
 MapService::MapService( const MapServiceConfig& config )
@@ -74,4 +74,4 @@ MapService::UpdateMap( const Version& version ) const noexcept
 {
     return impl_->UpdateMap( version );
 }
-} // namespace map_service
+} // namespace dbs_map

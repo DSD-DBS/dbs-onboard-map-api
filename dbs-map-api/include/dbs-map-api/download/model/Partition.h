@@ -6,7 +6,7 @@
 #pragma once
 #include <dbs-map-api/CommonTypes.h>
 
-namespace map_service
+namespace dbs_map
 {
 namespace download
 {
@@ -34,14 +34,14 @@ struct Partition
      *
      * This represents the unique identifier for the partition within the catalog.
      */
-    map_service::PartitionId id_;
+    PartitionId id_;
 
     /**
      * @brief The version of the catalog containing the partition.
      *
      * This represents the version of the catalog that contains the partition.
      */
-    map_service::Version catalog_version_;
+    Version catalog_version_;
 
     /**
      * @brief The data size of the partition.
@@ -71,9 +71,9 @@ struct Partition
      * This is a string representing the handle of the data in the partition. The data handle is a
      * unique identifier that is used to retrieve the actual data of the partition.
      */
-    map_service::DataHandle data_handle_;
+    DataHandle data_handle_;
 };
 
 } // namespace model
 } // namespace download
-} // namespace map_service
+} // namespace dbs_map
