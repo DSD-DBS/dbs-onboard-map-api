@@ -33,5 +33,5 @@ pre-commit run --all-files
 
 #### Component documentation
 
-The Map API uses [Doxygen](http://www.doxygen.nl/) to generate its documentation from the code.
+The Map C++ API uses [Doxygen](http://www.doxygen.nl/) to generate its documentation from the code.
 Make sure to properly document each header file that is exposed by the component with the use of Doxygen format.
