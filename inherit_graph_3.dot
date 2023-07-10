@@ -6,5 +6,5 @@ digraph "Graphical Class Hierarchy"
   rankdir="LR";
   Node16 [label="std::runtime_error",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
   Node16 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node0 [label="map_service::download\l::HttpRuntimeError",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classmap__service_1_1download_1_1HttpRuntimeError.html",tooltip="Custom exception class for handling HTTP errors."];
+  Node0 [label="dbs_map::download::\lHttpRuntimeError",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdbs__map_1_1download_1_1HttpRuntimeError.html",tooltip="Custom exception class for handling HTTP errors."];
 }

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['updatelocalmap_163',['UpdateLocalMap',['../classmap__service_1_1MapService.html#a73458e21329749d6ac56a2fd260b0ab9',1,'map_service::MapService']]],
-  ['updatemap_164',['UpdateMap',['../classmap__service_1_1MapService.html#abca718d38a433b25100c177b53b366af',1,'map_service::MapService']]]
+  ['updatelocalmap_163',['UpdateLocalMap',['../classdbs__map_1_1MapService.html#a73a87bd97d65c2b874cb108eb1a74983',1,'dbs_map::MapService']]],
+  ['updatemap_164',['UpdateMap',['../classdbs__map_1_1MapService.html#a6bcb65a780019938a719b8c8e6c9daaa',1,'dbs_map::MapService']]]
 ];

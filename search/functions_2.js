@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['httpruntimeerror_159',['HttpRuntimeError',['../classmap__service_1_1download_1_1HttpRuntimeError.html#a0a8ac372f12552c4666236c86ac6669b',1,'map_service::download::HttpRuntimeError::HttpRuntimeError(const std::string &amp;reason, HttpCode code)'],['../classmap__service_1_1download_1_1HttpRuntimeError.html#a01d8ddba446b7ed322744604c5fdceb0',1,'map_service::download::HttpRuntimeError::HttpRuntimeError(const char *reason, HttpCode code)']]]
+  ['httpruntimeerror_159',['HttpRuntimeError',['../classdbs__map_1_1download_1_1HttpRuntimeError.html#a8954549ec2c685c183b7b5376aa56a2d',1,'dbs_map::download::HttpRuntimeError::HttpRuntimeError(const std::string &amp;reason, HttpCode code)'],['../classdbs__map_1_1download_1_1HttpRuntimeError.html#a5422e85873a15a911048a9dcd47e882a',1,'dbs_map::download::HttpRuntimeError::HttpRuntimeError(const char *reason, HttpCode code)']]]
 ];

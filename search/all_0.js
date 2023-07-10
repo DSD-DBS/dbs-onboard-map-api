@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bufferstop_0',['BufferStop',['../structmap__service_1_1model_1_1TrackNode.html#a7262e69c6cbd14220cdeadae98b36ad8a8b839e01ae3e5f706054db3cc2d34e5b',1,'map_service::model::TrackNode']]]
+  ['bufferstop_0',['BufferStop',['../structdbs__map_1_1model_1_1TrackNode.html#afacf6e18d69e3372ee9fb061e70fc710ac035b59163e5ee557c68b0f7cc6c43e8',1,'dbs_map::model::TrackNode']]]
 ];

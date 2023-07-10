@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['partitioningtype_220',['PartitioningType',['../structmap__service_1_1download_1_1model_1_1Layer.html#ae0119a493d37d4db608d3b1e7084d00f',1,'map_service::download::model::Layer']]]
+  ['partitioningtype_220',['PartitioningType',['../structdbs__map_1_1download_1_1model_1_1Layer.html#ac263a436bfa3b7383c88bf877bca381c',1,'dbs_map::download::model::Layer']]]
 ];

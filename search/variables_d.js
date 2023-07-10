@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['zones_5f_213',['zones_',['../structmap__service_1_1model_1_1ConsolidatedLayers.html#ae34305924fa84d64a7eb96c2977dbd15',1,'map_service::model::ConsolidatedLayers']]],
-  ['zoom_5flevel_5f_214',['zoom_level_',['../structmap__service_1_1MapServiceConfig.html#a8794c027ae9f905dcefb78a01139f4d0',1,'map_service::MapServiceConfig']]],
-  ['zoom_5flevels_5f_215',['zoom_levels_',['../structmap__service_1_1download_1_1model_1_1Layer.html#a8f19df60ad40d2e41f654f1c1eca1d89',1,'map_service::download::model::Layer']]]
+  ['zones_5f_213',['zones_',['../structdbs__map_1_1model_1_1ConsolidatedLayers.html#ae0a6a0d177c42e7d33aa125e2cfa49b0',1,'dbs_map::model::ConsolidatedLayers']]],
+  ['zoom_5flevel_5f_214',['zoom_level_',['../structdbs__map_1_1MapServiceConfig.html#a60086816b005998444f6ea9b4abe4e2a',1,'dbs_map::MapServiceConfig']]],
+  ['zoom_5flevels_5f_215',['zoom_levels_',['../structdbs__map_1_1download_1_1model_1_1Layer.html#a278336d5b4271654c91892190f0a8e34',1,'dbs_map::download::model::Layer']]]
 ];

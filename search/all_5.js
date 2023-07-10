@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['height_5fcm_46',['height_cm',['../structmap__service_1_1model_1_1SurfaceWithHeight.html#aa2ba12c80c0420284af2fb722c255720',1,'map_service::model::SurfaceWithHeight']]],
-  ['heretiling_47',['HereTiling',['../structmap__service_1_1download_1_1model_1_1Layer.html#ae0119a493d37d4db608d3b1e7084d00fa25093778ba6e627d3823b894589bb596',1,'map_service::download::model::Layer']]],
-  ['host_5f_48',['host_',['../structmap__service_1_1download_1_1ClientSettings.html#a63cee222f5636070fd08916a0b737ddc',1,'map_service::download::ClientSettings']]],
-  ['http_5fclient_5fsettings_5f_49',['http_client_settings_',['../structmap__service_1_1MapServiceConfig.html#afaeef82ddcae5319dfb27a99fa586f0a',1,'map_service::MapServiceConfig']]],
-  ['http_5fcode_5f_50',['http_code_',['../structmap__service_1_1download_1_1Error.html#a7ff230aa1051e6c07596a5eab805bcd6',1,'map_service::download::Error']]],
-  ['http_5fheaders_5f_51',['http_headers_',['../structmap__service_1_1download_1_1ClientSettings.html#ad7b1f5b9e2d56c4ed5fb6b310503a054',1,'map_service::download::ClientSettings']]],
-  ['httpruntimeerror_52',['HttpRuntimeError',['../classmap__service_1_1download_1_1HttpRuntimeError.html#a0a8ac372f12552c4666236c86ac6669b',1,'map_service::download::HttpRuntimeError::HttpRuntimeError(const std::string &amp;reason, HttpCode code)'],['../classmap__service_1_1download_1_1HttpRuntimeError.html#a01d8ddba446b7ed322744604c5fdceb0',1,'map_service::download::HttpRuntimeError::HttpRuntimeError(const char *reason, HttpCode code)'],['../classmap__service_1_1download_1_1HttpRuntimeError.html',1,'map_service::download::HttpRuntimeError']]]
+  ['height_5fcm_46',['height_cm',['../structdbs__map_1_1model_1_1SurfaceWithHeight.html#af941eb824a1a4b09c528b36e7daa9ed1',1,'dbs_map::model::SurfaceWithHeight']]],
+  ['heretiling_47',['HereTiling',['../structdbs__map_1_1download_1_1model_1_1Layer.html#ac263a436bfa3b7383c88bf877bca381caa98d1a899e02fc6213584381ea3c41a7',1,'dbs_map::download::model::Layer']]],
+  ['host_5f_48',['host_',['../structdbs__map_1_1download_1_1ClientSettings.html#a0e14c34bbe6ab77139e071c92f1b13f3',1,'dbs_map::download::ClientSettings']]],
+  ['http_5fclient_5fsettings_5f_49',['http_client_settings_',['../structdbs__map_1_1MapServiceConfig.html#aab45053e3ea943934953809eaa23bd37',1,'dbs_map::MapServiceConfig']]],
+  ['http_5fcode_5f_50',['http_code_',['../structdbs__map_1_1download_1_1Error.html#adcee5758e7c1042636454e8287a45d02',1,'dbs_map::download::Error']]],
+  ['http_5fheaders_5f_51',['http_headers_',['../structdbs__map_1_1download_1_1ClientSettings.html#ade670aafeb518e07a3a55f476ba73eee',1,'dbs_map::download::ClientSettings']]],
+  ['httpruntimeerror_52',['HttpRuntimeError',['../classdbs__map_1_1download_1_1HttpRuntimeError.html',1,'dbs_map::download::HttpRuntimeError'],['../classdbs__map_1_1download_1_1HttpRuntimeError.html#a8954549ec2c685c183b7b5376aa56a2d',1,'dbs_map::download::HttpRuntimeError::HttpRuntimeError(const std::string &amp;reason, HttpCode code)'],['../classdbs__map_1_1download_1_1HttpRuntimeError.html#a5422e85873a15a911048a9dcd47e882a',1,'dbs_map::download::HttpRuntimeError::HttpRuntimeError(const char *reason, HttpCode code)']]]
 ];

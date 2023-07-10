@@ -4,5 +4,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="map_service::download\l::model::Partition",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structmap__service_1_1download_1_1model_1_1Partition.html",tooltip="Data Transfer Object (DTO) representing metadata for a partition in a map layer."];
+  Node0 [label="dbs_map::download::\lmodel::Partition",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdbs__map_1_1download_1_1model_1_1Partition.html",tooltip="Data Transfer Object (DTO) representing metadata for a partition in a map layer."];
 }

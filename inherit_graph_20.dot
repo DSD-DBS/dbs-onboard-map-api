@@ -4,5 +4,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="map_service::utils\l::MapFileSystem",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classmap__service_1_1utils_1_1MapFileSystem.html",tooltip="This class encapsulates the management of internal map paths, and the structure of internal map files..."];
+  Node0 [label="dbs_map::utils::MapFileSystem",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdbs__map_1_1utils_1_1MapFileSystem.html",tooltip="This class encapsulates the management of internal map paths, and the structure of internal map files..."];
 }
