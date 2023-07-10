@@ -1,3 +1,8 @@
+<!--
+ ~ SPDX-FileCopyrightText: Copyright DB Netz AG
+ ~ SPDX-License-Identifier: CC0-1.0
+ -->
+
 # DBS Onboard C++ Map API Contributor Guide
 
 ## Contributing to DBS Onboard C++ Map API
