@@ -1,10 +1,9 @@
 # SPDX-FileCopyrightText: Copyright DB Netz AG
 # SPDX-License-Identifier: CC0-1.0
 
-set(MAP_SERVICE_BOOST_VERSION 1.65.0)
-find_package(Boost ${MAP_SERVICE_BOOST_VERSION} REQUIRED)
+set(DBS_MAP_API_BOOST_VERSION 1.65.0)
+find_package(Boost ${DBS_MAP_API_BOOST_VERSION} REQUIRED)
 
-# find_package(Boost ${MAP_SERVICE_BOOST_VERSION} COMPONENTS system filesystem REQUIRED)
 if(WIN32)
     # find_package(protobuf CONFIG REQUIRED)
     # TODO: vcpkg specific pathes are hardcoded.
@@ -88,8 +87,8 @@ IF(NOT ${YOCTO_BUILD})
     ENDIF()
 ENDIF()
 
-set(MAP_SERVICE_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake/dbs-map-api")
-install(FILES "${PROJECT_SOURCE_DIR}/dbs-map-api/cmake/configs/dbs-map-apiConfig.cmake" DESTINATION ${MAP_SERVICE_INSTALL_CMAKEDIR})
+set(DBS_MAP_API_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake/dbs-map-api")
+install(FILES "${PROJECT_SOURCE_DIR}/dbs-map-api/cmake/configs/dbs-map-apiConfig.cmake" DESTINATION ${DBS_MAP_API_INSTALL_CMAKEDIR})
 install(
     DIRECTORY "${PROJECT_SOURCE_DIR}/dbs-map-api/include/"
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
@@ -99,7 +98,7 @@ install(
 install(TARGETS dbs-map-api EXPORT dbs-map-apiTargets INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(
     EXPORT dbs-map-apiTargets
-    DESTINATION ${MAP_SERVICE_INSTALL_CMAKEDIR}
+    DESTINATION ${DBS_MAP_API_INSTALL_CMAKEDIR}
     NAMESPACE dbs-map-api::
 )
 
