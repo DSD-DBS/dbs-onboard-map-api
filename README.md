@@ -3,6 +3,7 @@
  ~ SPDX-License-Identifier: CC0-1.0
  -->
 [![codecov](https://codecov.io/github/DSD-DBS/dbs-onboard-map-api/branch/main/graph/badge.svg?token=fefCH21TRD)](https://codecov.io/github/DSD-DBS/dbs-onboard-map-api)
+[![dbs-onboard-map-api CI](https://github.com/DSD-DBS/dbs-onboard-map-api/actions/workflows/ci.yml/badge.svg)](https://github.com/DSD-DBS/dbs-onboard-map-api/actions/workflows/ci.yml)
 
 # DBS Onboard C++ Map API
 DBS Onboard Map API is a robust C++ API engineered to enable seamless interaction with onboard digital map. It provides a framework for accessing map data stored directly on the device, bypassing the need for constant internet connectivity. With its onboard-centric design, it ensures efficient and reliable map data handling even in the most internet-limited environments.
