@@ -57,7 +57,8 @@ jobs:
       uses: codecov/codecov-action@v3
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        path: ${{github.workspace}}/build/coverage/coverage.html
+        file: ${{github.workspace}}/build/coverage/coverage.xml
+        fail_ci_if_error: true
 
     - name: Upload coverage to GitHub as artifact
       uses: actions/upload-artifact@v2
