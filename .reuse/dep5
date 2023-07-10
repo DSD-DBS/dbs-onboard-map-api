@@ -3,6 +3,6 @@ Upstream-Name: dbs-onboard-map-api
 Upstream-Contact: vladimir.bezkorovainy@gmail.com
 Source: https://github.com/DSD-DBS/dbs-onboard-map-api
 
-Files: map-service/hdmap/*
+Files: dbs-map-api/hdmap/*
 Copyright: DB Netz AG
 License: CC-BY-SA-3.0-DE

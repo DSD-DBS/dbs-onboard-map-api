@@ -11,11 +11,14 @@ on:
     branches:
       - '**'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Map-Service code including submodules recursively
+    - name: Checkout DBS Onboard API code including submodules recursively
       uses: actions/checkout@v2
       with:
         submodules: recursive
@@ -24,17 +27,18 @@ jobs:
       run: |
         sudo apt-get update -y
         sudo apt-get install -y cmake
-        sudo apt-get install gcovr -y
+        sudo apt-get install -y gcovr
         sudo apt-get install libgmock-dev libgtest-dev
         sudo apt-get install -y rapidjson-dev
+        sudo apt-get install -y doxygen
         sudo apt-get install libcurl4-openssl-dev protobuf-compiler libprotobuf-dev libboost-all-dev -y --no-install-recommends --fix-missing
 
-    - name: Build Map-Service sources
-      run: ./build.sh -DCMAKE_BUILD_TYPE=Debug
+    - name: Build DBS Onboard MAP API sources
+      run: ./scripts/build.sh -DCMAKE_BUILD_TYPE=Debug
 
     - name: Run Test
       run: |
-        ${{github.workspace}}/build/map-service/tests/GoogleTestRunner
+        ${{github.workspace}}/build/dbs-map-api/tests/GoogleTestRunner
 
 
     - name: Generate Test Coverage
@@ -49,14 +53,21 @@ jobs:
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-    # - name: Upload coverage reports to Codecov
-    #   uses: codecov/codecov-action@v3
-    #   with:
-    #     token: ${{ secrets.CODECOV_TOKEN }}
-    #     file: ${{github.workspace}}/build/coverage/coverage.html
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ${{github.workspace}}/build/coverage/coverage.html
 
-    # - name: Upload coverage to GitHub as artifact
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: coverage
-    #     path: ${{github.workspace}}/build/coverage/*
+    - name: Upload coverage to GitHub as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage
+        path: ${{github.workspace}}/build/coverage/*
+
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      uses: JamesIves/github-pages-deploy-action@4.1.5
+      with:
+        folder: build/docs/html
+        branch: gh-pages

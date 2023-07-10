@@ -5,14 +5,14 @@
 cmake_minimum_required(VERSION 3.16)
 
 # Build targets
-project(map-service VERSION 1.0.0)
+project(dbs-map-api VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-Wno-deprecated-declarations")
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(RAPIDJSON_HAS_CXX11_RANGE_FOR ON)
 
-option(ENABLE_TESTS "Enable Testing of map-service" ON)
+option(ENABLE_TESTS "Enable Testing of dbs-map-api" ON)
 
 # Add cmake dir to search list
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
@@ -33,4 +33,7 @@ IF( NOT ${YOCTO_BUILD})
     # add_subdirectory(externals/rapidjson)
 ENDIF()
 
-add_subdirectory(map-service)
+add_subdirectory(dbs-map-api)
+
+# TODO: add condition for building docs
+add_subdirectory(docs)

@@ -51,10 +51,10 @@ jobs:
   - checkout: self
     submodules: true
 
-  - bash: ./build.sh -DCMAKE_BUILD_TYPE=Debug
+  - bash: ./scripts/build.sh -DCMAKE_BUILD_TYPE=Debug
     displayName: 'build sources'
 
-  - bash:  ./build/map-service/tests/GoogleTestRunner
+  - bash:  ./build/dbs-map-api/tests/GoogleTestRunner
     displayName: 'run tests'
 
 
