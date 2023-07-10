@@ -15,7 +15,21 @@ follows our style guidelines outlined below.
 ## Development
 
 ### Code style
+This project follows [custom code style](https://github.com/DSD-DBS/dbs-onboard-map-api/blob/main/.clang-format). Code style is checked as pre-commit hook.
 
+#### Pre-Commit
+
+We use [pre-commit](https://pre-commit.com/) to enforce usage of tools such as clang-format on commit. This ensures that tools such as clang-format are run on a commit, and thus keeps our repository consistent and makes review easier.
+
+Install all the hooks with:
+```bash
+pre-commit install
+```
+
+Pre-commit will be then automatically run on changed files in a commit. Additionally, it can also be run manually against all files with:
+```bash
+pre-commit run --all-files
+```
 
 #### Component documentation
 
