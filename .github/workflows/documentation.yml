@@ -6,7 +6,8 @@ name: Map API Documentation
 on:
   push:
     branches:
-      - 'main'
+      # - 'main'
+      - '**'
 
 # for Doxygen pages. Better to move to separate workflow
 permissions:
