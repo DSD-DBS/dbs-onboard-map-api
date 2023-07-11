@@ -11,8 +11,12 @@ on:
     branches:
       - '**'
 
+# for Doxygen pages. Better to move to separate workflow
 permissions:
   contents: write
+
+env:
+  IS_MAIN_BRANCH: ${{ github.ref == 'refs/heads/main' }}
 
 jobs:
   build:
@@ -40,13 +44,14 @@ jobs:
       run: |
         ${{github.workspace}}/build/dbs-map-api/tests/GoogleTestRunner
 
-
     - name: Generate Test Coverage
+      if: env.IS_MAIN_BRANCH == 'true'
       run: |
         ${{github.workspace}}/scripts/code_coverage.sh
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
+      if: env.IS_MAIN_BRANCH == 'true'
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: ${{github.workspace}}/build/coverage/coverage.xml
@@ -55,13 +60,14 @@ jobs:
     # Coverage is already uploaded to Codecov
     # - name: Upload coverage to GitHub as artifact
     #   uses: actions/upload-artifact@v2
+    #   if: env.IS_MAIN_BRANCH == 'true'
     #   with:
     #     name: coverage
     #     path: ${{github.workspace}}/build/coverage/*
 
     - name: Deploy to GitHub Pages
-      if: github.ref == 'refs/heads/main'
       uses: JamesIves/github-pages-deploy-action@4.1.5
+      if: env.IS_MAIN_BRANCH == 'true'
       with:
         folder: build/docs/html
         branch: gh-pages
