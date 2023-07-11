@@ -25,7 +25,15 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update -y
+        sudo apt-get install -y cmake
+        sudo apt-get install -y gcovr
+        sudo apt-get install libgmock-dev libgtest-dev
+        sudo apt-get install -y rapidjson-dev
         sudo apt-get install -y doxygen
+        sudo apt-get install libcurl4-openssl-dev protobuf-compiler libprotobuf-dev libboost-all-dev -y --no-install-recommends --fix-missing
+
+    - name: Build DBS Onboard MAP API sources
+      run: ./scripts/build.sh -DCMAKE_BUILD_TYPE=Debug
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@4.1.5
