@@ -56,6 +56,3 @@ jobs:
 
   - bash:  ./build/dbs-map-api/tests/GoogleTestRunner
     displayName: 'run tests'
-
-
-
