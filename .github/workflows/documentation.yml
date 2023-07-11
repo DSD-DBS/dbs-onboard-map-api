@@ -6,10 +6,8 @@ name: Map API Documentation
 on:
   push:
     branches:
-      # - 'main'
-      - '**'
+     - 'main'
 
-# for Doxygen pages. Better to move to separate workflow
 permissions:
   contents: write
 
@@ -37,7 +35,6 @@ jobs:
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@4.1.5
-      # if: github.ref == 'refs/heads/gh-pages'
       with:
         folder: build/docs/html
         branch: gh-pages
