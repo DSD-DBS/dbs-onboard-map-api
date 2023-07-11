@@ -1,0 +1,34 @@
+# SPDX-FileCopyrightText: Copyright DB Netz AG
+# SPDX-License-Identifier: CC0-1.0
+
+name: Map API Documentation
+
+on:
+  push:
+    branches:
+      - 'main'
+
+# for Doxygen pages. Better to move to separate workflow
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout DBS Onboard API code including submodules recursively
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update -y
+        sudo apt-get install -y doxygen
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@4.1.5
+      if: github.ref == 'refs/heads/gh-pages'
+      with:
+        folder: build/docs/html
+        branch: gh-pages
