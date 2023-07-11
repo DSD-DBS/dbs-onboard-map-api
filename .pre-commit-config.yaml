@@ -23,7 +23,7 @@ repos:
         # exclude: '^tests/data/decl/[^/]+\.ya?ml$'
       - id: debug-statements
       - id: destroyed-symlinks
-      # - id: end-of-file-fixer
+      - id: end-of-file-fixer
       - id: fix-byte-order-marker
       - id: trailing-whitespace
   # - repo: https://github.com/PyCQA/isort
