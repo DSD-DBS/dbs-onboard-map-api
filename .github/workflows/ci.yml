@@ -67,7 +67,7 @@ jobs:
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@4.1.5
-      if: env.IS_MAIN_BRANCH == 'true'
+      if: github.ref == 'refs/heads/gh-pages'
       with:
         folder: build/docs/html
         branch: gh-pages
