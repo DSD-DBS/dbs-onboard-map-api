@@ -39,6 +39,11 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
 
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
     # - name: Run Mock Map Server
     #   run: |
     #     nohup python3 ${{github.workspace}}/dbs-map-mock-server/dbs-map-mock-server.py &
