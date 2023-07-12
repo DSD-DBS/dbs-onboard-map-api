@@ -82,13 +82,13 @@ def match_to_path(self):
         return get_catalog_matadata_with_version(match)
 
     # Match to GET /catalogs/{catalogId}/layers/{layerId}
-    pattern = r"/catalogs/(?P<catalogId>[^/]+)/layers/(?P<layerId>[^/]+)"
+    pattern = r"/catalogs/(?P<catalogId>[^/?]+)/layers/(?P<layerId>[^/?]+)"
     match = re.search(pattern, self.path)
     if match:
         return get_layer_matadata(match)
 
     # Match to GET /catalogs/{catalogId}/layers/{layerId}?catalogVersion=
-    pattern = r"/catalogs/(?P<catalogId>[^/]+)/layers/(?P<layerId>[^/]+)\?catalogVersion=(?P<catalogVersion>\d+)"
+    pattern = r"/catalogs/(?P<catalogId>[^/?]+)/layers/(?P<layerId>[^/?]+)\?catalogVersion=(?P<catalogVersion>\d+)"
     match = re.search(pattern, self.path)
     if match:
         return get_layer_matadata_with_version(match)
