@@ -36,6 +36,11 @@ jobs:
     - name: Build DBS Onboard MAP API sources
       run: ./scripts/build.sh -DCMAKE_BUILD_TYPE=Debug
 
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      # with:
+      #   python-version: '3.9'
+
     - name: Run Test
       run: |
         python3 ${{github.workspace}}dbs-map-mock-server/dbs-map-mock-server.py
