@@ -1,0 +1,15 @@
+    {
+        "catalogId": "validate.s4r2.oss.4",
+        "catalogVersion": 12,
+        "latestVersion": 12,
+        "modificationDate": 1685964598,
+        "description": "validate.s4r2.oss.4",
+        "layerIds": [
+            "track2tiles",
+            "rca-topology",
+            "risk-assessment-zones",
+            "rca-topology-geometry",
+            "landmarks",
+            "rca-centerline"
+        ]
+    }
