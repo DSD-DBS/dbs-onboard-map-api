@@ -34,7 +34,7 @@ Version GetLatestVersion( )
 
 } // unnamed namespace
 
-TEST( LayerClient, DISABLED_HostDoesNotExist )
+TEST( LayerClient, HostDoesNotExist )
 {
     // Arrange
     auto cfg = GetTestConfig( );
@@ -45,7 +45,7 @@ TEST( LayerClient, DISABLED_HostDoesNotExist )
     EXPECT_THROW( { client.GetMetadata( ); }, curlpp::LibcurlRuntimeError );
 }
 
-TEST( LayerClient, DISABLED_LayerDoesNotExist )
+TEST( LayerClient, LayerDoesNotExist )
 {
     // Arrange
     auto cfg = GetTestConfig( );
@@ -55,7 +55,7 @@ TEST( LayerClient, DISABLED_LayerDoesNotExist )
     EXPECT_THROW( { client.GetMetadata( ); }, download::HttpRuntimeError );
 }
 
-TEST( LayerClient, DISABLED_CatalogDoesNotExist )
+TEST( LayerClient, CatalogDoesNotExist )
 {
     // Arrange
     auto cfg = GetTestConfig( );
@@ -66,7 +66,7 @@ TEST( LayerClient, DISABLED_CatalogDoesNotExist )
 }
 
 
-TEST( LayerClient, DISABLED_GetMetadata )
+TEST( LayerClient, GetMetadata )
 {
     // Arrange
     const auto cfg = GetTestConfig( );
