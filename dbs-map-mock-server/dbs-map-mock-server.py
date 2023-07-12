@@ -23,7 +23,7 @@ def get_layer_matadata(match):
     layerId = match.group('layerId')
     return path.format(catalogId, layerId)
 
-def get_catalog_matadata_with_version(match):
+def get_layer_matadata_with_version(match):
     path = "./hdmap/{}/{}/{}/metadata.json"
     catalogId = match.group('catalogId')
     layerId = match.group('layerId')
