@@ -9,18 +9,25 @@ import re
 class CustomHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         print("GET: ", self.path)
-        get_catalog_metadata_pattern = r"^/catalogs/(?P<catalogId>[^/]+)(\?catalogVersion=(?P<catalogVersion>[^&]+))?"
-        get_catalog_metadata_uri = "./hdmap/{}/current/metadata.json"
-        # get_catalog_metadata_with_version_uri = f"./hdmap/catalogs/{catalogId}"
+        get_catalog_metadata_pattern = r"^/catalogs/(?P<catalogId>[^/?]+)$"
+        get_catalog_metadata_path = "./hdmap/{}/current/metadata.json"
 
-        match = re.match(get_catalog_metadata_pattern, self.path)
+        get_catalog_metadata_with_version_pattern = r"^/catalogs/(?P<catalogId>[^/?]+)\?catalogVersion=(?P<catalogVersion>\d+)"
+        get_catalog_metadata_with_version_path = "./hdmap/{}/{}/metadata.json"
+
+        # match = re.match(get_catalog_metadata_pattern, self.path)
+        match = re.search(get_catalog_metadata_pattern, self.path)
         if match:
-            print(match.groupdict())
-            params = match.groupdict()
-            print(params['catalogId'])
-            self.path = get_catalog_metadata_uri.format(params['catalogId'])
-            print(self.path)
+            catalogId = match.group('catalogId')
+            self.path = get_catalog_metadata_path.format(catalogId)
 
+        match = re.search(get_catalog_metadata_with_version_pattern, self.path)
+        if match:
+            catalogId = match.group('catalogId')
+            catalogVersion = match.group('catalogVersion')
+            self.path = get_catalog_metadata_with_version_path.format(catalogId, catalogVersion)
+
+        print(self.path)
 
         # match_get_layer_metadata = ""
         # match_get_partition_metadata = ""
