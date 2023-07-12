@@ -1,0 +1,12 @@
+{
+    "catalogId": "validate.s4r2.oss.4",
+    "layerId": "risk-assessment-zones",
+    "layerVersion": null,
+    "zoomLevel": 12,
+    "schema": "org.db.schema.risk.assessment.zones.RiskAssessmentZonesTile",
+    "schemaType": "HereTiling",
+    "contentType": "application/x-protobuf",
+    "contentEncoding": "none",
+    "modificationDate": 1686230798,
+    "description": "risk-assessment-zones"
+}
