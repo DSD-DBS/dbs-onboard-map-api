@@ -20,7 +20,9 @@ ClientSettings GetDBClientSettings( )
 ClientSettings GetDBClientForCISettings( )
 {
     return {
-        "map-cdb-api-server-dev.drase-dev.appserviceenvironment.net", // host_
+        // "map-cdb-api-server-dev.drase-dev.appserviceenvironment.net", // host_
+        "http",
+        "localhost:8080"
     };
 }
 

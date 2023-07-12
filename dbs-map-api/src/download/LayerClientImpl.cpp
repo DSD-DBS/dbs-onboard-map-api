@@ -90,7 +90,7 @@ LayerClientImpl::LayerClientImpl( std::string catalog_name, std::string layer_na
 model::Layer
 LayerClientImpl::GetMetadata( ) const
 {
-    const auto url = boost::format( "https://%1%/catalogs/%2%/layers/%3%?catalogVersion=%4%" ) % settings_->host_ % catalog_name_ % layer_name_ % catalog_version_;
+    const auto url = boost::format( "%1%://%2%/catalogs/%3%/layers/%4%?catalogVersion=%5%" ) % settings_->protocol_ % settings_->host_ % catalog_name_ % layer_name_ % catalog_version_;
 
     rapidjson::Document doc;
     http_client_->GetUri( url.str( ), doc );
@@ -101,7 +101,7 @@ LayerClientImpl::GetMetadata( ) const
 model::Partition
 LayerClientImpl::GetPartitionMetadata( const PartitionId& id ) const
 {
-    const auto url = boost::format( "https://%1%/catalogs/%2%/layers/%3%/blobs/%4%?catalogVersion=%5%" ) % settings_->host_ % catalog_name_ % layer_name_ % id % catalog_version_;
+    const auto url = boost::format( "%1%://%2%/catalogs/%3%/layers/%4%/blobs/%5%?catalogVersion=%6%" ) % settings_->protocol_ % settings_->host_ % catalog_name_ % layer_name_ % id % catalog_version_;
 
     rapidjson::Document doc;
     http_client_->GetUri( url.str( ), doc );
@@ -111,14 +111,14 @@ LayerClientImpl::GetPartitionMetadata( const PartitionId& id ) const
 
 void LayerClientImpl::GetDataHandle( const DataHandle& data_handle, std::ostream& out ) const
 {
-    const auto url = boost::format( "https://%1%/blob/catalogs/%2%/layers/%3%/data/%4%?catalogVersion=%5%" ) % settings_->host_ % catalog_name_ % layer_name_ % data_handle % catalog_version_;
+    const auto url = boost::format( "%1%://%2%/blob/catalogs/%3%/layers/%4%/data/%5%?catalogVersion=%6%" ) % settings_->protocol_ % settings_->host_ % catalog_name_ % layer_name_ % data_handle % catalog_version_;
     http_client_->GetUri( url.str( ), out );
 }
 
 std::vector< model::Partition >
 LayerClientImpl::GetDifference( const Version& from_versoin ) const
 {
-    const auto url = boost::format( "https://%1%/catalogs/%2%/layers/%3%/changes?fromCatalogVersion=%4%&toCatalogVersion=%5%" ) % settings_->host_ % catalog_name_ % layer_name_ % from_versoin % catalog_version_;
+    const auto url = boost::format( "%1%://%2%/catalogs/%3%/layers/%4%/changes?fromCatalogVersion=%5%&toCatalogVersion=%6%" ) % settings_->protocol_ % settings_->host_ % catalog_name_ % layer_name_ % from_versoin % catalog_version_;
 
     rapidjson::Document doc;
     http_client_->GetUri( url.str( ), doc );
@@ -129,7 +129,7 @@ LayerClientImpl::GetDifference( const Version& from_versoin ) const
 std::vector< model::Partition >
 LayerClientImpl::GetAllPartitionsMetadata( ) const
 {
-    const auto url = boost::format( "https://%1%/catalogs/%2%/layers/%3%/blobs?catalogVersion=%4%" ) % settings_->host_ % catalog_name_ % layer_name_ % catalog_version_;
+    const auto url = boost::format( "%1%://%2%/catalogs/%3%/layers/%4%/blobs?catalogVersion=%5%" ) % settings_->protocol_ % settings_->host_ % catalog_name_ % layer_name_ % catalog_version_;
 
     rapidjson::Document doc;
     http_client_->GetUri( url.str( ), doc );
