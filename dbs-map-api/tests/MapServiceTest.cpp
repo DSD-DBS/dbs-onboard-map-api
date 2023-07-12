@@ -24,6 +24,7 @@ MapServiceConfig TestConfig( )
 {
     MapServiceConfig result = GetDefaultConfig( );
     result.map_local_path_ = std::filesystem::current_path( ) / "build" / "hdmap";
+    result.http_client_settings_ = download::GetDBClientForCISettings( );
     return result;
 }
 
@@ -63,7 +64,7 @@ const auto find_by_id = []( const auto& src, const std::string& id )
 
 } // unnamed namespace
 
-TEST( MapService, DISABLED_TestGetCloudMapVersion )
+TEST( MapService, TestGetCloudMapVersion )
 {
     // Arrange
     auto config = TestConfig( );
