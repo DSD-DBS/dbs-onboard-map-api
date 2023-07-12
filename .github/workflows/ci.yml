@@ -38,6 +38,7 @@ jobs:
 
     - name: Run Test
       run: |
+        python3 ${{github.workspace}}dbs-map-mock-server/dbs-map-mock-server.py
         ${{github.workspace}}/build/dbs-map-api/tests/GoogleTestRunner
 
     - name: Generate Test Coverage
