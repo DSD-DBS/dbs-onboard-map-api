@@ -41,7 +41,7 @@ jobs:
 
     - name: Run Mock Map Server
       run: |
-        python3 ${{github.workspace}}/dbs-map-mock-server/dbs-map-mock-server.py
+        nohup python3 ${{github.workspace}}/dbs-map-mock-server/dbs-map-mock-server.py &
 
     - name: Run Test
       run: |
