@@ -39,9 +39,12 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
 
-    - name: Run Test
+    - name: Run Mock Map Server
       run: |
         python3 ${{github.workspace}}/dbs-map-mock-server/dbs-map-mock-server.py
+
+    - name: Run Test
+      run: |
         ${{github.workspace}}/build/dbs-map-api/tests/GoogleTestRunner
 
     - name: Generate Test Coverage
