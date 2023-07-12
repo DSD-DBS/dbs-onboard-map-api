@@ -27,7 +27,7 @@ MapServiceConfig GetTestConfig( )
 
 } // unnamed namespace
 
-TEST( CatalogClientTest, DISABLED_HostDoesNotExist )
+TEST( CatalogClientTest, HostDoesNotExist )
 {
     // Arrange
     auto cfg = GetTestConfig( );
@@ -38,7 +38,7 @@ TEST( CatalogClientTest, DISABLED_HostDoesNotExist )
     EXPECT_THROW( { client.GetLatestVersion( ); }, curlpp::LibcurlRuntimeError );
 }
 
-TEST( CatalogClientTest, DISABLED_CatalogDoesNotExist )
+TEST( CatalogClientTest, CatalogDoesNotExist )
 {
     // Arrange
     auto cfg = GetTestConfig( );
@@ -48,7 +48,7 @@ TEST( CatalogClientTest, DISABLED_CatalogDoesNotExist )
     EXPECT_THROW( { client.GetLatestVersion( ); }, download::HttpRuntimeError );
 }
 
-TEST( CatalogClientTest, DISABLED_GetLatestVersion )
+TEST( CatalogClientTest, GetLatestVersion )
 {
     // Arrange
     const auto cfg = GetTestConfig( );
@@ -58,12 +58,12 @@ TEST( CatalogClientTest, DISABLED_GetLatestVersion )
     ASSERT_GT( client.GetLatestVersion( ), 0 );
 }
 
-TEST( CatalogClientTest, DISABLED_GetMetadata )
+TEST( CatalogClientTest, GetMetadata )
 {
     // Arrange
-    Version catalog_version = 3;
     const auto cfg = GetTestConfig( );
     CatalogClient client( cfg.catalog_, cfg.http_client_settings_ );
+    Version catalog_version = 12;
 
     // Act
     auto response = client.GetMetadata( catalog_version );
