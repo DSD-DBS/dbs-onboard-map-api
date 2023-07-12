@@ -6,33 +6,38 @@ import socketserver
 import os
 import re
 
+def get_catalog_matadata(match):
+    path = "./hdmap/{}/current/metadata.json"
+    catalogId = match.group('catalogId')
+    return path.format(catalogId)
+
+def get_catalog_matadata_with_version(match):
+    path = "./hdmap/{}/{}/metadata.json"
+    catalogId = match.group('catalogId')
+    catalogVersion = match.group('catalogVersion')
+    return path.format(catalogId, catalogVersion)
+
+def match_to_path(self):
+    # Match to GET /catalogs/{catalogId}
+    pattern = r"^/catalogs/(?P<catalogId>[^/?]+)$"
+    match = re.search(pattern, self.path)
+    if match:
+        return get_catalog_matadata(match)
+
+    # Match to GET /catalogs/{catalogId}?catalogVersion=
+    pattern = r"^/catalogs/(?P<catalogId>[^/?]+)\?catalogVersion=(?P<catalogVersion>\d+)"
+    match = re.search(pattern, self.path)
+    if match:
+        return get_catalog_matadata_with_version(match)
+
 class CustomHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
+
     def do_GET(self):
         print("GET: ", self.path)
-        get_catalog_metadata_pattern = r"^/catalogs/(?P<catalogId>[^/?]+)$"
-        get_catalog_metadata_path = "./hdmap/{}/current/metadata.json"
-
-        get_catalog_metadata_with_version_pattern = r"^/catalogs/(?P<catalogId>[^/?]+)\?catalogVersion=(?P<catalogVersion>\d+)"
-        get_catalog_metadata_with_version_path = "./hdmap/{}/{}/metadata.json"
-
-        # match = re.match(get_catalog_metadata_pattern, self.path)
-        match = re.search(get_catalog_metadata_pattern, self.path)
-        if match:
-            catalogId = match.group('catalogId')
-            self.path = get_catalog_metadata_path.format(catalogId)
-
-        match = re.search(get_catalog_metadata_with_version_pattern, self.path)
-        if match:
-            catalogId = match.group('catalogId')
-            catalogVersion = match.group('catalogVersion')
-            self.path = get_catalog_metadata_with_version_path.format(catalogId, catalogVersion)
-
-        print(self.path)
-
-        # match_get_layer_metadata = ""
-        # match_get_partition_metadata = ""
-        # match_get_partition_data = ""
-        # match_get_all_partition_match = ""
+        file_path = match_to_path(self)
+        if file_path:
+            self.path = file_path
+            print("Path to file: ", self.path)
 
         return http.server.SimpleHTTPRequestHandler.do_GET(self)
 
