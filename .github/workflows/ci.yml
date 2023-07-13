@@ -39,18 +39,13 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
 
-    - name: Install dependencies
+    - name: Run Mock Map Server
       run: |
-        python -m pip install --upgrade pip
-
-    # - name: Run Mock Map Server
-    #   run: |
-    #     nohup python3 ${{github.workspace}}/dbs-map-mock-server/dbs-map-mock-server.py &
+        cd ${{github.workspace}}/dbs-map-mock-server
+        nohup python3 ./dbs-map-mock-server.py &
 
     - name: Run Test
       run: |
-        nohup python3 ${{github.workspace}}/dbs-map-mock-server/dbs-map-mock-server.py &
-        sleep 5
         ${{github.workspace}}/build/dbs-map-api/tests/GoogleTestRunner
 
     - name: Generate Test Coverage
