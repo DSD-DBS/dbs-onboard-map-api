@@ -111,7 +111,7 @@ TEST( MapUpdateTest, CatalogDoesNotExistNoThrow )
     ASSERT_EQ( errors[ 0 ].error_code_, ErrorCode::HttpError );
 }
 
-TEST( MapUpdateTest, DISABLED_CleanLocalCache )
+TEST( MapUpdateTest, CleanLocalCache )
 {
     // Arrange
     const auto cfg = GetTestConfig( );
@@ -130,7 +130,7 @@ TEST( MapUpdateTest, DISABLED_CleanLocalCache )
     ASSERT_TRUE( fs::exists( cfg.map_local_path_ ) );
 }
 
-TEST( MapUpdateTest, DISABLED_UpdateMapFromScratch )
+TEST( MapUpdateTest, UpdateMapFromScratch )
 {
     // Arrange
     const auto cfg = GetTestConfig( );
