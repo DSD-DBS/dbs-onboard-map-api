@@ -33,16 +33,21 @@ jobs:
         sudo apt-get install -y doxygen
         sudo apt-get install libcurl4-openssl-dev protobuf-compiler libprotobuf-dev libboost-all-dev -y --no-install-recommends --fix-missing
 
-    - name: Build DBS Onboard MAP API sources
-      run: ./scripts/build.sh -DCMAKE_BUILD_TYPE=Debug
-
     - name: Set up Python
       uses: actions/setup-python@v2
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flask
 
     - name: Run Mock Map Server
       run: |
         cd ${{github.workspace}}/dbs-map-mock-server
         nohup python3 ./dbs-map-mock-server.py &
+
+    - name: Build DBS Onboard MAP API sources
+      run: ./scripts/build.sh -DCMAKE_BUILD_TYPE=Debug
 
     - name: Run Test
       run: |
