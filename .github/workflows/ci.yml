@@ -49,13 +49,13 @@ jobs:
         ${{github.workspace}}/build/dbs-map-api/tests/GoogleTestRunner
 
     - name: Generate Test Coverage
-      if: env.IS_MAIN_BRANCH == 'true'
+      # if: env.IS_MAIN_BRANCH == 'true'
       run: |
         ${{github.workspace}}/scripts/code_coverage.sh
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
-      if: env.IS_MAIN_BRANCH == 'true'
+      # if: env.IS_MAIN_BRANCH == 'true'
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: ${{github.workspace}}/build/coverage/coverage.xml
