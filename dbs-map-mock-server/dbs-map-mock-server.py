@@ -1,10 +1,11 @@
 # SPDX-FileCopyrightText: Copyright DB Netz AG
-# SPDX-License-Identifier: CC0-1.0
+# SPDX-License-Identifier: Apache-2.0
 
 import http.server
-import socketserver
 import os
 import re
+import socketserver
+
 
 def get_catalog_matadata(match):
     path = "./hdmap/{}/current/metadata.json"
@@ -124,7 +125,6 @@ def match_to_path(self):
         return get_partition_data_with_version(match)
 
 class CustomHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
-
     def do_GET(self):
         print("GET: ", self.path)
         file_path = match_to_path(self)
