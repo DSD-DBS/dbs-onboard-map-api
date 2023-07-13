@@ -35,13 +35,12 @@ def get_layer_matadata(match):
         match.groupdict().get('catalogVersion', 'current'),
         match.group('layerId'))
 
-# def get_layer_partitions(match):
-#     path = "./hdmap/{}/{}/{}/partitions/{}_metadata.json"
-#     return path.format(
-#         match.group('catalogId'),
-#         match.groupdict().get('catalogVersion', 'current')
-#         match.group('layerId'),
-#         match.group('blobKey'))
+def get_all_blobs_metadata(match):
+    path = "./hdmap/{}/{}/{}/blobs.json"
+    return path.format(
+        match.group('catalogId'),
+        match.groupdict().get('catalogVersion', 'current'),
+        match.group('layerId'))
 
 def get_partition_metadata(match):
     path = "./hdmap/{}/{}/{}/partitions/{}_metadata.json"
@@ -59,11 +58,7 @@ def get_partition_data(match):
         match.groupdict().get('catalogVersion', 'current'),
         match.group('layerId'))
 
-    print('data handle: ', match.group('dataHandle'))
-
     file_name = find_blobkey_by_datahandle( partitions_folder, match.group('dataHandle') )
-
-    print('blob key: ',file_name)
     return partitions_folder + file_name if file_name else None
 
 
@@ -85,7 +80,7 @@ route_handlers = [
     (re.compile(rf"^/catalogs/(?P<catalogId>[^/?]+)/layers/(?P<layerId>[^/?]+){optional_version}"), get_layer_matadata),
 
     # /catalogs/{catalogId}/layers/{layerId}/blobs
-    # (re.compile(rf"^/catalogs/(?P<catalogId>[^/?]+)/layers/(?P<layerId>[^/?]+)/blobs{optional_version}"), handler3),
+    (re.compile(rf"^/catalogs/(?P<catalogId>[^/?]+)/layers/(?P<layerId>[^/?]+)/blobs{optional_version}"), get_all_blobs_metadata),
 
     # /catalogs/{catalogId}/layers/{layerId}/blobs/{blobKey}
     (re.compile(rf"^/catalogs/(?P<catalogId>[^/?]+)/layers/(?P<layerId>[^/?]+)/blobs/(?P<blobKey>[^/?]+){optional_version}"), get_partition_metadata),

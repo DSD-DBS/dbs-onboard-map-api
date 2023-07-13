@@ -138,7 +138,7 @@ TEST( LayerClient, DISABLED_GetDifference )
     ASSERT_FALSE( response.empty( ) );
 }
 
-TEST( LayerClient, DISABLED_GetAllPartitionsMetadata )
+TEST( LayerClient, GetAllPartitionsMetadata )
 {
     // Arrange
     const auto cfg = GetTestConfig( );
