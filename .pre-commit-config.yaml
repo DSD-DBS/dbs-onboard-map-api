@@ -25,24 +25,24 @@ repos:
       - id: end-of-file-fixer
       - id: fix-byte-order-marker
       - id: trailing-whitespace
-  # - repo: https://github.com/PyCQA/isort
-  #   rev: 5.12.0
-  #   hooks:
-  #     - id: isort
-  # - repo: https://github.com/PyCQA/docformatter
-  #   rev: v1.5.1
-  #   hooks:
-  #     - id: docformatter
-  #       additional_dependencies:
-  #         - docformatter[tomli]
-  # - repo: https://github.com/PyCQA/pydocstyle
-  #   rev: 6.3.0
-  #   hooks:
-  #     - id: pydocstyle
-  #       additional_dependencies:
-  #         - pydocstyle[toml]
-  #       args:
-  #         - --add-ignore=D1
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.5.1
+    hooks:
+      - id: docformatter
+        additional_dependencies:
+          - docformatter[tomli]
+  - repo: https://github.com/PyCQA/pydocstyle
+    rev: 6.3.0
+    hooks:
+      - id: pydocstyle
+        additional_dependencies:
+          - pydocstyle[toml]
+        args:
+          - --add-ignore=D1
   # - repo: local
   #   hooks:
   #     - id: mypy
@@ -51,10 +51,9 @@ repos:
   #       language: python
   #       types_or: [python, toml, yaml]
   #       pass_filenames: false
-  #       args: [capellambse, tests]
+  #       args: [tests]
   #       additional_dependencies:
   #         - mypy==1.0.0
-  #         - capellambse[cli,decl,docs,httpfiles,png,termgraphics,test]
   #         - sphinx
   #         - types-docutils==0.17.0
   #         - types-pyyaml==6.0.11
