@@ -88,7 +88,7 @@ TEST( LayerClient, GetMetadata )
     ASSERT_NE( response.description_, "" );
 }
 
-TEST( LayerClient, DISABLED_GetPartitionMetadata )
+TEST( LayerClient, GetPartitionMetadata )
 {
     // Arrange
     const auto cfg = GetTestConfig( );
@@ -107,7 +107,7 @@ TEST( LayerClient, DISABLED_GetPartitionMetadata )
     ASSERT_NE( response.data_handle_, "" );
 }
 
-TEST( LayerClient, DISABLED_GetDataHandle )
+TEST( LayerClient, GetDataHandle )
 {
     // Arrange
     const auto cfg = GetTestConfig( );
@@ -151,7 +151,7 @@ TEST( LayerClient, DISABLED_GetAllPartitionsMetadata )
     ASSERT_FALSE( response.empty( ) );
 }
 
-TEST( LayerClient, DISABLED_CatalogVeresion )
+TEST( LayerClient, CatalogVeresion )
 {
     // Arrange
     const auto catalog_version = GetLatestVersion( );

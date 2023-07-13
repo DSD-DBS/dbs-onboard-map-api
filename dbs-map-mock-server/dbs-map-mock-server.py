@@ -2,131 +2,111 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import http.server
+import json
 import os
 import re
 import socketserver
 
 
-def get_catalog_matadata(match):
-    path = "./hdmap/{}/current/metadata.json"
-    return path.format(match.group('catalogId'))
+def find_blobkey_by_datahandle(directory, data_handle):
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            if file.endswith('.json'):
+                filepath = os.path.join(root, file)
+                with open(filepath, 'r') as json_file:
+                    try:
+                        data = json.load(json_file)
+                        if 'dataHandle' in data and data['dataHandle'] == data_handle:
+                            return data.get('blobKey')
+                    except json.JSONDecodeError:
+                        print(f"File {filepath} is not a valid JSON file.")
+    return None
 
-def get_catalog_matadata_with_version(match):
-    path = "./hdmap/{}/{}/metadata.json"
+def get_catalog_matadata(match):
+    path = './hdmap/{}/{}/metadata.json'
     return path.format(
         match.group('catalogId'),
-        match.group('catalogVersion'))
+        match.groupdict().get('catalogVersion', 'current'))
 
 def get_layer_matadata(match):
-    path = "./hdmap/{}/current/{}/metadata.json"
-    return path.format(
-        match.group('catalogId'),
-        match.group('layerId'))
-
-def get_layer_matadata_with_version(match):
     path = "./hdmap/{}/{}/{}/metadata.json"
     return path.format(
         match.group('catalogId'),
-        match.group('catalogVersion'),
+        match.groupdict().get('catalogVersion', 'current'),
         match.group('layerId'))
 
 # def get_layer_partitions(match):
-#     path = "./hdmap/{}/current/{}/partitions/{}_metadata.json"
-#     return path.format(
-#         match.group('catalogId'),
-#         match.group('layerId'),
-#         match.group('partitionId'))
-
-# def get_layer_partitions_with_version(match):
 #     path = "./hdmap/{}/{}/{}/partitions/{}_metadata.json"
 #     return path.format(
 #         match.group('catalogId'),
-#         match.group('catalogVersion'),
+#         match.groupdict().get('catalogVersion', 'current')
 #         match.group('layerId'),
-#         match.group('partitionId'))
+#         match.group('blobKey'))
 
 def get_partition_metadata(match):
-    path = "./hdmap/{}/current/{}/partitions/{}_metadata.json"
-    return path.format(
-        match.group('catalogId'),
-        match.group('layerId'),
-        match.group('partitionId'))
-
-def get_partition_metadata_with_version(match):
     path = "./hdmap/{}/{}/{}/partitions/{}_metadata.json"
     return path.format(
         match.group('catalogId'),
-        match.group('catalogVersion'),
+        match.groupdict().get('catalogVersion', 'current'),
         match.group('layerId'),
-        match.group('partitionId'))
+        match.group('blobKey'))
 
-def get_partition_data_with_version(match):
-    path = "./hdmap/{}/{}/{}/partitions/{}"
-    return path.format(
+def get_partition_data(match):
+    path = "./hdmap/{}/{}/{}/partitions/"
+
+    partitions_folder = path.format(
         match.group('catalogId'),
-        match.group('catalogVersion'),
-        match.group('layerId') ,
-        match.group('partitionId'))
+        match.groupdict().get('catalogVersion', 'current'),
+        match.group('layerId'))
 
-def match_to_path(self):
-    # Match to GET /catalogs/{catalogId}
-    pattern = r"^/catalogs/(?P<catalogId>[^/?]+)"
-    match = re.search(pattern, self.path)
-    if match:
-        return get_catalog_matadata(match)
+    print('data handle: ', match.group('dataHandle'))
 
-    # Match to GET /catalogs/{catalogId}?catalogVersion=
-    pattern += r"\?catalogVersion=(?P<catalogVersion>\d+)"
-    match = re.search(pattern, self.path)
-    if match:
-        return get_catalog_matadata_with_version(match)
+    file_name = find_blobkey_by_datahandle( partitions_folder, match.group('dataHandle') )
 
-    # Match to GET /catalogs/{catalogId}/layers/{layerId}
-    pattern = r"/catalogs/(?P<catalogId>[^/?]+)/layers/(?P<layerId>[^/?]+)"
-    match = re.search(pattern, self.path)
-    if match:
-        return get_layer_matadata(match)
+    print('blob key: ',file_name)
+    return partitions_folder + file_name if file_name else None
 
-    # Match to GET /catalogs/{catalogId}/layers/{layerId}?catalogVersion=
-    pattern += r"\?catalogVersion=(?P<catalogVersion>\d+)"
-    match = re.search(pattern, self.path)
-    if match:
-        return get_layer_matadata_with_version(match)
 
-    # Match to /catalogs/{catalogId}/layers/{layerId}/blobs
-    # pattern = r"/catalogs/(?P<catalogId>[^/]+)/layers/(?P<layerId>[^/]+)/blobs"
-    # match = re.search(pattern, self.path)
-    #     if match:
-    #         return get_layer_partitions(match)
+# /catalogs/{catalogId}
+# /catalogs/{catalogId}/layers/{layerId}
+# /catalogs/{catalogId}/layers/{layerId}/blobs
+# /catalogs/{catalogId}/layers/{layerId}/blobs/{blobKey}
+# /blob/catalogs/{catalogId}/layers/{layerId}/data/{dataHandle}
 
-    # Match to /catalogs/{catalogId}/layers/{layerId}/blobs?catalogVersion=
-    # pattern += r"\?catalogVersion=(?P<catalogVersion>\d+)"
-    # match = re.search(pattern, self.path)
-    #     if match:
-    #         return get_layer_partitions_with_version(match)
+# regex pattern to match optional catalogVersion query parameter
+optional_version = r"(?:\?catalogVersion=\d+)?$"
 
-    # Match to /catalogs/{catalogId}/layers/{layerId}/blobs/{blobKey}
-    pattern = r"/catalogs/(?P<catalogId>[^/]+)/layers/(?P<layerId>[^/]+)/blobs/(?P<blobKey>[^/]+)"
-    match = re.search(pattern, self.path)
-    if match:
-        return get_partition_metadata(match)
+# array of regex patterns and handlers
+route_handlers = [
+    # /catalogs/{catalogId}
+    (re.compile(rf"^/catalogs/(?P<catalogId>[^/?]+){optional_version}"), get_catalog_matadata),
 
-    # Match to /catalogs/{catalogId}/layers/{layerId}/blobs/{blobKey}?catalogVersion=
-    pattern += r"\?catalogVersion=(?P<catalogVersion>\d+)"
-    match = re.search(pattern, self.path)
-    if match:
-        return get_partition_metadata_with_version(match)
+    # /catalogs/{catalogId}/layers/{layerId}
+    (re.compile(rf"^/catalogs/(?P<catalogId>[^/?]+)/layers/(?P<layerId>[^/?]+){optional_version}"), get_layer_matadata),
 
-    # Match to /blob/{catalogId}/{catalogVersion}/{layerId}/{blobKey}
-    pattern = r"/blob/(?P<catalogId>[^/]+)/(?P<catalogVersion>\d+)/(?P<layerId>[^/]+)/(?P<blobKey>[^/]+)"
-    match = re.search(pattern, self.path)
-    if match:
-        return get_partition_data_with_version(match)
+    # /catalogs/{catalogId}/layers/{layerId}/blobs
+    # (re.compile(rf"^/catalogs/(?P<catalogId>[^/?]+)/layers/(?P<layerId>[^/?]+)/blobs{optional_version}"), handler3),
+
+    # /catalogs/{catalogId}/layers/{layerId}/blobs/{blobKey}
+    (re.compile(rf"^/catalogs/(?P<catalogId>[^/?]+)/layers/(?P<layerId>[^/?]+)/blobs/(?P<blobKey>[^/?]+){optional_version}"), get_partition_metadata),
+
+    # /blob/catalogs{catalogId}/layers/{layerId}/data/{dataHandle}
+    (re.compile(rf"^/blob/catalogs/(?P<catalogId>[^/?]+)/layers/(?P<layerId>[^/?]+)/data/(?P<dataHandle>[^/?]+){optional_version}"), get_partition_data)
+]
+
+def route_to_file(self):
+    for pattern, handler in route_handlers:
+        match = pattern.match(self.path)
+        print(pattern)
+        if match:
+            print('matched')
+            return handler(match)
+    return None
 
 class CustomHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         print("GET: ", self.path)
-        file_path = match_to_path(self)
+        file_path = route_to_file(self)
         if file_path:
             self.path = file_path
             print("Path to file: ", self.path)
