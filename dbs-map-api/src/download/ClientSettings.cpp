@@ -13,6 +13,7 @@ namespace download
 ClientSettings GetDBClientSettings( )
 {
     return {
+        "https", // protocol_
         "map-cdb-api-server-dev.digitalregister.az4db-iat.comp.db.de", // host_
     };
 }
