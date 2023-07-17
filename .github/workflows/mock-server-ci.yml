@@ -14,7 +14,6 @@ on:
       - 'dbs-map-mock-server/**'
 env:
   IMAGE_NAME: dbs-map-mock-server
-  VERSION: 1.0.0
   REGISTRY: ghcr.io
   # ${{ github.repository }}
   REPOSITORY: dsd-dbs/dbs-onboard-map-api
@@ -34,11 +33,19 @@ jobs:
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get the branch name
+        id: get_branch
+        run: echo ::set-output name=BRANCH::$(git branch --show-current)
+
+      - name: Get the short SHA
+        id: get_sha
+        run: echo ::set-output name=SHA::$(git rev-parse --short HEAD)
+
       - name: Build and push Docker image
         id: build-and-push
         uses: docker/build-push-action@v3
         with:
           context: ${{github.workspace}}/${{ env.IMAGE_NAME }}
-          tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-          # labels: git-short-sha=${{ steps.tag.outputs.sha }}
+          tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ steps.get_branch.outputs.BRANCH }}
+          labels: git-short-sha=${{ steps.get_sha.outputs.sha }}
           push: true
