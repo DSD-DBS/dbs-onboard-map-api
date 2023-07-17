@@ -42,7 +42,7 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@v3
         with:
-          # context: ${{ matrix.context }}
+          context: ${{github.workspace}}/dbs-map-mock-server
           tags: ${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           # labels: git-short-sha=${{ steps.tag.outputs.sha }}
           push: true
