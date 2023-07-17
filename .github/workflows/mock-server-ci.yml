@@ -36,6 +36,11 @@ jobs:
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Tag Docker Image
+        # run: docker tag ${{ env.IMAGE_NAME }} ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+        run: docker tag ${{ env.IMAGE_NAME }} ghcr.io/dsd-dbs/dbs-onboard-map-api/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+
+
       - name: Build and push Docker image
         id: build-and-push
         uses: docker/build-push-action@v3
