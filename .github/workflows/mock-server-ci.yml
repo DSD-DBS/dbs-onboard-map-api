@@ -35,7 +35,7 @@ jobs:
 
       - name: Get the branch name
         id: get_branch
-        run: echo ::set-output name=BRANCH::$(git branch --show-current)
+        run: echo ::set-output name=BRANCH::${GITHUB_REF#refs/heads/}
 
       - name: Get the short SHA
         id: get_sha
