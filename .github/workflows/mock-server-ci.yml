@@ -56,7 +56,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ${{github.workspace}}/dbs-map-mock-server
-          tags: dsd-dbs/dbs-onboard-map-api/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          tags: ghcr.io/dsd-dbs/dbs-onboard-map-api/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           # labels: git-short-sha=${{ steps.tag.outputs.sha }}
           push: true
 
