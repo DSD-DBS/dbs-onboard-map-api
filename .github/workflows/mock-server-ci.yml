@@ -13,6 +13,8 @@ on:
     paths:
       - 'dbs-map-mock-server/**'
 
+permissions:
+  contents: write
 env:
   IMAGE_NAME: dbs-map-mock-server
   VERSION: 1.0.0
