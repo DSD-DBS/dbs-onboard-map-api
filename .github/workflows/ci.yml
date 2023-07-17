@@ -10,6 +10,9 @@ on:
   pull_request:
     branches:
       - '**'
+    paths:
+      - 'dbs-map-api/**'
+
 
 env:
   IS_MAIN_BRANCH: ${{ github.ref == 'refs/heads/main' }}
