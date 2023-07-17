@@ -51,10 +51,10 @@ jobs:
 
     - name: Run mock server
       run: |
-        docker run -d -p 50051:50051 ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+        docker run -d -p 8080:8080 ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
     - name: Build DBS Onboard MAP API sources
-      run: ./scripts/build.sh -DCMAKE_BUILD_TYPE=Debug
+      run: ${{github.workspace}}/scripts/build.sh -DCMAKE_BUILD_TYPE=Debug
 
     - name: Run Test
       run: |
@@ -72,11 +72,3 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: ${{github.workspace}}/build/coverage/coverage.xml
         fail_ci_if_error: true
-
-    # Coverage is already uploaded to Codecov
-    # - name: Upload coverage to GitHub as artifact
-    #   uses: actions/upload-artifact@v2
-    #   if: env.IS_MAIN_BRANCH == 'true'
-    #   with:
-    #     name: coverage
-    #     path: ${{github.workspace}}/build/coverage/*
