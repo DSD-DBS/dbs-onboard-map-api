@@ -18,6 +18,8 @@ env:
   REGISTRY: ghcr.io
   # ${{ github.repository_owner }}
   REPOSITORY_OWNER: dsd-dbs
+  # ${{ github.repository_owner }}
+  REPOSITORY: dsd-dbs/dbs-onboard-map-api
 
 jobs:
   docker:
@@ -34,12 +36,11 @@ jobs:
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
 
-
       - name: Build and push Docker image
         id: build-and-push
         uses: docker/build-push-action@v3
         with:
           context: ${{github.workspace}}/${{ env.IMAGE_NAME }}
-          tags: ${{ env.IMAGE_NAME }} ${{ env.REGISTRY }}/${{ env.REPOSITORY_OWNER }}/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          tags: ${{ env.IMAGE_NAME }} ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           # labels: git-short-sha=${{ steps.tag.outputs.sha }}
           push: true
