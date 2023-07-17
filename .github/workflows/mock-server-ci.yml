@@ -7,11 +7,11 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'dbs-map-mock-server/**'
   pull_request:
     branches:
       - '**'
+    paths:
+      - 'dbs-map-mock-server/**'
 
 env:
   IMAGE_NAME: dbs-map-mock-server
