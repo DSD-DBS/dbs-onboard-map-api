@@ -36,12 +36,12 @@ jobs:
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Docker Image
-        run: docker build -t ${{ env.IMAGE_NAME }} ./dbs-map-mock-server
+      # - name: Build Docker Image
+      #   run: docker build -t ${{ env.IMAGE_NAME }} ./dbs-map-mock-server
 
-      - name: Tag Docker Image
-        # run: docker tag ${{ env.IMAGE_NAME }} ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-        run: docker tag ${{ env.IMAGE_NAME }} ghcr.io/dsd-dbs/dbs-onboard-map-api/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+      # - name: Tag Docker Image
+      #   # run: docker tag ${{ env.IMAGE_NAME }} ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+      #   run: docker tag ${{ env.IMAGE_NAME }} ghcr.io/dsd-dbs/dbs-onboard-map-api/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
 
       - name: Build and push Docker image
@@ -49,6 +49,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ${{github.workspace}}/${{ env.IMAGE_NAME }}
-          tags: ${{ env.IMAGE_NAME }} ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          # tags: ghcr.io/dsd-dbs/dbs-onboard-map-api/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           # labels: git-short-sha=${{ steps.tag.outputs.sha }}
           push: true
