@@ -49,7 +49,7 @@ jobs:
         run: docker tag ${{ env.IMAGE_NAME }} ghcr.io/dsd-dbs/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
       - name: Push Docker Image
-        run: docker push ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+        run: docker push ghcr.io/dsd-dbs/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
       # - name: Build and push Docker image
       #   id: build-and-push
