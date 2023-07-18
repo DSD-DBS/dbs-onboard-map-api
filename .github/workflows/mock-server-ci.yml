@@ -6,7 +6,8 @@ name: Build and Push Map Mock Server Docker Image
 on:
   push:
     branches:
-      - main
+      - "**"
+      # - "main"
     paths:
       - 'dbs-map-mock-server/**'
 env:
