@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: Copyright DB Netz AG
 # SPDX-License-Identifier: CC0-1.0
 FROM python:3.11-slim
-ARG PORT=8080
+ENV PORT=8080
 # Set work directory
 WORKDIR /app
 
