@@ -7,9 +7,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - '**'
     paths:
       - 'dbs-map-mock-server/**'
 env:

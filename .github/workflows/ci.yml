@@ -8,8 +8,8 @@ on:
     branches:
       - 'main'
   pull_request:
-    paths:
-      - 'dbs-map-api/**'
+    branches:
+      - '**'
 
 env:
   IS_MAIN_BRANCH: ${{ github.ref == 'refs/heads/main' }}
