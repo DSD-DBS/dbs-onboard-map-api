@@ -14,4 +14,4 @@ EXPOSE $PORT
 
 # Run the DBS map mock server when the container launches
 ENV FLASK_APP="dbs_map_mock_server.py"
-ENTRYPOINT ["flask", "run", "--host=0.0.0.0", "--port=${PORT}"]
+ENTRYPOINT flask run --host=0.0.0.0 --port=${PORT}
