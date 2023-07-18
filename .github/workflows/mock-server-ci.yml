@@ -8,8 +8,8 @@ on:
     branches:
       - "**"
       # - "main"
-    paths:
-      - 'dbs-map-mock-server/**'
+    # paths:
+    #   - 'dbs-map-mock-server/**'
 env:
   IMAGE_NAME: dbs-map-mock-server
   REGISTRY: ghcr.io
