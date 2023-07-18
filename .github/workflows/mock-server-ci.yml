@@ -13,7 +13,6 @@ on:
 env:
   IMAGE_NAME: dbs-map-mock-server
   REGISTRY: ghcr.io
-  # ${{ github.repository }}
   REPOSITORY: dsd-dbs/dbs-onboard-map-api
 
 jobs:

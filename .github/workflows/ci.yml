@@ -51,7 +51,7 @@ jobs:
 
     - name: Run mock server
       run: |
-        docker run -d -p ${{ env.PORT }}:${{ env.PORT }} --e PORT=${{ env.PORT }} \
+        docker run -d -p ${{ env.PORT }}:${{ env.PORT }} -e PORT=${{ env.PORT }} \
         ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
     - name: Build DBS Onboard MAP API sources
