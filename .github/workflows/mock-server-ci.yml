@@ -44,6 +44,8 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ${{github.workspace}}/${{ env.IMAGE_NAME }}
-          tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.branch }}
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.branch }}
+            ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
           labels: git-short-sha=${{ steps.tag.outputs.sha }}
           push: true
