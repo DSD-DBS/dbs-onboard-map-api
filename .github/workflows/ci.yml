@@ -13,6 +13,11 @@ on:
 
 env:
   IS_MAIN_BRANCH: ${{ github.ref == 'refs/heads/main' }}
+  IMAGE_NAME: dbs-map-mock-server
+  VERSION: latest
+  REGISTRY: ghcr.io
+  REPOSITORY: dsd-dbs/dbs-onboard-map-api
+  PORT: 8080
 
 jobs:
   build:
@@ -33,30 +38,38 @@ jobs:
         sudo apt-get install -y doxygen
         sudo apt-get install libcurl4-openssl-dev protobuf-compiler libprotobuf-dev libboost-all-dev -y --no-install-recommends --fix-missing
 
+    - name: Login to github container registry
+      uses: docker/login-action@v2
+      with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Pull mock server image
+      run: |
+        docker pull ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+
+    - name: Run mock server
+      run: |
+        docker run -d -p ${{ env.PORT }}:${{ env.PORT }} -e PORT=${{ env.PORT }} \
+        ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+
     - name: Build DBS Onboard MAP API sources
-      run: ./scripts/build.sh -DCMAKE_BUILD_TYPE=Debug
+      run: ${{github.workspace}}/scripts/build.sh -DCMAKE_BUILD_TYPE=Debug
 
     - name: Run Test
       run: |
         ${{github.workspace}}/build/dbs-map-api/tests/GoogleTestRunner
 
     - name: Generate Test Coverage
-      if: env.IS_MAIN_BRANCH == 'true'
+      # if: env.IS_MAIN_BRANCH == 'true'
       run: |
         ${{github.workspace}}/scripts/code_coverage.sh
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
-      if: env.IS_MAIN_BRANCH == 'true'
+      # if: env.IS_MAIN_BRANCH == 'true'
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: ${{github.workspace}}/build/coverage/coverage.xml
         fail_ci_if_error: true
-
-    # Coverage is already uploaded to Codecov
-    # - name: Upload coverage to GitHub as artifact
-    #   uses: actions/upload-artifact@v2
-    #   if: env.IS_MAIN_BRANCH == 'true'
-    #   with:
-    #     name: coverage
-    #     path: ${{github.workspace}}/build/coverage/*

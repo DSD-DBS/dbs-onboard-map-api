@@ -57,7 +57,7 @@ git submodule update --init --recursive
 
 Run build script from the root folder.
 ```bash
-./build.sh -DCMAKE_BUILD_TYPE=Debug
+./scripts/build.sh -DCMAKE_BUILD_TYPE=Debug
 ```
 
 ### Test

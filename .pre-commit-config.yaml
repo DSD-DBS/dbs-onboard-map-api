@@ -25,6 +25,49 @@ repos:
       - id: end-of-file-fixer
       - id: fix-byte-order-marker
       - id: trailing-whitespace
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.5.1
+    hooks:
+      - id: docformatter
+        additional_dependencies:
+          - docformatter[tomli]
+  - repo: https://github.com/PyCQA/pydocstyle
+    rev: 6.3.0
+    hooks:
+      - id: pydocstyle
+        additional_dependencies:
+          - pydocstyle[toml]
+        args:
+          - --add-ignore=D1
+  # - repo: local
+  #   hooks:
+  #     - id: mypy
+  #       name: mypy
+  #       entry: mypy
+  #       language: python
+  #       types_or: [python, toml, yaml]
+  #       pass_filenames: false
+  #       args: [tests]
+  #       additional_dependencies:
+  #         - mypy==1.0.0
+  #         - sphinx
+  #         - types-docutils==0.17.0
+  #         - types-pyyaml==6.0.11
+  #         - types-requests==2.25.11
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: pylint
+        language: python
+        types: [python]
+        additional_dependencies:
+          - pylint==2.16.2
+        args: [-rn, -sn, -dfixme, -dduplicate-code]
   - repo: local
     hooks:
     - id: clang-format
@@ -38,7 +81,7 @@ repos:
     hooks:
       - id: insert-license
         name: Insert license headers (shell-style comments)
-        files: '(?:^|/)(?:.*\.(?:py|sh|toml|ya?ml|cmake)|\.((?:git|helm|docker)(ignore|modules)|.clang-format|Doxyfile.in)|CMakeLists.txt)$'
+        files: '(?:^|/)(?:.*\.(?:sh|toml|ya?ml|cmake)|\.((?:git|helm|docker)(ignore|modules)|.clang-format|Doxyfile.in)|CMakeLists.txt)$'
         # exclude: '(?:^|/)\..+|^docs/Makefile$'
         args:
           - --detect-license-in-X-top-lines=15
@@ -66,6 +109,16 @@ repos:
           - LICENSES/.license_header.txt
           - --comment-style
           - "/*| *| */"
+      - id: insert-license
+        name: Insert license headers (C-style comments)
+        files: '\.(?:py)$'
+        exclude: '(?:^|/)\..+'
+        args:
+          - --detect-license-in-X-top-lines=15
+          - --license-filepath
+          - LICENSES/.license_header.txt
+          - --comment-style
+          - "#"
   - repo: https://github.com/fsfe/reuse-tool
     rev: v1.1.0
     hooks:

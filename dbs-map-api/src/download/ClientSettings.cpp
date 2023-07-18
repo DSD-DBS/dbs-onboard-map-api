@@ -13,6 +13,7 @@ namespace download
 ClientSettings GetDBClientSettings( )
 {
     return {
+        "https", // protocol_
         "map-cdb-api-server-dev.digitalregister.az4db-iat.comp.db.de", // host_
     };
 }
@@ -20,7 +21,9 @@ ClientSettings GetDBClientSettings( )
 ClientSettings GetDBClientForCISettings( )
 {
     return {
-        "map-cdb-api-server-dev.drase-dev.appserviceenvironment.net", // host_
+        // "map-cdb-api-server-dev.drase-dev.appserviceenvironment.net", // host_
+        "http",
+        "localhost:8080"
     };
 }
 

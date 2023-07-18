@@ -1,0 +1,13 @@
+{
+    "blobs": [
+      {
+        "catalogId": "validate.s4r2.oss.4",
+        "catalogVersionNr": 2,
+        "blobKey": "trackIds2Tiles",
+        "dataSize": 9810,
+        "checksum": "260295699",
+        "modificationDate": 1685964600,
+        "dataHandle": "r0bcUv4mCEplTe7M0kyPJyYyutxlui6HnaZPW3qj6xI="
+      }
+    ]
+  }

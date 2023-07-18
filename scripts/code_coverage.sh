@@ -4,7 +4,7 @@
 
 DBS_ONBOARD_MAP_API_DIR=`pwd`
 COVERAGE_DIR=$DBS_ONBOARD_MAP_API_DIR/build/coverage
-EXCLUDE='.*tests/|.*externals/|.*build/|.*download/'
+EXCLUDE='.*tests/|.*externals/|.*build/'
 
 rm -rf $COVERAGE_DIR && mkdir -p $COVERAGE_DIR
 # gcovr -r $DBS_ONBOARD_MAP_API_DIR --exclude $EXCLUDE --html --html-details -o $COVERAGE_DIR/coverage.html

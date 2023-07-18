@@ -23,6 +23,13 @@ namespace download
 struct ClientSettings
 {
     /**
+     * @brief The protocol for the HTTP client.
+     *
+     * This string specifies the protocol which the HTTP client will use to connect.
+     */
+    std::string protocol_ = "https";
+
+    /**
      * @brief The host for the HTTP client.
      *
      * This string specifies the host to which the HTTP client will connect.

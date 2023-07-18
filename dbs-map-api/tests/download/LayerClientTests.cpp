@@ -34,7 +34,7 @@ Version GetLatestVersion( )
 
 } // unnamed namespace
 
-TEST( LayerClient, DISABLED_HostDoesNotExist )
+TEST( LayerClient, HostDoesNotExist )
 {
     // Arrange
     auto cfg = GetTestConfig( );
@@ -45,7 +45,7 @@ TEST( LayerClient, DISABLED_HostDoesNotExist )
     EXPECT_THROW( { client.GetMetadata( ); }, curlpp::LibcurlRuntimeError );
 }
 
-TEST( LayerClient, DISABLED_LayerDoesNotExist )
+TEST( LayerClient, LayerDoesNotExist )
 {
     // Arrange
     auto cfg = GetTestConfig( );
@@ -55,7 +55,7 @@ TEST( LayerClient, DISABLED_LayerDoesNotExist )
     EXPECT_THROW( { client.GetMetadata( ); }, download::HttpRuntimeError );
 }
 
-TEST( LayerClient, DISABLED_CatalogDoesNotExist )
+TEST( LayerClient, CatalogDoesNotExist )
 {
     // Arrange
     auto cfg = GetTestConfig( );
@@ -66,7 +66,7 @@ TEST( LayerClient, DISABLED_CatalogDoesNotExist )
 }
 
 
-TEST( LayerClient, DISABLED_GetMetadata )
+TEST( LayerClient, GetMetadata )
 {
     // Arrange
     const auto cfg = GetTestConfig( );
@@ -88,7 +88,7 @@ TEST( LayerClient, DISABLED_GetMetadata )
     ASSERT_NE( response.description_, "" );
 }
 
-TEST( LayerClient, DISABLED_GetPartitionMetadata )
+TEST( LayerClient, GetPartitionMetadata )
 {
     // Arrange
     const auto cfg = GetTestConfig( );
@@ -107,7 +107,7 @@ TEST( LayerClient, DISABLED_GetPartitionMetadata )
     ASSERT_NE( response.data_handle_, "" );
 }
 
-TEST( LayerClient, DISABLED_GetDataHandle )
+TEST( LayerClient, GetDataHandle )
 {
     // Arrange
     const auto cfg = GetTestConfig( );
@@ -138,7 +138,7 @@ TEST( LayerClient, DISABLED_GetDifference )
     ASSERT_FALSE( response.empty( ) );
 }
 
-TEST( LayerClient, DISABLED_GetAllPartitionsMetadata )
+TEST( LayerClient, GetAllPartitionsMetadata )
 {
     // Arrange
     const auto cfg = GetTestConfig( );
@@ -151,7 +151,7 @@ TEST( LayerClient, DISABLED_GetAllPartitionsMetadata )
     ASSERT_FALSE( response.empty( ) );
 }
 
-TEST( LayerClient, DISABLED_CatalogVeresion )
+TEST( LayerClient, CatalogVeresion )
 {
     // Arrange
     const auto catalog_version = GetLatestVersion( );

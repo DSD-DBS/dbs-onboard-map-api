@@ -1,0 +1,51 @@
+# SPDX-FileCopyrightText: Copyright DB Netz AG
+# SPDX-License-Identifier: CC0-1.0
+
+name: Build and Push Map Mock Server Docker Image
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'dbs-map-mock-server/**'
+  pull_request:
+    paths:
+      - 'dbs-map-mock-server/**'
+
+env:
+  IMAGE_NAME: dbs-map-mock-server
+  REGISTRY: ghcr.io
+  REPOSITORY: dsd-dbs/dbs-onboard-map-api
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Out Repo
+        uses: actions/checkout@v3
+
+      - name: Login to github container registry
+        uses: docker/login-action@v2
+        with:
+            registry: ${{ env.REGISTRY }}
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get the branch name and short SHA
+        id: tag
+        run: |
+          echo "branch=$(git rev-parse --abbrev-ref HEAD | sed 's/[^a-zA-Z0-9]/-/g')" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@v3
+        with:
+          context: ${{github.workspace}}/${{ env.IMAGE_NAME }}
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.branch }}
+            ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
+          labels: git-short-sha=${{ github.sha }}
+          push: true

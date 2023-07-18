@@ -1,0 +1,12 @@
+{
+    "catalogId": "validate.s4r2.oss.4",
+    "layerId": "rca-topology-geometry",
+    "layerVersion": null,
+    "zoomLevel": 12,
+    "schema": "RcaTopologyGeometryGeoJSON",
+    "schemaType": "HereTiling",
+    "contentType": "application/vnd.geo+json",
+    "contentEncoding": "none",
+    "modificationDate": 1686230798,
+    "description": "rca-topology-geometry"
+}

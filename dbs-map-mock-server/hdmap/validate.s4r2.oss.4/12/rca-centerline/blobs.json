@@ -1,0 +1,49 @@
+{
+    "blobs": [
+      {
+        "catalogId": "validate.s4r2.oss.4",
+        "catalogVersionNr": 2,
+        "blobKey": "23608579",
+        "dataSize": 53385,
+        "checksum": "394014063",
+        "modificationDate": 1685964599,
+        "dataHandle": "mYn19qDJ2PUETi7BkJpGPotPlnmPkqGfWftzCsdqQlw="
+      },
+      {
+        "catalogId": "validate.s4r2.oss.4",
+        "catalogVersionNr": 2,
+        "blobKey": "23608580",
+        "dataSize": 126930,
+        "checksum": "-436067252",
+        "modificationDate": 1685964599,
+        "dataHandle": "4xaJvFwOsRtOE04LsCP3_nMmDpAKNoP75zCNUxQVwws="
+      },
+      {
+        "catalogId": "validate.s4r2.oss.4",
+        "catalogVersionNr": 2,
+        "blobKey": "23608581",
+        "dataSize": 414964,
+        "checksum": "-720610859",
+        "modificationDate": 1685964599,
+        "dataHandle": "Tzda4T_p6c06WmGW6s5j-THbQuGdtdbTm__8Dx3kOn0="
+      },
+      {
+        "catalogId": "validate.s4r2.oss.4",
+        "catalogVersionNr": 2,
+        "blobKey": "23608582",
+        "dataSize": 271884,
+        "checksum": "1229817382",
+        "modificationDate": 1685964599,
+        "dataHandle": "MwcQwf3ttukisJxbVjAI2I4UsU607TJXZiyoWx_XxUQ="
+      },
+      {
+        "catalogId": "validate.s4r2.oss.4",
+        "catalogVersionNr": 2,
+        "blobKey": "23608592",
+        "dataSize": 127539,
+        "checksum": "-1794563380",
+        "modificationDate": 1685964599,
+        "dataHandle": "xW5jnMqpwBlLtPH9Ogb6SPLCWGKQ1ZrTBK_M6QoW24s="
+      }
+    ]
+  }

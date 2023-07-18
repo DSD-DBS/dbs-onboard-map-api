@@ -1,0 +1,12 @@
+{
+    "catalogId": "validate.s4r2.oss.4",
+    "layerId": "landmarks",
+    "layerVersion": null,
+    "zoomLevel": 12,
+    "schema": "org.db.schema.f.map.landmarks.LandmarkLayerTile",
+    "schemaType": "HereTiling",
+    "contentType": "application/x-protobuf",
+    "contentEncoding": "none",
+    "modificationDate": 1686230798,
+    "description": "landmarks"
+  }

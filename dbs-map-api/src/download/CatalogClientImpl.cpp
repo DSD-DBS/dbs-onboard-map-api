@@ -57,7 +57,7 @@ CatalogClientImpl::~CatalogClientImpl( ) = default;
 model::Catalog
 CatalogClientImpl::GetMetadata( Version version ) const
 {
-    const auto url = boost::format( "https://%1%/catalogs/%2%?catalogVersion=%3%" ) % settings_->host_ % catalog_name_ % version;
+    const auto url = boost::format( "%1%://%2%/catalogs/%3%?catalogVersion=%4%" ) % settings_->protocol_ % settings_->host_ % catalog_name_ % version;
 
     rapidjson::Document doc;
     http_client_->GetUri( url.str( ), doc );
@@ -68,7 +68,7 @@ CatalogClientImpl::GetMetadata( Version version ) const
 Version
 CatalogClientImpl::GetLatestVersion( ) const
 {
-    const auto url = boost::format( "https://%1%/catalogs/%2%" ) % settings_->host_ % catalog_name_;
+    const auto url = boost::format( "%1%://%2%/catalogs/%3%" ) % settings_->protocol_ % settings_->host_ % catalog_name_;
 
     rapidjson::Document doc;
     http_client_->GetUri( url.str( ), doc );

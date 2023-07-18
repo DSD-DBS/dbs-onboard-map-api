@@ -63,7 +63,7 @@ void CheckLayer( const MapServiceConfig& cfg, const std::string& layer_name, con
 
 } // unnamed namespace
 
-TEST( MapUpdateTest, DISABLED_HostDoesNotExist )
+TEST( MapUpdateTest, HostDoesNotExist )
 {
     // Arrange
     auto cfg = GetTestConfig( );
@@ -73,7 +73,7 @@ TEST( MapUpdateTest, DISABLED_HostDoesNotExist )
     EXPECT_THROW( { MapService( cfg ).UpdateLocalMap( 10 ); }, curlpp::LibcurlRuntimeError );
 }
 
-TEST( MapUpdateTest, DISABLED_CatalogDoesNotExist )
+TEST( MapUpdateTest, CatalogDoesNotExist )
 {
     // Arrange
     auto cfg = GetTestConfig( );
@@ -83,7 +83,7 @@ TEST( MapUpdateTest, DISABLED_CatalogDoesNotExist )
     EXPECT_THROW( { MapService( cfg ).UpdateLocalMap( 10 ); }, download::HttpRuntimeError );
 }
 
-TEST( MapUpdateTest, DISABLED_HostDoesNotExistNoThrow )
+TEST( MapUpdateTest, HostDoesNotExistNoThrow )
 {
     // Arrange
     auto cfg = GetTestConfig( );
@@ -97,7 +97,7 @@ TEST( MapUpdateTest, DISABLED_HostDoesNotExistNoThrow )
     ASSERT_EQ( errors[ 0 ].error_code_, ErrorCode::CurlError );
 }
 
-TEST( MapUpdateTest, DISABLED_CatalogDoesNotExistNoThrow )
+TEST( MapUpdateTest, CatalogDoesNotExistNoThrow )
 {
     // Arrange
     auto cfg = GetTestConfig( );
@@ -111,7 +111,7 @@ TEST( MapUpdateTest, DISABLED_CatalogDoesNotExistNoThrow )
     ASSERT_EQ( errors[ 0 ].error_code_, ErrorCode::HttpError );
 }
 
-TEST( MapUpdateTest, DISABLED_CleanLocalCache )
+TEST( MapUpdateTest, CleanLocalCache )
 {
     // Arrange
     const auto cfg = GetTestConfig( );
@@ -130,7 +130,7 @@ TEST( MapUpdateTest, DISABLED_CleanLocalCache )
     ASSERT_TRUE( fs::exists( cfg.map_local_path_ ) );
 }
 
-TEST( MapUpdateTest, DISABLED_UpdateMapFromScratch )
+TEST( MapUpdateTest, UpdateMapFromScratch )
 {
     // Arrange
     const auto cfg = GetTestConfig( );

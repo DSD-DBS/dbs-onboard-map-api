@@ -6,3 +6,7 @@ Source: https://github.com/DSD-DBS/dbs-onboard-map-api
 Files: dbs-map-api/hdmap/*
 Copyright: DB Netz AG
 License: CC-BY-SA-3.0-DE
+
+Files: dbs-map-mock-server/hdmap/*
+Copyright: DB Netz AG
+License: CC-BY-SA-3.0-DE
