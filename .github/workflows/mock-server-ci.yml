@@ -33,19 +33,17 @@ jobs:
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get the branch name
-        id: get_branch
-        run: echo ::set-output name=BRANCH::${GITHUB_REF#refs/heads/}
-
-      - name: Get the short SHA
-        id: get_sha
-        run: echo ::set-output name=SHA::$(git rev-parse --short HEAD)
+      - name: Get the branch name and short SHA
+        id: tag
+        run: |
+          echo "branch=$(git rev-parse --abbrev-ref HEAD | sed 's/[^a-zA-Z0-9]/-/g')" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Build and push Docker image
         id: build-and-push
         uses: docker/build-push-action@v3
         with:
           context: ${{github.workspace}}/${{ env.IMAGE_NAME }}
-          tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ steps.get_branch.outputs.BRANCH }}
-          labels: git-short-sha=${{ steps.get_sha.outputs.sha }}
+          tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.branch }}
+          labels: git-short-sha=${{ steps.tag.outputs.sha }}
           push: true
