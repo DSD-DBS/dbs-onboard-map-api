@@ -44,5 +44,5 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.branch }}
             ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
-          labels: git-short-sha=${{ steps.tag.outputs.sha }}
+          labels: git-short-sha=${{ github.sha }}
           push: true

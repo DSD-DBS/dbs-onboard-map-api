@@ -14,8 +14,8 @@ on:
 env:
   IS_MAIN_BRANCH: ${{ github.ref == 'refs/heads/main' }}
   IMAGE_NAME: dbs-map-mock-server
+  VERSION: latest
   REGISTRY: ghcr.io
-  # ${{ github.repository }}
   REPOSITORY: dsd-dbs/dbs-onboard-map-api
   PORT: 8080
 
@@ -47,11 +47,13 @@ jobs:
 
     - name: Pull mock server image
       run: |
-        docker pull ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}
+        docker pull ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
     - name: Run mock server
       run: |
-        docker run -d -p ${{ env.PORT }}:${{ env.PORT }} ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}
+        docker run -d -p ${{ env.PORT }}:${{ env.PORT }} \
+        --build-arg PORT=${{ env.PORT }} \
+        ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
     - name: Build DBS Onboard MAP API sources
       run: ${{github.workspace}}/scripts/build.sh -DCMAKE_BUILD_TYPE=Debug

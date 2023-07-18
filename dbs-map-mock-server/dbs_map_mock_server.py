@@ -69,4 +69,4 @@ def get_partition_data(catalog_id, layer_id, data_handle):
     return send_file(path.format(catalog_id, version(request), layer_id, data_handle))
 
 if __name__ == '__main__':
-    app.run(port=8080)
+    app.run()
