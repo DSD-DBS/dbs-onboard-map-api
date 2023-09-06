@@ -4,8 +4,11 @@ project(StructurizrIntegration)
 
 # Define the output directory for PlantUML files
 set(STRUCTURIZR_OUTPUT_PATH "${CMAKE_BINARY_DIR}/structurizr-output")
-set(STRUCTURIZR_OUTPUT_FORMAT "ilograph")
+set(STRUCTURIZR_OUTPUT_FORMAT "dot")
+# json
 # plantuml
+# ilograph
+
 set(STRUCTURIZR_CLI_VERSION "1.33.1") 
 set(STRUCTURIZR_CLI_ZIP_URL "https://github.com/structurizr/cli/releases/download/v${STRUCTURIZR_CLI_VERSION}/structurizr-cli-${STRUCTURIZR_CLI_VERSION}.zip")
 set(STRUCTURIZR_CLI_ZIP_PATH "${CMAKE_BINARY_DIR}/structurizr-cli-${STRUCTURIZR_CLI_VERSION}.zip")

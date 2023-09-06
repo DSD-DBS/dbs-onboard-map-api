@@ -1,38 +1,77 @@
 workspace {
 
     model {
-        user = person "User"
-        softwareSystem = softwareSystem "Shopping System" {
-            // description = "Allows users to browse and purchase products"
-            
-            webapp = container "Web Application" {
-                // description = "Serves product info and processes purchases"
-                // technology = "Web Application"
-                // tags = "App"
-                
-                user -> this "Uses"
+        cloud = softwareSystem "DB cloud" {
+            mapGen = container "Map Generation pipeline" {
             }
-            
-            database = container "Database" {
-                // description = "Stores product inventory and purchase records"
-                // technology = "Relational Database"
-                // tags = "Database"
-                
-                webapp -> this "Reads from and writes to"
+            mapCDB = container "Map Central Database" { 
+                mapCDB -> mapGen "Uses"
             }
+        } 
+        train = softwareSystem "Train" {
+            mapApi = container "DBS Onboard Map API" {
+                config = component "Configuration" {
+                }
+                decoderLandmark = component "Landmark Decoder" {
+                }
+                decoderTopology = component "Topology Decoder" {
+                }
+                decoderRAZ = component "Risk Assesment Zones Decoder" {
+                }
+                decoderGeometry = component "Track Geometry Decoder" {
+                }
+                mapUpdater = component "Map Updater" {
+                }
+                mapServiceImpl = component "Map Service Implementation" {
+                }
+                mapService = component "Map Service" {
+                }
+                mapService -> mapServiceImpl
+                
+                mapServiceImpl -> config
+                mapServiceImpl -> decoderTopology
+                mapServiceImpl -> decoderGeometry
+                mapServiceImpl -> decoderLandmark
+                mapServiceImpl -> decoderRAZ
+                mapServiceImpl -> mapUpdater
+            }
+            railHorizon = container "Rail Horizon" {
+                railHorizon -> mapApi "Uses"
+            }
+            sensors = container "Sensors" {
+                sensors -> railHorizon "Uses"
+            }
+            train -> cloud "Uses"
+            mapApi -> mapCDB "Fetch map data from DB cloud"
         }
     }
 
     views {
-        systemContext softwareSystem {
-            include *
-            autolayout lr
-        }
+        // systemContext train {
+        //     include cloud
+        //     include train
+        //     autolayout lr
+        // }
 
-        container softwareSystem {
-            include *
-            autolayout lr
-        }
+        // container train {
+        //     include *
+        //     autolayout lr
+        // }
+
+        // container mapApi {
+        //     include *
+        //     autolayout lr
+        // }
+
+        // systemContext softwareSystem {
+        //     include *
+        //     autolayout lr
+        // }
+
+        // container softwareSystem {
+        //     include *
+        //     autolayout lr
+        // }
 
         theme default
     }
