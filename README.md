@@ -64,6 +64,8 @@ Run build script from the root folder.
 ```bash
 ./build/dbs-map-api/tests/GoogleTestRunner
 ```
+To run tests Over the Air Update test you need to run DBS Map Mock server.
+
 ## Supported platforms
 | Platform                   | Minimum requirement     |
 | :------------------------- | :---------------------- |
