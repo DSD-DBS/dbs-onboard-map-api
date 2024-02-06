@@ -105,4 +105,6 @@ install(
 # Workaround because olp installs their external dependencies in the build dir and uses the installed version. Instead
 # they should use the builded version and install the dependencies where olp is installed as well And also specify their
 # dependencies in their config file (see ./cmake/configs/dbs-map-apiConfig.cmake for the workaround there)
-install(DIRECTORY "${PROJECT_BINARY_DIR}/externals/here-olp-sdk/install/" DESTINATION ${CMAKE_INSTALL_PREFIX})
+IF(${OLP_SDK_BUILD_EXTERNAL_DEPS})
+    install(DIRECTORY "${PROJECT_BINARY_DIR}/externals/here-olp-sdk/install/" DESTINATION ${CMAKE_INSTALL_PREFIX})
+ENDIF()
